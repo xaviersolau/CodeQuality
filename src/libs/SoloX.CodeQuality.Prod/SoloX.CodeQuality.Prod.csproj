@@ -1,0 +1,43 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    
+    <PackageId>SoloX.CodeQuality.Prod</PackageId>
+    
+    <NoPackageAnalysis>true</NoPackageAnalysis>
+    
+    <Version>0.10.0</Version>
+    <Authors>Xavier Solau</Authors>
+    <Copyright>Copyright © 2019 Xavier Solau</Copyright>
+    <PackageLicenseUrl>https://raw.githubusercontent.com/xaviersolau/CodeQuality/master/LICENSE</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/xaviersolau/CodeQuality</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/xaviersolau/CodeQuality.git</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>code quality, analysis, coding style</PackageTags>
+    <PackageReleaseNotes>- Setup coding style and analysis.</PackageReleaseNotes>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+    <Description>Setup coding style and analysis for production projects (using StyleCop and FxCop).</Description>
+    <IncludeBuildOutput>false</IncludeBuildOutput>
+    
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="buildMultiTargeting\SoloX.CodeQuality.Prod.props" PackagePath="buildMultiTargeting\" />
+    <Content Include="build\SoloX.CodeQuality.Prod.props" PackagePath="build\" />
+    <Content Include="stylecop.json" PackagePath="resources\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="2.6.3">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="StyleCop.Analyzers" Version="1.1.1-rc.94">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\SoloX.CodeQuality.Test.props" />
+</Project>

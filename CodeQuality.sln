@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.329
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SoloX.CodeQuality.Prod", "src\libs\SoloX.CodeQuality.Prod\SoloX.CodeQuality.Prod.csproj", "{9785BB59-DC3D-46CF-B45C-DF4DBE6F0B2F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SoloX.CodeQuality.Test", "src\libs\SoloX.CodeQuality.Test\SoloX.CodeQuality.Test.csproj", "{46DE472E-6200-47A1-9874-3B54952DFF81}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9785BB59-DC3D-46CF-B45C-DF4DBE6F0B2F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9785BB59-DC3D-46CF-B45C-DF4DBE6F0B2F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9785BB59-DC3D-46CF-B45C-DF4DBE6F0B2F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9785BB59-DC3D-46CF-B45C-DF4DBE6F0B2F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{46DE472E-6200-47A1-9874-3B54952DFF81}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{46DE472E-6200-47A1-9874-3B54952DFF81}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{46DE472E-6200-47A1-9874-3B54952DFF81}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{46DE472E-6200-47A1-9874-3B54952DFF81}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {74BCF463-5FDE-4DBC-B32A-431E8A228CA0}
+	EndGlobalSection
+EndGlobal
