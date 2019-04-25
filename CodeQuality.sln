@@ -5,7 +5,13 @@ VisualStudioVersion = 15.0.28307.329
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SoloX.CodeQuality.Prod", "src\libs\SoloX.CodeQuality.Prod\SoloX.CodeQuality.Prod.csproj", "{9785BB59-DC3D-46CF-B45C-DF4DBE6F0B2F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SoloX.CodeQuality.Test", "src\libs\SoloX.CodeQuality.Test\SoloX.CodeQuality.Test.csproj", "{46DE472E-6200-47A1-9874-3B54952DFF81}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SoloX.CodeQuality.Test", "src\libs\SoloX.CodeQuality.Test\SoloX.CodeQuality.Test.csproj", "{46DE472E-6200-47A1-9874-3B54952DFF81}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documents", "Documents", "{57F5BB2E-CD03-470B-BF16-31FE02A386B1}"
+	ProjectSection(SolutionItems) = preProject
+		LICENSE = LICENSE
+		README.md = README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
