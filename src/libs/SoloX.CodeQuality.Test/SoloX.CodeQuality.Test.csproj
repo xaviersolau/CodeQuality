@@ -21,12 +21,16 @@
     <IncludeBuildOutput>false</IncludeBuildOutput>
 
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+
+    <CodeAnalysisRuleSet>SoloX.CodeQuality.Test.ruleset</CodeAnalysisRuleSet>
+
   </PropertyGroup>
 
   <ItemGroup>
     <Content Include="buildMultiTargeting\SoloX.CodeQuality.Test.props" PackagePath="buildMultiTargeting\" />
     <Content Include="build\SoloX.CodeQuality.Test.props" PackagePath="build\" />
     <Content Include="stylecop.json" PackagePath="resources\" />
+    <Content Include="SoloX.CodeQuality.Test.ruleset" PackagePath="resources\" />
   </ItemGroup>
 
   <ItemGroup>

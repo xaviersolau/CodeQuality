@@ -5,6 +5,7 @@
     <WarningsAsErrors />
     <CodeAnalysisRuleSet />
     <DocumentationFile>$(OutputPath)$(MSBuildProjectName).xml</DocumentationFile>
+    <CodeAnalysisRuleSet>$(MSBuildThisFileDirectory)..\resources\SoloX.CodeQuality.Prod.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -23,7 +24,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <AdditionalFiles Include="$(MSBuildThisFileDirectory)..\resources\stylecop.json" Link="stylecop.json" />
+    <AdditionalFiles Include="$(MSBuildThisFileDirectory)..\resources\stylecop.json"
+                     Link="stylecop.json" />
   </ItemGroup>
 
 </Project>

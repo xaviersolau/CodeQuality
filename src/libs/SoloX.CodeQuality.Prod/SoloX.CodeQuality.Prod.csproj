@@ -19,14 +19,18 @@
     <AssemblyVersion>1.0.0.0</AssemblyVersion>
     <Description>Setup coding style and analysis for production projects (using StyleCop and FxCop).</Description>
     <IncludeBuildOutput>false</IncludeBuildOutput>
-    
+
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+
+    <CodeAnalysisRuleSet>SoloX.CodeQuality.Prod.ruleset</CodeAnalysisRuleSet>
+
   </PropertyGroup>
 
   <ItemGroup>
     <Content Include="buildMultiTargeting\SoloX.CodeQuality.Prod.props" PackagePath="buildMultiTargeting\" />
     <Content Include="build\SoloX.CodeQuality.Prod.props" PackagePath="build\" />
     <Content Include="stylecop.json" PackagePath="resources\" />
+    <Content Include="SoloX.CodeQuality.Prod.ruleset" PackagePath="resources\" />
   </ItemGroup>
 
   <ItemGroup>
