@@ -1,0 +1,13 @@
+<Project>
+
+  <PropertyGroup>
+    <Version>1.0.2</Version>
+    <Authors>Xavier Solau</Authors>
+    <Copyright>Copyright © 2019 Xavier Solau</Copyright>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/xaviersolau/CodeQuality</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/xaviersolau/CodeQuality.git</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+  </PropertyGroup>
+
+</Project>
