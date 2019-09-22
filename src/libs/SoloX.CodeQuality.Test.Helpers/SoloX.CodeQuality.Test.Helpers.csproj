@@ -10,12 +10,12 @@
     <NoPackageAnalysis>true</NoPackageAnalysis>
 
     <PackageTags>code quality, test, integration</PackageTags>
-    <PackageReleaseNotes>
-      - Add Process helper.
-      - Add dotnet helper.
-    </PackageReleaseNotes>
+    <PackageReleaseNotes>- Add TestLogger.</PackageReleaseNotes>
     <AssemblyVersion>1.0.0.0</AssemblyVersion>
     <Description>Provides some helpers for integration test use.</Description>
+    <IncludeBuildOutput>true</IncludeBuildOutput>
+
+    <IsPackable>true</IsPackable>
 
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
