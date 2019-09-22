@@ -38,15 +38,16 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="2.2.0" />
     <PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="xunit" Version="2.4.1" />
   </ItemGroup>
 
   <ItemGroup>
-    <AdditionalFiles Include="..\SoloX.CodeQuality.Test\stylecop.json"
-                     Link="stylecop.json" />
+    <AdditionalFiles Include="..\SoloX.CodeQuality.Test\stylecop.json" Link="stylecop.json" />
   </ItemGroup>
 
 </Project>
