@@ -28,27 +28,27 @@ You can checkout this Github repository or you can use the NuGet package:
 
 **Install using the command line from the Package Manager:**
 ```bash
-Install-Package SoloX.CodeQuality.Prod -version 1.0.6
+Install-Package SoloX.CodeQuality.Prod -version 1.0.7
 or
-Install-Package SoloX.CodeQuality.Test -version 1.0.6
+Install-Package SoloX.CodeQuality.Test -version 1.0.7
 
-Install-Package SoloX.CodeQuality.Test.Helpers -version 1.0.6
+Install-Package SoloX.CodeQuality.Test.Helpers -version 1.0.7
 ```
 
 **Install using the .Net CLI:**
 ```bash
-dotnet add package SoloX.CodeQuality.Prod --version 1.0.6
+dotnet add package SoloX.CodeQuality.Prod --version 1.0.7
 or
-dotnet add package SoloX.CodeQuality.Test --version 1.0.6
+dotnet add package SoloX.CodeQuality.Test --version 1.0.7
 
-dotnet add package SoloX.CodeQuality.Test.Helpers --version 1.0.6
+dotnet add package SoloX.CodeQuality.Test.Helpers --version 1.0.7
 ```
 
 **Install editing your project file (csproj):**
 ```xml
-<PackageReference Include="SoloX.CodeQuality.Prod" Version="1.0.6" />
+<PackageReference Include="SoloX.CodeQuality.Prod" Version="1.0.7" />
 or
-<PackageReference Include="SoloX.CodeQuality.Test" Version="1.0.6" />
+<PackageReference Include="SoloX.CodeQuality.Test" Version="1.0.7" />
 
-<PackageReference Include="SoloX.CodeQuality.Test.Helpers" Version="1.0.6" />
+<PackageReference Include="SoloX.CodeQuality.Test.Helpers" Version="1.0.7" />
 ```
