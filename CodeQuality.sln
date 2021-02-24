@@ -14,7 +14,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documents", "Documents", "{
 		src\SharedProperties.props = src\SharedProperties.props
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SoloX.CodeQuality.Test.Helpers", "src\libs\SoloX.CodeQuality.Test.Helpers\SoloX.CodeQuality.Test.Helpers.csproj", "{B4ED680E-2B7B-4DFE-87E6-A3CBEE75C3DD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SoloX.CodeQuality.Test.Helpers", "src\libs\SoloX.CodeQuality.Test.Helpers\SoloX.CodeQuality.Test.Helpers.csproj", "{B4ED680E-2B7B-4DFE-87E6-A3CBEE75C3DD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SoloX.CodeQuality.Prod.Example", "src\examples\SoloX.CodeQuality.Prod.Example\SoloX.CodeQuality.Prod.Example.csproj", "{6FB11F33-250F-4DE8-934A-F63CDC8976D6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Examples", "Examples", "{B1962CF8-DE8C-42AA-BC4E-99E99D722E26}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libs", "Libs", "{5B172423-1455-41CB-8D81-7DCFCFF8855D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SoloX.CodeQuality.Test.Example", "src\examples\SoloX.CodeQuality.Test.Example\SoloX.CodeQuality.Test.Example.csproj", "{E4FAC4E6-2853-4464-B78F-6BAB619EEF8D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -34,9 +42,24 @@ Global
 		{B4ED680E-2B7B-4DFE-87E6-A3CBEE75C3DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B4ED680E-2B7B-4DFE-87E6-A3CBEE75C3DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B4ED680E-2B7B-4DFE-87E6-A3CBEE75C3DD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6FB11F33-250F-4DE8-934A-F63CDC8976D6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6FB11F33-250F-4DE8-934A-F63CDC8976D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6FB11F33-250F-4DE8-934A-F63CDC8976D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6FB11F33-250F-4DE8-934A-F63CDC8976D6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E4FAC4E6-2853-4464-B78F-6BAB619EEF8D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E4FAC4E6-2853-4464-B78F-6BAB619EEF8D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E4FAC4E6-2853-4464-B78F-6BAB619EEF8D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E4FAC4E6-2853-4464-B78F-6BAB619EEF8D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{9785BB59-DC3D-46CF-B45C-DF4DBE6F0B2F} = {5B172423-1455-41CB-8D81-7DCFCFF8855D}
+		{46DE472E-6200-47A1-9874-3B54952DFF81} = {5B172423-1455-41CB-8D81-7DCFCFF8855D}
+		{B4ED680E-2B7B-4DFE-87E6-A3CBEE75C3DD} = {5B172423-1455-41CB-8D81-7DCFCFF8855D}
+		{6FB11F33-250F-4DE8-934A-F63CDC8976D6} = {B1962CF8-DE8C-42AA-BC4E-99E99D722E26}
+		{E4FAC4E6-2853-4464-B78F-6BAB619EEF8D} = {B1962CF8-DE8C-42AA-BC4E-99E99D722E26}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {74BCF463-5FDE-4DBC-B32A-431E8A228CA0}

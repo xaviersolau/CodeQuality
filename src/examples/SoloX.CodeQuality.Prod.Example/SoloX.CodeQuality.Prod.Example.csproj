@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <Import Project="../../libs/SoloX.CodeQuality.Prod/build/SoloX.CodeQuality.Prod.props" />
+
+  <Import Project="../../libs/SoloX.CodeQuality.Prod/build/SoloX.CodeQuality.Prod.targets" />
+  
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    
+    <!--<CodeQualityFieldsUseUnderscorStyle>false</CodeQualityFieldsUseUnderscorStyle>-->
+
+  </PropertyGroup>
+
+</Project>

@@ -12,31 +12,21 @@
     <PackageTags>code quality, analysis, coding style</PackageTags>
     <PackageReleaseNotes>- Setup coding style and analysis.</PackageReleaseNotes>
     <AssemblyVersion>1.0.0.0</AssemblyVersion>
-    <Description>Setup coding style and analysis for test projects (using StyleCop and FxCop).</Description>
+    <Description>Setup coding style and analysis for test projects (using NetAlalyzers and CodeStyle).</Description>
     <IncludeBuildOutput>false</IncludeBuildOutput>
 
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-
-    <CodeAnalysisRuleSet>SoloX.CodeQuality.Test.ruleset</CodeAnalysisRuleSet>
 
   </PropertyGroup>
 
   <ItemGroup>
     <Content Include="buildMultiTargeting\SoloX.CodeQuality.Test.props" PackagePath="buildMultiTargeting\" />
+    <Content Include="buildMultiTargeting\SoloX.CodeQuality.Test.targets" PackagePath="buildMultiTargeting\" />
     <Content Include="build\SoloX.CodeQuality.Test.props" PackagePath="build\" />
-    <Content Include="stylecop.json" PackagePath="resources\" />
-    <Content Include="SoloX.CodeQuality.Test.ruleset" PackagePath="resources\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="2.9.8">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
-    </PackageReference>
-    <PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
-    </PackageReference>
+    <Content Include="build\SoloX.CodeQuality.Test.targets" PackagePath="build\" />
+    <Content Include="resources\style2.editorconfig" PackagePath="resources\" />
+    <Content Include="resources\style1.editorconfig" PackagePath="resources\" />
+    <Content Include="resources\global.editorconfig" PackagePath="resources\" />
   </ItemGroup>
 
 </Project>

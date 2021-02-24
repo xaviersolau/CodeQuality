@@ -1,0 +1,19 @@
+﻿<Project>
+
+  <Target Condition="$(CodeQualityOverrideEditorConfig) == true"
+          Name="CodeQualityMain"
+          BeforeTargets="BeforeBuild;BeforeRebuild;AfterResolveReferences">
+
+    <Copy Condition="$(CodeQualityFieldsUseUnderscorStyle) == false"
+          SourceFiles="$(MSBuildThisFileDirectory)../resources/style1.editorconfig"
+          DestinationFiles="$(MSBuildProjectDirectory)/.editorconfig"
+        />
+
+    <Copy Condition="$(CodeQualityFieldsUseUnderscorStyle) == true"
+          SourceFiles="$(MSBuildThisFileDirectory)../resources/style2.editorconfig"
+          DestinationFiles="$(MSBuildProjectDirectory)/.editorconfig"
+        />
+
+  </Target>
+  
+</Project>

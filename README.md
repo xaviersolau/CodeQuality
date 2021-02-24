@@ -13,8 +13,8 @@ It basically provides two Nuget packages that will setup and enable code quality
 * and one Test Nuget package to enable a very high code quality with some rules customized for the tests;
 
 This project is not implementing analysis by itself, it is using existing analysis packages like:
-* StyleCop.Analyzers
-* Microsoft.CodeAnalysis.FxCopAnalyzers
+* Microsoft.CodeAnalysis.*.NetAnalyzers
+* Microsoft.CodeAnalysis.*.CodeStyle
 
 ## License and credits
 
@@ -28,27 +28,27 @@ You can checkout this Github repository or you can use the NuGet package:
 
 **Install using the command line from the Package Manager:**
 ```bash
-Install-Package SoloX.CodeQuality.Prod -version 1.0.10
+Install-Package SoloX.CodeQuality.Prod -version 2.0.0-alpha.1
 or
-Install-Package SoloX.CodeQuality.Test -version 1.0.10
+Install-Package SoloX.CodeQuality.Test -version 2.0.0-alpha.1
 
-Install-Package SoloX.CodeQuality.Test.Helpers -version 1.0.10
+Install-Package SoloX.CodeQuality.Test.Helpers -version 2.0.0-alpha.1
 ```
 
 **Install using the .Net CLI:**
 ```bash
-dotnet add package SoloX.CodeQuality.Prod --version 1.0.10
+dotnet add package SoloX.CodeQuality.Prod --version 2.0.0-alpha.1
 or
-dotnet add package SoloX.CodeQuality.Test --version 1.0.10
+dotnet add package SoloX.CodeQuality.Test --version 2.0.0-alpha.1
 
-dotnet add package SoloX.CodeQuality.Test.Helpers --version 1.0.10
+dotnet add package SoloX.CodeQuality.Test.Helpers --version 2.0.0-alpha.1
 ```
 
 **Install editing your project file (csproj):**
 ```xml
-<PackageReference Include="SoloX.CodeQuality.Prod" Version="1.0.10" />
+<PackageReference Include="SoloX.CodeQuality.Prod" Version="2.0.0-alpha.1" />
 or
-<PackageReference Include="SoloX.CodeQuality.Test" Version="1.0.10" />
+<PackageReference Include="SoloX.CodeQuality.Test" Version="2.0.0-alpha.1" />
 
-<PackageReference Include="SoloX.CodeQuality.Test.Helpers" Version="1.0.10" />
+<PackageReference Include="SoloX.CodeQuality.Test.Helpers" Version="2.0.0-alpha.1" />
 ```

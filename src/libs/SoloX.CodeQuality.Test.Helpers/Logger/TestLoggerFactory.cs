@@ -6,8 +6,6 @@
 // ----------------------------------------------------------------------
 
 using System;
-using System.Collections.Generic;
-using System.Text;
 using Microsoft.Extensions.Logging;
 using Xunit.Abstractions;
 
@@ -18,7 +16,7 @@ namespace SoloX.CodeQuality.Test.Helpers.Logger
     /// </summary>
     public class TestLoggerFactory : ILoggerFactory
     {
-        private ITestOutputHelper testOutputHelper;
+        private readonly ITestOutputHelper testOutputHelper;
 
         public TestLoggerFactory(ITestOutputHelper testOutputHelper)
         {

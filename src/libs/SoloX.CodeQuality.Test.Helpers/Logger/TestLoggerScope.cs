@@ -6,16 +6,14 @@
 // ----------------------------------------------------------------------
 
 using System;
-using System.Collections.Generic;
-using System.Text;
 using Microsoft.Extensions.Logging;
 
 namespace SoloX.CodeQuality.Test.Helpers.Logger
 {
     internal class TestLoggerScope<T, TState> : IDisposable
     {
-        private ILogger<T> logger;
-        private TState state;
+        private readonly ILogger<T> logger;
+        private readonly TState state;
 
         public TestLoggerScope(ILogger<T> logger, TState state)
         {

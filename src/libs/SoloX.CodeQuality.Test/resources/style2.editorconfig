@@ -1,0 +1,886 @@
+﻿
+[*.cs]
+
+#### Core EditorConfig Options ####
+
+# Indentation and spacing
+indent_size = 4
+indent_style = space
+tab_width = 4
+
+# New line preferences
+end_of_line = crlf
+insert_final_newline = false
+
+#### .NET Coding Conventions ####
+
+# Organize usings
+dotnet_separate_import_directive_groups = true:error
+dotnet_sort_system_directives_first = true:error
+
+# IDE0065: Directive using mal placée
+csharp_using_directive_placement = outside_namespace:error
+
+# IDE0005: La directive using n'est pas nécessaire.
+dotnet_diagnostic.IDE0005.severity = error
+
+# IDE0073: File header
+dotnet_diagnostic.IDE0073.severity = error
+file_header_template = ----------------------------------------------------------------------\n<copyright file="{fileName}" company="SoloX Software">\nCopyright (c) SoloX Software. All rights reserved.\nLicensed under the MIT license. See LICENSE file in the project root for full license information.\n</copyright>\n----------------------------------------------------------------------
+
+# IDE0044: Ajouter un modificateur readonly
+dotnet_diagnostic.IDE0044.severity = error
+
+# IDE0009: L'accès au membre doit être qualifié.
+dotnet_diagnostic.IDE0009.severity = error
+
+csharp_style_var_for_built_in_types = true:error
+csharp_style_var_when_type_is_apparent = true:error
+csharp_style_var_elsewhere = true:error
+
+# IDE0007: Utiliser un type implicite
+dotnet_diagnostic.IDE0007.severity = error
+
+# IDE0004: Supprimer le cast inutile
+dotnet_diagnostic.IDE0004.severity = error
+
+# IDE0011: Ajouter des accolades
+dotnet_diagnostic.IDE0011.severity = error
+
+csharp_style_throw_expression = false
+
+# IDE0016: Utiliser l'expression 'throw'
+dotnet_diagnostic.IDE0016.severity = error
+
+# IDE0036: Ordonner les modificateurs
+dotnet_diagnostic.IDE0036.severity = error
+
+# IDE0040: Ajouter des modificateurs d'accessibilité
+dotnet_diagnostic.IDE0040.severity = error
+
+# Instance fields camelCase with underscore prefix
+dotnet_naming_rule.instance_fields_should_be_camel_case.severity = error
+dotnet_naming_rule.instance_fields_should_be_camel_case.symbols = instance_fields
+dotnet_naming_rule.instance_fields_should_be_camel_case.style = instance_field_style
+
+dotnet_naming_symbols.instance_fields.applicable_kinds = field
+
+dotnet_naming_style.instance_field_style.capitalization = camel_case
+dotnet_naming_style.instance_field_style.required_prefix = _
+
+# Consts upper Case with underscore separator
+dotnet_naming_rule.consts_should_be_upper_case.severity = error
+dotnet_naming_rule.consts_should_be_upper_case.symbols = consts
+dotnet_naming_rule.consts_should_be_upper_case.style = const_style
+
+dotnet_naming_symbols.consts.applicable_kinds = field
+dotnet_naming_symbols.consts.required_modifiers = const
+
+dotnet_naming_style.instance_field_style.capitalization = upper_case
+dotnet_naming_style.instance_field_style.required_separator = _
+
+# Locals and parameter are camelCase
+dotnet_naming_rule.locals_should_be_camel_case.severity = error
+dotnet_naming_rule.locals_should_be_camel_case.symbols = locals
+dotnet_naming_rule.locals_should_be_camel_case.style = local_style
+
+dotnet_naming_symbols.locals.applicable_kinds = local, parameter, local_function
+
+dotnet_naming_style.local_style.capitalization = camel_case
+dotnet_naming_style.local_style.required_prefix = 
+
+# Interfaces are PascalCase and prefixed with I
+dotnet_naming_rule.interfaces_should_be_pascal_case.severity = error
+dotnet_naming_rule.interfaces_should_be_pascal_case.symbols = interfaces
+dotnet_naming_rule.interfaces_should_be_pascal_case.style = interface_style
+
+dotnet_naming_symbols.interfaces.applicable_kinds = interface
+
+dotnet_naming_style.interface_style.capitalization = pascal_case
+dotnet_naming_style.interface_style.required_prefix = I
+
+# Abstract classes are PascalCase and prefixed with A
+dotnet_naming_rule.abstract_classes_should_be_pascal_case.severity = error
+dotnet_naming_rule.abstract_classes_should_be_pascal_case.symbols = abstract_classes
+dotnet_naming_rule.abstract_classes_should_be_pascal_case.style = abstract_class_style
+
+dotnet_naming_symbols.abstract_classes.applicable_kinds = class
+dotnet_naming_symbols.abstract_classes.required_modifiers = abstract
+
+dotnet_naming_style.abstract_class_style.capitalization = pascal_case
+dotnet_naming_style.abstract_class_style.required_prefix = A
+
+# Type parameters are PascalCase and prefixed with T
+dotnet_naming_rule.abstract_classes_should_be_pascal_case.severity = error
+dotnet_naming_rule.abstract_classes_should_be_pascal_case.symbols = type_parameters
+dotnet_naming_rule.abstract_classes_should_be_pascal_case.style = type_parameter_style
+
+dotnet_naming_symbols.type_parameters.applicable_kinds = type_parameter
+
+dotnet_naming_style.type_parameter_style.capitalization = pascal_case
+dotnet_naming_style.type_parameter_style.required_prefix = T
+
+# Async methods are PascalCase and suffixed with Async
+dotnet_naming_rule.async_methods_should_be_pascal_case.severity = error
+dotnet_naming_rule.async_methods_should_be_pascal_case.symbols = async_methods
+dotnet_naming_rule.async_methods_should_be_pascal_case.style = async_method_style
+
+dotnet_naming_symbols.async_methods.applicable_kinds = method
+dotnet_naming_symbols.async_methods.required_modifiers = async
+
+dotnet_naming_style.async_method_style.capitalization = pascal_case
+dotnet_naming_style.async_method_style.required_suffix = Async
+
+# Events are PascalCase and suffixed with Event
+dotnet_naming_rule.events_should_be_pascal_case.severity = error
+dotnet_naming_rule.events_should_be_pascal_case.symbols = events
+dotnet_naming_rule.events_should_be_pascal_case.style = event_style
+
+dotnet_naming_symbols.events.applicable_kinds = event
+
+dotnet_naming_style.event_style.capitalization = pascal_case
+dotnet_naming_style.event_style.required_suffix = Event
+
+# Delegates are PascalCase and suffixed with Handler
+dotnet_naming_rule.delegates_should_be_pascal_case.severity = error
+dotnet_naming_rule.delegates_should_be_pascal_case.symbols = delegates
+dotnet_naming_rule.delegates_should_be_pascal_case.style = delegate_style
+
+dotnet_naming_symbols.delegates.applicable_kinds = delegate
+
+dotnet_naming_style.delegate_style.capitalization = pascal_case
+dotnet_naming_style.delegate_style.required_suffix = Handler
+
+# classes and properties are PascalCase
+dotnet_naming_rule.classes_and_properties_should_be_pascal_case.severity = error
+dotnet_naming_rule.classes_and_properties_should_be_pascal_case.symbols = classes_and_properties
+dotnet_naming_rule.classes_and_properties_should_be_pascal_case.style = class_and_property_style
+
+dotnet_naming_symbols.classes_and_properties.applicable_kinds = class, struct, enum, method, property, namespace
+
+dotnet_naming_style.class_and_property_style.capitalization = pascal_case
+dotnet_naming_style.class_and_property_style.required_prefix = 
+
+# IDE1006: Styles d'affectation de noms
+dotnet_diagnostic.IDE1006.severity = error
+
+# Avoid "this." and "Me." if not necessary
+dotnet_style_qualification_for_field = false:refactoring
+dotnet_style_qualification_for_property = false:refactoring
+dotnet_style_qualification_for_method = false:refactoring
+dotnet_style_qualification_for_event = false:refactoring
+
+# IDE0049: Simplifier les noms
+dotnet_diagnostic.IDE0049.severity = error
+
+# IDE0051: Supprimer les membres privés non utilisés
+dotnet_diagnostic.IDE0051.severity = error
+
+# IDE0055: Corriger la mise en forme
+dotnet_diagnostic.IDE0055.severity = error
+
+# IDE0010: Ajouter les instructions case manquantes
+dotnet_diagnostic.IDE0010.severity = error
+
+# IDE0034: Simplifier l'expression 'default'
+dotnet_diagnostic.IDE0034.severity = error
+
+# IDE0062: Rendre la fonction locale 'static'
+dotnet_diagnostic.IDE0062.severity = error
+
+# IDE0082: 'typeof' peut être converti en 'nameof'
+dotnet_diagnostic.IDE0082.severity = error
+
+# IDE0066: Convertir l'instruction switch en expression
+dotnet_diagnostic.IDE0066.severity = error
+
+# IDE0072: Ajouter les instructions case manquantes
+dotnet_diagnostic.IDE0072.severity = error
+
+# CS1591: Commentaire XML manquant pour le type ou le membre visible publiquement
+dotnet_diagnostic.CS1591.severity = none
+
+# CS1572: Le commentaire XML a une balise param, alors qu'il n'existe aucun paramètre de ce nom
+dotnet_diagnostic.CS1572.severity = error
+
+# CS0168: La variable est déclarée mais jamais utilisée
+dotnet_diagnostic.CS0168.severity = error
+
+# CA1812: Éviter les classes internes non instanciées
+dotnet_diagnostic.CA1812.severity = error
+
+# CA1001: Les types qui ont des champs supprimables doivent être supprimables
+dotnet_diagnostic.CA1001.severity = error
+
+# CA1032: Implémenter des constructeurs d'exception standard
+dotnet_diagnostic.CA1032.severity = error
+
+# CA1507: Utiliser nameof pour exprimer les noms de symboles
+dotnet_diagnostic.CA1507.severity = error
+
+# CA1825: Évitez les allocations de tableaux dont la longueur est égale à zéro
+dotnet_diagnostic.CA1825.severity = error
+
+# CA2016: Transférer le paramètre 'CancellationToken' aux méthodes qui l'acceptent
+dotnet_diagnostic.CA2016.severity = error
+
+# CA2200: Lever à nouveau une exception pour conserver les détails de la pile
+dotnet_diagnostic.CA2200.severity = error
+
+# CA1008: Les enums doivent avoir la valeur zéro
+dotnet_diagnostic.CA1008.severity = error
+
+# CA1012: Les types abstract ne doivent pas avoir de constructeurs publics
+dotnet_diagnostic.CA1012.severity = error
+
+# CA1014: Marquer les assemblys avec CLSCompliant
+dotnet_diagnostic.CA1014.severity = silent
+
+# CA1018: Marquer les attributs avec AttributeUsageAttribute
+dotnet_diagnostic.CA1018.severity = error
+
+# CA1044: Les propriétés ne doivent pas être en écriture seule
+dotnet_diagnostic.CA1044.severity = error
+
+# CA1051: Ne pas déclarer de champs d'instances visibles
+dotnet_diagnostic.CA1051.severity = error
+
+# CA1061: Ne pas masquer les méthodes de classe de base
+dotnet_diagnostic.CA1061.severity = error
+
+# CA1058: Les types ne doivent pas étendre certains types de base
+dotnet_diagnostic.CA1058.severity = error
+
+# CA1063: Implémenter IDisposable correctement
+dotnet_diagnostic.CA1063.severity = error
+
+# CA1064: Les exceptions doivent être publiques
+dotnet_diagnostic.CA1064.severity = error
+
+# CA1068: Les paramètres CancellationToken doivent venir en dernier
+dotnet_diagnostic.CA1068.severity = error
+
+# CA1069: Les valeurs enum ne doivent pas être dupliquées
+dotnet_diagnostic.CA1069.severity = error
+
+# CA1305: Spécifier IFormatProvider
+dotnet_diagnostic.CA1305.severity = error
+
+# CA1307: Spécifier StringComparison pour plus de clarté
+dotnet_diagnostic.CA1307.severity = error
+
+# CA1508: Éviter le code conditionnel mort
+dotnet_diagnostic.CA1508.severity = error
+
+# CA1708: Les identificateurs ne doivent pas différer uniquement par leur casse
+dotnet_diagnostic.CA1708.severity = error
+
+# CA1716: Les identificateurs ne doivent pas correspondre à des mots clés
+dotnet_diagnostic.CA1716.severity = error
+
+# CA1721: Les noms de propriétés ne doivent pas correspondre à ceux des méthodes get
+dotnet_diagnostic.CA1721.severity = error
+
+# CA1725: Les noms de paramètres doivent correspondre à la déclaration de base
+dotnet_diagnostic.CA1725.severity = error
+
+# CA1019: Définir des accesseurs pour les arguments d'attribut
+dotnet_diagnostic.CA1019.severity = error
+
+# CA1065: Ne pas lever d'exceptions dans les emplacements inattendus
+dotnet_diagnostic.CA1065.severity = error
+
+# CA1309: Utiliser la comparaison de chaînes ordinales
+dotnet_diagnostic.CA1309.severity = error
+
+# CA1200: Éviter d'utiliser des balises cref avec un préfixe
+dotnet_diagnostic.CA1200.severity = error
+
+# CA2234: Passer des objets d'URI système à la place de chaînes
+dotnet_diagnostic.CA2234.severity = error
+
+# CA3076: Traitement de script XSLT non sécurisé.
+dotnet_diagnostic.CA3076.severity = warning
+
+# CA3077: Traitement non sécurisé dans le design d'API, XmlDocument et XmlTextReader
+dotnet_diagnostic.CA3077.severity = warning
+
+# CA1002: Ne pas exposer de listes génériques
+dotnet_diagnostic.CA1002.severity = error
+
+# CA1000: Ne pas déclarer de membres comme étant static sur les types génériques
+dotnet_diagnostic.CA1000.severity = error
+
+# CA1003: Utiliser les instances du gestionnaire d'événements génériques
+dotnet_diagnostic.CA1003.severity = error
+
+# CA1010: Une interface générique doit également être implémentée
+dotnet_diagnostic.CA1010.severity = error
+
+# CA1024: Utiliser des propriétés quand cela est approprié
+dotnet_diagnostic.CA1024.severity = error
+
+# CA1027: Marquer les enums avec FlagsAttribute
+dotnet_diagnostic.CA1027.severity = error
+
+# CA1028: Le stockage d'enum doit être de type Int32
+dotnet_diagnostic.CA1028.severity = error
+
+# CA1030: Utiliser des événements quand cela est approprié
+dotnet_diagnostic.CA1030.severity = error
+
+# CA1031: Ne pas intercepter les types d'exception générale
+dotnet_diagnostic.CA1031.severity = error
+
+# CA1033: Les méthodes d'interface doivent pouvoir être appelées par les types enfants
+dotnet_diagnostic.CA1033.severity = error
+
+# CA1034: Les types imbriqués ne doivent pas être visibles
+dotnet_diagnostic.CA1034.severity = error
+
+# CA1036: Remplacer les méthodes sur les types Comparable
+dotnet_diagnostic.CA1036.severity = error
+
+# CA1041: Fournir un message ObsoleteAttribute
+dotnet_diagnostic.CA1041.severity = error
+
+# CA1043: Utiliser un argument de chaîne ou intégral pour les indexeurs
+dotnet_diagnostic.CA1043.severity = error
+
+# CA1040: Éviter les interfaces vides
+dotnet_diagnostic.CA1040.severity = none
+
+# CA1050: Déclarer les types dans des espaces de noms
+dotnet_diagnostic.CA1050.severity = error
+
+# CA1052: Les types conteneurs statiques doivent être Static ou NotInheritable
+dotnet_diagnostic.CA1052.severity = error
+
+# CA1062: Valider les arguments de méthodes publiques
+dotnet_diagnostic.CA1062.severity = none
+
+# CA1067: Remplacer Object.Equals(object) au moment d'implémenter IEquatable<T>
+dotnet_diagnostic.CA1067.severity = error
+
+# CA1066: Implémenter IEquatable au moment de remplacer Object.Equals
+dotnet_diagnostic.CA1066.severity = error
+
+# CA1054: Les paramètres de type URI ne doivent pas être des chaînes
+dotnet_diagnostic.CA1054.severity = error
+
+# CA1055: Les valeurs de retour de type URI ne doivent pas être des chaînes
+dotnet_diagnostic.CA1055.severity = error
+
+# CA1056: Les propriétés de type URI ne doivent pas être des chaînes
+dotnet_diagnostic.CA1056.severity = error
+
+# CA1304: Spécifier CultureInfo
+dotnet_diagnostic.CA1304.severity = error
+
+# CA1310: Spécifier StringComparison à des fins de précision
+dotnet_diagnostic.CA1310.severity = error
+
+# CA1416: Valider la compatibilité de la plateforme
+dotnet_diagnostic.CA1416.severity = error
+
+# CA1401: Les P/Invoke ne doivent pas être visibles
+dotnet_diagnostic.CA1401.severity = error
+
+# CA1417: N'utilisez pas 'OutAttribute' sur les paramètres de chaîne pour les P/Invoke
+dotnet_diagnostic.CA1417.severity = error
+
+# CA1700: Ne nommez pas les valeurs enum 'Reserved'
+dotnet_diagnostic.CA1700.severity = error
+
+# CA1707: Les identificateurs ne doivent pas contenir de traits de soulignement
+dotnet_diagnostic.CA1707.severity = error
+
+# CA1710: Les identificateurs doivent avoir un suffixe correct
+dotnet_diagnostic.CA1710.severity = error
+
+# CA1711: Les identificateurs ne doivent pas avoir un suffixe incorrect
+dotnet_diagnostic.CA1711.severity = error
+
+# CA1712: Ne pas ajouter de préfixe aux valeurs d'énumération avec un nom de type
+dotnet_diagnostic.CA1712.severity = error
+
+# CA1713: Les événements ne doivent pas avoir un préfixe 'Before' ou 'After'
+dotnet_diagnostic.CA1713.severity = error
+
+# CA1715: Les identificateurs doivent être dotés d'un préfixe correct
+dotnet_diagnostic.CA1715.severity = error
+
+# CA1720: L'identificateur contient le nom de type
+dotnet_diagnostic.CA1720.severity = error
+
+# CA1724: Les noms de types ne doivent pas correspondre à des espaces de noms
+dotnet_diagnostic.CA1724.severity = error
+
+# CA1801: Passer en revue les paramètres inutilisés
+dotnet_diagnostic.CA1801.severity = error
+
+# CA1802: Utiliser des littéraux quand cela est approprié
+dotnet_diagnostic.CA1802.severity = error
+
+# CA1805: Ne pas effectuer d'initialisation inutilement
+dotnet_diagnostic.CA1805.severity = error
+
+# CA1810: Initialisez les champs static de type référence inline
+dotnet_diagnostic.CA1810.severity = error
+
+# CA1806: Ne pas ignorer les résultats des méthodes
+dotnet_diagnostic.CA1806.severity = error
+
+# CA1813: Éviter les attributs unsealed
+dotnet_diagnostic.CA1813.severity = error
+
+# CA1815: Remplacer Equals et l'opérateur égal à dans les types valeur
+dotnet_diagnostic.CA1815.severity = error
+
+# CA1816: Les méthodes Dispose doivent appeler SuppressFinalize
+dotnet_diagnostic.CA1816.severity = error
+
+# CA1819: Les propriétés ne doivent pas retourner de tableaux
+dotnet_diagnostic.CA1819.severity = error
+
+# CA1820: Vérifier la présence de chaînes vides par la longueur de chaîne
+dotnet_diagnostic.CA1820.severity = error
+
+# CA1821: Supprimer les finaliseurs vides
+dotnet_diagnostic.CA1821.severity = error
+
+# CA1822: Marquer les membres comme étant static
+dotnet_diagnostic.CA1822.severity = error
+
+# CA1823: Évitez les champs privés inutilisés
+dotnet_diagnostic.CA1823.severity = error
+
+# CA1826: N'utilisez pas de méthodes Enumerable sur les collections indexables
+dotnet_diagnostic.CA1826.severity = error
+
+# CA1827: N'utilisez pas Count() ou LongCount() quand Any() peut être utilisé
+dotnet_diagnostic.CA1827.severity = error
+
+# CA1828: N'utilisez pas CountAsync() ou LongCountAsync() quand AnyAsync() peut être utilisé
+dotnet_diagnostic.CA1828.severity = error
+
+# CA1829: Utiliser la propriété Length/Count à la place de Count() si elle est disponible
+dotnet_diagnostic.CA1829.severity = error
+
+# CA1830: Préférez les surcharges de méthode Append et Insert fortement typées sur StringBuilder
+dotnet_diagnostic.CA1830.severity = error
+
+# CA1831: Utiliser AsSpan ou AsMemory à la place des indexeurs basés sur Range quand cela est approprié
+dotnet_diagnostic.CA1831.severity = error
+
+# CA1832: Utiliser AsSpan ou AsMemory à la place des indexeurs basés sur Range quand cela est approprié
+dotnet_diagnostic.CA1832.severity = error
+
+# CA1833: Utiliser AsSpan ou AsMemory à la place des indexeurs basés sur Range quand cela est approprié
+dotnet_diagnostic.CA1833.severity = error
+
+# CA1834: Utilisez 'StringBuilder.Append(char)' le cas échéant
+dotnet_diagnostic.CA1834.severity = error
+
+# CA1835: Préférer les surcharges basées sur 'Memory' pour 'ReadAsync' et 'WriteAsync'
+dotnet_diagnostic.CA1835.severity = error
+
+# CA1836: Préférer IsEmpty à Count
+dotnet_diagnostic.CA1836.severity = error
+
+# CA1837: Utiliser 'Environment.ProcessId'
+dotnet_diagnostic.CA1837.severity = error
+
+# CA1838: Éviter les paramètres 'StringBuilder' pour les P/Invoke
+dotnet_diagnostic.CA1838.severity = error
+
+# CA2000: Supprimer les objets avant la mise hors de portée
+dotnet_diagnostic.CA2000.severity = error
+
+# CA2002: Ne pas définir de verrou sur les objets à identité faible
+dotnet_diagnostic.CA2002.severity = error
+
+# CA2007: Appeler ConfigureAwait sur la tâche attendue
+dotnet_diagnostic.CA2007.severity = error
+
+# CA2008: Ne pas créer de tâches sans passer TaskScheduler
+dotnet_diagnostic.CA2008.severity = error
+
+# CA2009: Ne pas appeler ToImmutableCollection sur une valeur ImmutableCollection
+dotnet_diagnostic.CA2009.severity = error
+
+# CA2011: Éviter la récursivité infinie
+dotnet_diagnostic.CA2011.severity = error
+
+# CA2012: Utilisez correctement ValueTasks
+dotnet_diagnostic.CA2012.severity = error
+
+# CA2013: Ne pas utiliser ReferenceEquals avec des types valeur
+dotnet_diagnostic.CA2013.severity = error
+
+# CA2014: N'utilisez pas stackalloc dans les boucles
+dotnet_diagnostic.CA2014.severity = error
+
+# CA2015: Ne définissez pas de finaliseurs pour les types dérivés de MemoryManager<T>
+dotnet_diagnostic.CA2015.severity = error
+
+# CA2100: Vérifier si les requêtes SQL présentent des failles de sécurité
+dotnet_diagnostic.CA2100.severity = error
+
+# CA2101: Spécifier le marshaling pour les arguments de chaîne P/Invoke
+dotnet_diagnostic.CA2101.severity = error
+
+# CA2109: Passer en revue les gestionnaires d'événements visibles
+dotnet_diagnostic.CA2109.severity = error
+
+# CA2119: Sceller les méthodes qui satisfont les interfaces privées
+dotnet_diagnostic.CA2119.severity = error
+
+# CA2153: Ne pas intercepter les exceptions état altéré
+dotnet_diagnostic.CA2153.severity = error
+
+# CA2201: Ne pas lever de types d'exception réservés
+dotnet_diagnostic.CA2201.severity = error
+
+# CA2207: Initialiser les champs static de type valeur inline
+dotnet_diagnostic.CA2207.severity = error
+
+# CA2208: Instancier les exceptions d'argument correctement
+dotnet_diagnostic.CA2208.severity = error
+
+# CA2211: Les champs non constants ne doivent pas être visibles
+dotnet_diagnostic.CA2211.severity = error
+
+# CA2213: Les champs supprimables doivent l'être
+dotnet_diagnostic.CA2213.severity = error
+
+# CA2214: N'appelez pas de méthodes substituables dans les constructeurs
+dotnet_diagnostic.CA2214.severity = error
+
+# CA2215: Les méthodes Dispose doivent appeler la méthode Dispose de la classe de base
+dotnet_diagnostic.CA2215.severity = error
+
+# CA2216: Les types supprimables doivent déclarer un finaliseur
+dotnet_diagnostic.CA2216.severity = error
+
+# CA2217: Ne pas marquer les enums avec l'attribut FlagsAttribute
+dotnet_diagnostic.CA2217.severity = error
+
+# CA2219: Ne pas lever d'exceptions dans les clauses finally
+dotnet_diagnostic.CA2219.severity = error
+
+# CA2225: Les surcharges d'opérateur offrent d'autres méthodes nommées
+dotnet_diagnostic.CA2225.severity = error
+
+# CA2226: Les opérateurs doivent contenir des surcharges symétriques
+dotnet_diagnostic.CA2226.severity = error
+
+# CA2227: Les propriétés de collection doivent être en lecture seule
+dotnet_diagnostic.CA2227.severity = error
+
+# CA2229: Implémentez des constructeurs de sérialisation
+dotnet_diagnostic.CA2229.severity = error
+
+# CA2231: Surcharger l'opérateur d'égalité en remplaçant ValueType.Equals
+dotnet_diagnostic.CA2231.severity = error
+
+# CA2235: Marquez tous les champs non sérialisés
+dotnet_diagnostic.CA2235.severity = error
+
+# CA2237: Marquer les types ISerializable avec serializable
+dotnet_diagnostic.CA2237.severity = error
+
+# CA2241: Indiquer le nombre correct d'arguments dans les méthodes de mise en forme
+dotnet_diagnostic.CA2241.severity = error
+
+# CA2242: Effectuer correctement les tests NaN
+dotnet_diagnostic.CA2242.severity = error
+
+# CA2243: Les littéraux de chaîne d'attribut doivent être analysés correctement
+dotnet_diagnostic.CA2243.severity = error
+
+# CA2244: Ne pas dupliquer les initialisations d'éléments indexés
+dotnet_diagnostic.CA2244.severity = error
+
+# CA2245: N'assignez pas une propriété à elle-même
+dotnet_diagnostic.CA2245.severity = error
+
+# CA2246: Affectation du symbole et de son membre dans la même instruction
+dotnet_diagnostic.CA2246.severity = error
+
+# CA2247: L'argument passé au constructeur TaskCompletionSource doit être l'enum TaskCreationOptions au lieu de l'enum TaskContinuationOptions
+dotnet_diagnostic.CA2247.severity = error
+
+# CA2248: Fournir l'argument 'enum' approprié à 'Enum.HasFlag'
+dotnet_diagnostic.CA2248.severity = error
+
+# CA2249: Utiliser de préférence 'string.Contains' à la place de 'string.IndexOf'
+dotnet_diagnostic.CA2249.severity = error
+
+# CA2300: Ne pas utiliser le désérialiseur non sécurisé BinaryFormatter
+dotnet_diagnostic.CA2300.severity = error
+
+# CA2301: N'appelez pas BinaryFormatter.Deserialize sans avoir défini d'abord BinaryFormatter.Binder
+dotnet_diagnostic.CA2301.severity = error
+
+# CA2302: Vérifiez que BinaryFormatter.Binder est défini avant d'appeler BinaryFormatter.Deserialize
+dotnet_diagnostic.CA2302.severity = error
+
+# CA2305: Ne pas utiliser le désérialiseur non sécurisé LosFormatter
+dotnet_diagnostic.CA2305.severity = error
+
+# CA2310: Ne pas utiliser le désérialiseur non sécurisé NetDataContractSerializer
+dotnet_diagnostic.CA2310.severity = error
+
+# CA2311: Ne pas effectuer de désérialisation sans avoir défini d'abord NetDataContractSerializer.Binder
+dotnet_diagnostic.CA2311.severity = error
+
+# CA2312: Vérifiez que NetDataContractSerializer.Binder est défini avant d'effectuer la désérialisation
+dotnet_diagnostic.CA2312.severity = error
+
+# CA2315: Ne pas utiliser le désérialiseur non sécurisé ObjectStateFormatter
+dotnet_diagnostic.CA2315.severity = error
+
+# CA2321: Ne pas désérialiser à l'aide d'un JavaScriptSerializer avec un SimpleTypeResolver
+dotnet_diagnostic.CA2321.severity = error
+
+# CA2322: Vérifier que JavaScriptSerializer n'est pas initialisé avec SimpleTypeResolver avant la désérialisation
+dotnet_diagnostic.CA2322.severity = error
+
+# CA2326: N'utilisez pas d'autre valeur que None pour TypeNameHandling
+dotnet_diagnostic.CA2326.severity = error
+
+# CA2327: N'utilisez pas de JsonSerializerSettings non sécurisé
+dotnet_diagnostic.CA2327.severity = error
+
+# CA2328: Vérifiez la sécurisation de JsonSerializerSettings
+dotnet_diagnostic.CA2328.severity = error
+
+# CA2329: N'effectuez pas de désérialisation avec JsonSerializer à l'aide d'une configuration non sécurisée
+dotnet_diagnostic.CA2329.severity = error
+
+# CA2330: Vérifiez que JsonSerializer a une configuration sécurisée au moment de la désérialisation
+dotnet_diagnostic.CA2330.severity = error
+
+# CA2350: Ne pas utiliser DataTable.ReadXml() avec des données non fiables
+dotnet_diagnostic.CA2350.severity = error
+
+# CA2351: Ne pas utiliser DataSet.ReadXml() avec des données non fiables
+dotnet_diagnostic.CA2351.severity = error
+
+# CA2352: Un DataSet ou DataTable non sécurisé dans un type sérialisable peut être vulnérable aux attaques par exécution de code à distance
+dotnet_diagnostic.CA2352.severity = error
+
+# CA2353: DataSet ou DataTable non sécurisé dans un type sérialisable
+dotnet_diagnostic.CA2353.severity = error
+
+# CA2354: Un DataSet ou DataTable non sécurisé dans un graphe d'objets désérialisé peut être vulnérable aux attaques par exécution de code à distance
+dotnet_diagnostic.CA2354.severity = error
+
+# CA2355: Type DataSet ou DataTable non sécurisé trouvé dans le graphe d'objets désérialisable
+dotnet_diagnostic.CA2355.severity = error
+
+# CA2356: Type DataSet ou DataTable non sécurisé trouvé dans un graphe d'objets désérialisable web
+dotnet_diagnostic.CA2356.severity = error
+
+# CA2361: Vérifier que la classe générée automatiquement contenant DataSet.ReadXml() n'est pas utilisée avec des données non fiables
+dotnet_diagnostic.CA2361.severity = error
+
+# CA2362: Un DataSet ou DataTable non sécurisé dans un type sérialisable généré automatiquement peut être vulnérable aux attaques par exécution de code à distance
+dotnet_diagnostic.CA2362.severity = error
+
+
+# CA3001: Effectuer une revue du code pour détecter les vulnérabilités liées à une injection de code SQL
+dotnet_diagnostic.CA3001.severity = error
+
+# CA3002: Effectuer une revue du code pour détecter les vulnérabilités liées aux failles XSS
+dotnet_diagnostic.CA3002.severity = error
+
+# CA3003: Effectuer une revue du code pour détecter les vulnérabilités liées à une injection de chemin de fichier
+dotnet_diagnostic.CA3003.severity = error
+
+# CA3004: Effectuer une revue du code pour détecter les vulnérabilités liées à une divulgation d'informations
+dotnet_diagnostic.CA3004.severity = error
+
+# CA3005: Effectuer une revue du code pour détecter les vulnérabilités liées à une injection LDAP
+dotnet_diagnostic.CA3005.severity = error
+
+# CA3006: Effectuer une revue du code pour détecter les vulnérabilités liées à une injection de commande de processus
+dotnet_diagnostic.CA3006.severity = error
+
+# CA3007: Effectuer une revue du code pour détecter les vulnérabilités liées à une redirection ouverte
+dotnet_diagnostic.CA3007.severity = error
+
+# CA3008: Effectuer une revue du code pour détecter les vulnérabilités liées à une injection XPath
+dotnet_diagnostic.CA3008.severity = error
+
+# CA3009: Effectuer une revue du code pour détecter les vulnérabilités liées à une injection XML
+dotnet_diagnostic.CA3009.severity = error
+
+# CA3010: Effectuer une revue du code pour détecter les vulnérabilités liées à une injection XAML
+dotnet_diagnostic.CA3010.severity = error
+
+# CA3011: Effectuer une revue du code pour détecter les vulnérabilités liées à une injection de DLL
+dotnet_diagnostic.CA3011.severity = error
+
+# CA3012: Effectuer une revue du code pour détecter les vulnérabilités liées à une injection regex
+dotnet_diagnostic.CA3012.severity = error
+
+# CA3061: Ne pas ajouter de schéma par URL
+dotnet_diagnostic.CA3061.severity = error
+
+# CA3075: Traitement DTD non sécurisé dans le code XML
+dotnet_diagnostic.CA3075.severity = error
+
+# CA3147: Marquer les gestionnaires de verbes avec le jeton de validation antifalsification
+dotnet_diagnostic.CA3147.severity = error
+
+# CA5350: Ne pas utiliser d'algorithmes de chiffrement faibles
+dotnet_diagnostic.CA5350.severity = error
+
+# CA5351: Ne pas utiliser d'algorithmes de chiffrement cassés
+dotnet_diagnostic.CA5351.severity = error
+
+# CA5358: Passer en revue l'utilisation du mode de chiffrement avec des experts en chiffrement
+dotnet_diagnostic.CA5358.severity = error
+
+# CA5359: Ne pas désactiver la validation de certificat
+dotnet_diagnostic.CA5359.severity = error
+
+# CA5360: Ne pas appeler de méthodes dangereuses dans la désérialisation
+dotnet_diagnostic.CA5360.severity = error
+
+# CA5361: Ne pas désactiver l'utilisation du chiffrement fort par SChannel
+dotnet_diagnostic.CA5361.severity = error
+
+# CA5362: Cycle de référence potentiel dans un graphe d'objet désérialisé
+dotnet_diagnostic.CA5362.severity = error
+
+# CA5363: Ne pas désactiver la validation de requête
+dotnet_diagnostic.CA5363.severity = error
+
+# CA5364: Ne pas utiliser de protocoles de sécurité dépréciés
+dotnet_diagnostic.CA5364.severity = error
+
+# CA5365: Ne pas désactiver la vérification d'en-tête HTTP
+dotnet_diagnostic.CA5365.severity = error
+
+# CA5366: Utiliser XmlReader pour la lecture des données XML d'un jeu de données
+dotnet_diagnostic.CA5366.severity = error
+
+# CA5367: Ne pas sérialiser les types avec des champs de pointeur
+dotnet_diagnostic.CA5367.severity = error
+
+# CA5368: Définir ViewStateUserKey pour les classes dérivées de Page
+dotnet_diagnostic.CA5368.severity = error
+
+# CA5369: Utiliser XmlReader pour la désérialisation
+dotnet_diagnostic.CA5369.severity = error
+
+# CA5370: Utiliser XmlReader pour la validation d'un lecteur
+dotnet_diagnostic.CA5370.severity = error
+
+# CA5371: Utiliser XmlReader pour la lecture d'un schéma
+dotnet_diagnostic.CA5371.severity = error
+
+# CA5372: Utiliser XmlReader pour XPathDocument
+dotnet_diagnostic.CA5372.severity = error
+
+# CA5373: Ne pas utiliser de fonction de dérivation de clés obsolète
+dotnet_diagnostic.CA5373.severity = error
+
+# CA5374: Ne pas utiliser XslTransform
+dotnet_diagnostic.CA5374.severity = error
+
+# CA5375: Ne pas utiliser de signature d'accès partagé au compte
+dotnet_diagnostic.CA5375.severity = error
+
+# CA5376: Utiliser SharedAccessProtocol HttpsOnly
+dotnet_diagnostic.CA5376.severity = error
+
+# CA5377: Utiliser une stratégie d'accès au niveau du conteneur
+dotnet_diagnostic.CA5377.severity = error
+
+# CA5378: Ne pas désactiver ServicePointManagerSecurityProtocols
+dotnet_diagnostic.CA5378.severity = error
+
+# CA5379: N'utilisez pas l'algorithme de fonction de dérivation de clés faibles
+dotnet_diagnostic.CA5379.severity = error
+
+# CA5380: Ne pas ajouter de certificats au magasin racine
+dotnet_diagnostic.CA5380.severity = error
+
+# CA5381: Vérifier que les certificats ne sont pas ajoutés au magasin racine
+dotnet_diagnostic.CA5381.severity = error
+
+# CA5382: Utiliser des cookies sécurisés en ASP.Net Core
+dotnet_diagnostic.CA5382.severity = error
+
+# CA5383: Vérifier l'utilisation de cookies sécurisés en ASP.Net Core
+dotnet_diagnostic.CA5383.severity = error
+
+# CA5384: Ne pas utiliser DSA (Digital Signature Algorithm)
+dotnet_diagnostic.CA5384.severity = error
+
+# CA5385: Utiliser l'algorithme RSA (Rivest-Shamir-Adleman) avec une taille de clé suffisante
+dotnet_diagnostic.CA5385.severity = error
+
+# CA5386: Éviter tout codage en dur de la valeur de SecurityProtocolType
+dotnet_diagnostic.CA5386.severity = error
+
+# CA5387: N'utilisez pas la fonction de dérivation de clés faibles avec un nombre insuffisant d'itérations
+dotnet_diagnostic.CA5387.severity = error
+
+# CA5388: Vérifiez que le nombre d'itérations est suffisant durant l'utilisation de la fonction de dérivation de clés faibles
+dotnet_diagnostic.CA5388.severity = error
+
+# CA5389: Ne pas ajouter le chemin de l'élément d'archive au chemin du système de fichiers cible
+dotnet_diagnostic.CA5389.severity = error
+
+# CA5390: Ne pas coder en dur la clé de chiffrement
+dotnet_diagnostic.CA5390.severity = error
+
+# CA5391: Utilisez des jetons antifalsification dans les contrôleurs ASP.NET Core MVC
+dotnet_diagnostic.CA5391.severity = error
+
+# CA5392: Utilisez l'attribut DefaultDllImportSearchPaths pour les P/Invoke
+dotnet_diagnostic.CA5392.severity = error
+
+# CA5393: Ne pas utiliser de valeur non sécurisée pour DllImportSearchPath
+dotnet_diagnostic.CA5393.severity = error
+
+# CA5394: Ne pas utiliser de sélection aléatoire non sécurisée
+dotnet_diagnostic.CA5394.severity = error
+
+# CA5395: Attribut HttpVerb manquant pour les méthodes d'action
+dotnet_diagnostic.CA5395.severity = error
+
+# CA5396: Affectez la valeur true à HttpOnly pour HttpCookie
+dotnet_diagnostic.CA5396.severity = error
+
+# CA5397: N'utilisez pas de valeurs dépréciées pour SslProtocols
+dotnet_diagnostic.CA5397.severity = error
+
+# CA5398: Évitez de coder en dur les valeurs de SslProtocols
+dotnet_diagnostic.CA5398.severity = error
+
+# CA5399: HttpClients doit activer les vérifications de la liste de révocation de certificats
+dotnet_diagnostic.CA5399.severity = error
+
+# CA5400: Contrôlez si la vérification de la liste de révocation de certificats HttpClient est bien activée
+dotnet_diagnostic.CA5400.severity = error
+
+# CA5401: Ne pas utiliser CreateEncryptor avec une valeur IV non définie par défaut
+dotnet_diagnostic.CA5401.severity = error
+
+# CA5402: Utiliser CreateEncryptor avec la valeur par défaut IV 
+dotnet_diagnostic.CA5402.severity = error
+
+# CA5403: Ne pas coder en dur le certificat
+dotnet_diagnostic.CA5403.severity = error
+
+# IL3000: Évitez d'utiliser l'accès du chemin du fichier d'assembly lors de la publication en tant qu'application monofichier
+dotnet_diagnostic.IL3000.severity = error
+
+# IL3001: Évitez d'utiliser l'accès du chemin du fichier d'assembly lors de la publication en tant qu'application monofichier
+dotnet_diagnostic.IL3001.severity = error

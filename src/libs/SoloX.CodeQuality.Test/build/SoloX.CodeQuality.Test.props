@@ -1,32 +1,30 @@
 ﻿<Project>
 
   <PropertyGroup>
-    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    <WarningsAsErrors />
-    <CodeAnalysisRuleSet />
     <DocumentationFile>$(OutputPath)$(MSBuildProjectName).xml</DocumentationFile>
-    <NoWarn>$(NoWarn),1573,1591,1712</NoWarn>
-    <CodeAnalysisRuleSet>$(MSBuildThisFileDirectory)..\resources\SoloX.CodeQuality.Test.ruleset</CodeAnalysisRuleSet>
-  </PropertyGroup>
 
-  <PropertyGroup>
-    <Features>$(Features);flow-analysis</Features>
+    <EnableNETAnalyzers>true</EnableNETAnalyzers>
+    <AnalysisLevel>latest</AnalysisLevel>
+
+    <AnalysisMode>AllEnabledByDefault</AnalysisMode>
+    <!--<AnalysisMode>AllDisabledByDefault</AnalysisMode>-->
+    <!--<AnalysisMode>Default</AnalysisMode>-->
+
+    <CodeAnalysisTreatWarningsAsErrors>true</CodeAnalysisTreatWarningsAsErrors>
+    <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+
+    <CodeQualityOverrideEditorConfig>true</CodeQualityOverrideEditorConfig>
+    <CodeQualityFieldsUseUnderscorStyle>false</CodeQualityFieldsUseUnderscorStyle>
+
+    <NoWarn>$(NoWarn),CA1014,CS1591</NoWarn>
+
+
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="2.9.8">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
-    </PackageReference>
-    <PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
-    </PackageReference>
-  </ItemGroup>
 
-  <ItemGroup>
-    <AdditionalFiles Include="$(MSBuildThisFileDirectory)..\resources\stylecop.json"
-                     Link="stylecop.json" />
+    <GlobalAnalyzerConfigFiles Include="$(MSBuildThisFileDirectory)..\resources\global.editorconfig" />
+
   </ItemGroup>
 
 </Project>

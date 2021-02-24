@@ -5,11 +5,8 @@
 // </copyright>
 // ----------------------------------------------------------------------
 
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.Text;
 using Xunit;
 
 namespace SoloX.CodeQuality.Test.Helpers
@@ -37,8 +34,8 @@ namespace SoloX.CodeQuality.Test.Helpers
         /// <param name="location">Location where to find the snapshots folder.</param>
         public static void AssertSnapshot(string generated, string snapshotName, string location)
         {
-            string snapshotFolder = Path.Combine(location, SnapshotsFolderName);
-            string snapshotFile = Path.Combine(snapshotFolder, $"{snapshotName}.snapshot");
+            var snapshotFolder = Path.Combine(location, SnapshotsFolderName);
+            var snapshotFile = Path.Combine(snapshotFolder, $"{snapshotName}.snapshot");
 
             if (!Directory.Exists(snapshotFolder) && IsOverwriteEnable)
             {

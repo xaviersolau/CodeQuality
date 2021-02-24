@@ -5,10 +5,6 @@
 // </copyright>
 // ----------------------------------------------------------------------
 
-using System;
-using System.Collections.Generic;
-using System.Text;
-
 namespace SoloX.CodeQuality.Test.Helpers
 {
     public static class DotnetHelper
