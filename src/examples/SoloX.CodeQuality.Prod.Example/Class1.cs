@@ -20,7 +20,18 @@ namespace SoloX.CodeQuality.Prod.Example
         private readonly IList<IInterface1> values;
 
         /// <summary>
-        /// ctor.
+        /// 
+        /// </summary>
+        public static readonly string StaticValue = "tttt";
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public const string ConstValue = "tttt";
+
+
+        /// <summary>
+        /// 
         /// </summary>
         public Class1()
         {

@@ -1,0 +1,9 @@
+﻿
+# CS1591: Commentaire XML manquant pour le type ou le membre visible publiquement
+dotnet_diagnostic.CS1591.severity = none
+
+# CS1572: Le commentaire XML a une balise param, alors qu'il n'existe aucun paramètre de ce nom
+dotnet_diagnostic.CS1572.severity = error
+
+# CS0168: La variable est déclarée mais jamais utilisée
+dotnet_diagnostic.CS0168.severity = error

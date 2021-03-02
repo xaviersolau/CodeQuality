@@ -1,0 +1,8 @@
+﻿
+[*.{generated.cs,g.cs}]
+generated_code = true
+
+[*.razor.g.cs]
+
+# CS0169: La variable est déclarée mais jamais utilisée
+dotnet_diagnostic.CS0169.severity = error

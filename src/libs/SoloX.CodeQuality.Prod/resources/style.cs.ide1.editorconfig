@@ -1,0 +1,198 @@
+﻿
+[*.cs]
+
+#### Core EditorConfig Options ####
+
+# Indentation and spacing
+indent_size = 4
+indent_style = space
+tab_width = 4
+
+# New line preferences
+end_of_line = crlf
+insert_final_newline = false
+
+#### .NET Coding Conventions ####
+
+# Organize usings
+dotnet_separate_import_directive_groups = true:error
+dotnet_sort_system_directives_first = true:error
+
+# IDE0065: Directive using mal placée
+csharp_using_directive_placement = outside_namespace:error
+
+# IDE0005: La directive using n'est pas nécessaire.
+dotnet_diagnostic.IDE0005.severity = error
+
+# IDE0073: File header
+dotnet_diagnostic.IDE0073.severity = error
+file_header_template = ----------------------------------------------------------------------\n<copyright file="{fileName}" company="SoloX Software">\nCopyright (c) SoloX Software. All rights reserved.\nLicensed under the MIT license. See LICENSE file in the project root for full license information.\n</copyright>\n----------------------------------------------------------------------
+
+# IDE0044: Ajouter un modificateur readonly
+dotnet_diagnostic.IDE0044.severity = error
+
+# IDE0009: L'accès au membre doit être qualifié.
+dotnet_diagnostic.IDE0009.severity = error
+
+csharp_style_var_for_built_in_types = true:error
+csharp_style_var_when_type_is_apparent = true:error
+csharp_style_var_elsewhere = true:error
+
+# IDE0007: Utiliser un type implicite
+dotnet_diagnostic.IDE0007.severity = error
+
+# IDE0004: Supprimer le cast inutile
+dotnet_diagnostic.IDE0004.severity = error
+
+# IDE0011: Ajouter des accolades
+dotnet_diagnostic.IDE0011.severity = error
+
+csharp_style_throw_expression = false
+
+# IDE0016: Utiliser l'expression 'throw'
+dotnet_diagnostic.IDE0016.severity = error
+
+# IDE0036: Ordonner les modificateurs
+dotnet_diagnostic.IDE0036.severity = error
+
+# IDE0040: Ajouter des modificateurs d'accessibilité
+dotnet_diagnostic.IDE0040.severity = error
+
+# Consts PascalCase
+dotnet_naming_rule.consts_should_be_upper_case.severity = error
+dotnet_naming_rule.consts_should_be_upper_case.symbols = consts
+dotnet_naming_rule.consts_should_be_upper_case.style = const_style
+
+dotnet_naming_symbols.consts.applicable_kinds = field
+dotnet_naming_symbols.consts.required_modifiers = const
+
+dotnet_naming_style.const_style.capitalization = pascal_case
+
+# Static readonly PascalCase
+dotnet_naming_rule.static_readonly_fields_should_be_upper_case.severity = error
+dotnet_naming_rule.static_readonly_fields_should_be_upper_case.symbols = static_readonly_fields
+dotnet_naming_rule.static_readonly_fields_should_be_upper_case.style = static_readonly_field_style
+
+dotnet_naming_symbols.static_readonly_fields.applicable_kinds = field
+dotnet_naming_symbols.static_readonly_fields.required_modifiers = static, readonly
+
+dotnet_naming_style.static_readonly_field_style.capitalization = pascal_case
+
+# Instance fields, locals and parameter are camelCase
+dotnet_naming_rule.instance_fields_should_be_camel_case.severity = error
+dotnet_naming_rule.instance_fields_should_be_camel_case.symbols = instance_fields
+dotnet_naming_rule.instance_fields_should_be_camel_case.style = instance_field_style
+
+dotnet_naming_symbols.instance_fields.applicable_kinds = field, local, parameter, local_function
+
+dotnet_naming_style.instance_field_style.capitalization = camel_case
+dotnet_naming_style.instance_field_style.required_prefix = 
+
+# Interfaces are PascalCase and prefixed with I
+dotnet_naming_rule.interfaces_should_be_pascal_case.severity = error
+dotnet_naming_rule.interfaces_should_be_pascal_case.symbols = interfaces
+dotnet_naming_rule.interfaces_should_be_pascal_case.style = interface_style
+
+dotnet_naming_symbols.interfaces.applicable_kinds = interface
+
+dotnet_naming_style.interface_style.capitalization = pascal_case
+dotnet_naming_style.interface_style.required_prefix = I
+
+# Abstract classes are PascalCase and prefixed with A
+dotnet_naming_rule.abstract_classes_should_be_pascal_case.severity = error
+dotnet_naming_rule.abstract_classes_should_be_pascal_case.symbols = abstract_classes
+dotnet_naming_rule.abstract_classes_should_be_pascal_case.style = abstract_class_style
+
+dotnet_naming_symbols.abstract_classes.applicable_kinds = class
+dotnet_naming_symbols.abstract_classes.required_modifiers = abstract
+
+dotnet_naming_style.abstract_class_style.capitalization = pascal_case
+dotnet_naming_style.abstract_class_style.required_prefix = A
+
+# Type parameters are PascalCase and prefixed with T
+dotnet_naming_rule.abstract_classes_should_be_pascal_case.severity = error
+dotnet_naming_rule.abstract_classes_should_be_pascal_case.symbols = type_parameters
+dotnet_naming_rule.abstract_classes_should_be_pascal_case.style = type_parameter_style
+
+dotnet_naming_symbols.type_parameters.applicable_kinds = type_parameter
+
+dotnet_naming_style.type_parameter_style.capitalization = pascal_case
+dotnet_naming_style.type_parameter_style.required_prefix = T
+
+# Async methods are PascalCase and suffixed with Async
+dotnet_naming_rule.async_methods_should_be_pascal_case.severity = error
+dotnet_naming_rule.async_methods_should_be_pascal_case.symbols = async_methods
+dotnet_naming_rule.async_methods_should_be_pascal_case.style = async_method_style
+
+dotnet_naming_symbols.async_methods.applicable_kinds = method
+dotnet_naming_symbols.async_methods.required_modifiers = async
+
+dotnet_naming_style.async_method_style.capitalization = pascal_case
+dotnet_naming_style.async_method_style.required_suffix = Async
+
+# Events are PascalCase and suffixed with Event
+dotnet_naming_rule.events_should_be_pascal_case.severity = error
+dotnet_naming_rule.events_should_be_pascal_case.symbols = events
+dotnet_naming_rule.events_should_be_pascal_case.style = event_style
+
+dotnet_naming_symbols.events.applicable_kinds = event
+
+dotnet_naming_style.event_style.capitalization = pascal_case
+dotnet_naming_style.event_style.required_suffix = Event
+
+# Delegates are PascalCase and suffixed with Handler
+dotnet_naming_rule.delegates_should_be_pascal_case.severity = error
+dotnet_naming_rule.delegates_should_be_pascal_case.symbols = delegates
+dotnet_naming_rule.delegates_should_be_pascal_case.style = delegate_style
+
+dotnet_naming_symbols.delegates.applicable_kinds = delegate
+
+dotnet_naming_style.delegate_style.capitalization = pascal_case
+dotnet_naming_style.delegate_style.required_suffix = Handler
+
+# classes and properties are PascalCase
+dotnet_naming_rule.classes_and_properties_should_be_pascal_case.severity = error
+dotnet_naming_rule.classes_and_properties_should_be_pascal_case.symbols = classes_and_properties
+dotnet_naming_rule.classes_and_properties_should_be_pascal_case.style = class_and_property_style
+
+dotnet_naming_symbols.classes_and_properties.applicable_kinds = class, struct, enum, method, property, namespace
+
+dotnet_naming_style.class_and_property_style.capitalization = pascal_case
+dotnet_naming_style.class_and_property_style.required_prefix = 
+
+# IDE1006: Styles d'affectation de noms
+dotnet_diagnostic.IDE1006.severity = error
+
+# Avoid "this." and "Me." if not necessary
+dotnet_style_qualification_for_field = true:refactoring
+dotnet_style_qualification_for_property = false:refactoring
+dotnet_style_qualification_for_method = false:refactoring
+dotnet_style_qualification_for_event = false:refactoring
+
+# IDE0049: Simplifier les noms
+dotnet_diagnostic.IDE0049.severity = error
+
+# IDE0051: Supprimer les membres privés non utilisés
+dotnet_diagnostic.IDE0051.severity = error
+
+# IDE0055: Corriger la mise en forme
+dotnet_diagnostic.IDE0055.severity = error
+
+# IDE0010: Ajouter les instructions case manquantes
+dotnet_diagnostic.IDE0010.severity = error
+
+# IDE0034: Simplifier l'expression 'default'
+dotnet_diagnostic.IDE0034.severity = error
+
+# IDE0062: Rendre la fonction locale 'static'
+dotnet_diagnostic.IDE0062.severity = error
+
+# IDE0082: 'typeof' peut être converti en 'nameof'
+dotnet_diagnostic.IDE0082.severity = error
+
+# IDE0066: Convertir l'instruction switch en expression
+dotnet_diagnostic.IDE0066.severity = error
+
+# IDE0072: Ajouter les instructions case manquantes
+dotnet_diagnostic.IDE0072.severity = error
+

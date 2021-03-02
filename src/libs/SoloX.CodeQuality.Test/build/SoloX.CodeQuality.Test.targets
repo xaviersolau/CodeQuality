@@ -4,16 +4,76 @@
           Name="CodeQualityMain"
           BeforeTargets="BeforeBuild;BeforeRebuild;AfterResolveReferences">
 
-    <Copy Condition="$(CodeQualityFieldsUseUnderscorStyle) == false"
-          SourceFiles="$(MSBuildThisFileDirectory)../resources/style1.editorconfig"
-          DestinationFiles="$(MSBuildProjectDirectory)/.editorconfig"
-        />
+    <ItemGroup>
+      <OutputEditorConfigFile Include="$(MSBuildProjectDirectory)/.editorconfig" />
+      <CsCaEditorConfigFile Include="$(MSBuildThisFileDirectory)../resources/style.cs.compiler.ca.editorconfig" />
+      <CsCsEditorConfigFile Include="$(MSBuildThisFileDirectory)../resources/style.cs.compiler.cs.editorconfig" />
+      <Ide1EditorConfigFile Include="$(MSBuildThisFileDirectory)../resources/style.cs.ide1.editorconfig" />
+      <Ide2EditorConfigFile Include="$(MSBuildThisFileDirectory)../resources/style.cs.ide2.editorconfig" />
+      <GenEditorConfigFile Include="$(MSBuildThisFileDirectory)../resources/style.generated.editorconfig" />
+      <RazorEditorConfigFile Include="$(MSBuildThisFileDirectory)../resources/style.razor.editorconfig" />
+      <WebEditorConfigFile Include="$(MSBuildThisFileDirectory)../resources/style.web.editorconfig" />
+    </ItemGroup>
 
-    <Copy Condition="$(CodeQualityFieldsUseUnderscorStyle) == true"
-          SourceFiles="$(MSBuildThisFileDirectory)../resources/style2.editorconfig"
-          DestinationFiles="$(MSBuildProjectDirectory)/.editorconfig"
-        />
+    <ReadLinesFromFile File="@(WebEditorConfigFile)" >
+      <Output
+          TaskParameter="Lines"
+          ItemName="WebEditorConfigFileItems"/>
+    </ReadLinesFromFile>
+
+    <WriteLinesToFile File="@(OutputEditorConfigFile)" Lines="@(WebEditorConfigFileItems)"
+            Overwrite="true"/>
+
+    <ReadLinesFromFile File="@(RazorEditorConfigFile)" >
+      <Output
+          TaskParameter="Lines"
+          ItemName="RazorEditorConfigFileItems"/>
+    </ReadLinesFromFile>
+
+    <WriteLinesToFile File="@(OutputEditorConfigFile)" Lines="@(RazorEditorConfigFileItems)"/>
+
+    <ReadLinesFromFile File="@(GenEditorConfigFile)" >
+      <Output
+          TaskParameter="Lines"
+          ItemName="GenEditorConfigFileItems"/>
+    </ReadLinesFromFile>
+
+    <WriteLinesToFile File="@(OutputEditorConfigFile)" Lines="@(GenEditorConfigFileItems)"/>
+
+    <!-- Load IDE rules -->
+    <ReadLinesFromFile Condition="$(CodeQualityFieldsUseUnderscorStyle) == false"
+                       File="@(Ide1EditorConfigFile)" >
+      <Output
+          TaskParameter="Lines"
+          ItemName="IdeEditorConfigFileItems"/>
+    </ReadLinesFromFile>
+
+    <ReadLinesFromFile Condition="$(CodeQualityFieldsUseUnderscorStyle) == true"
+                   File="@(Ide2EditorConfigFile)" >
+      <Output
+          TaskParameter="Lines"
+          ItemName="IdeEditorConfigFileItems"/>
+    </ReadLinesFromFile>
+
+    <!-- Write IDE rules -->
+    <WriteLinesToFile File="@(OutputEditorConfigFile)" Lines="@(IdeEditorConfigFileItems)"/>
+
+    <ReadLinesFromFile File="@(CsCsEditorConfigFile)" >
+      <Output
+          TaskParameter="Lines"
+          ItemName="CsCsEditorConfigFileItems"/>
+    </ReadLinesFromFile>
+
+    <WriteLinesToFile File="@(OutputEditorConfigFile)" Lines="@(CsCsEditorConfigFileItems)"/>
+
+    <ReadLinesFromFile File="@(CsCaEditorConfigFile)" >
+      <Output
+          TaskParameter="Lines"
+          ItemName="CsCaEditorConfigFileItems"/>
+    </ReadLinesFromFile>
+
+    <WriteLinesToFile File="@(OutputEditorConfigFile)" Lines="@(CsCaEditorConfigFileItems)"/>
 
   </Target>
-  
+
 </Project>

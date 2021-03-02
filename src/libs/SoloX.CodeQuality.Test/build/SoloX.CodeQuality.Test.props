@@ -18,7 +18,6 @@
 
     <NoWarn>$(NoWarn),CA1014,CS1591</NoWarn>
 
-
   </PropertyGroup>
 
   <ItemGroup>

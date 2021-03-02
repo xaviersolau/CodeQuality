@@ -28,27 +28,27 @@ You can checkout this Github repository or you can use the NuGet package:
 
 **Install using the command line from the Package Manager:**
 ```bash
-Install-Package SoloX.CodeQuality.Prod -version 2.0.0-alpha.1
+Install-Package SoloX.CodeQuality.Prod -version 2.0.0-alpha.2
 or
-Install-Package SoloX.CodeQuality.Test -version 2.0.0-alpha.1
+Install-Package SoloX.CodeQuality.Test -version 2.0.0-alpha.2
 
-Install-Package SoloX.CodeQuality.Test.Helpers -version 2.0.0-alpha.1
+Install-Package SoloX.CodeQuality.Test.Helpers -version 2.0.0-alpha.2
 ```
 
 **Install using the .Net CLI:**
 ```bash
-dotnet add package SoloX.CodeQuality.Prod --version 2.0.0-alpha.1
+dotnet add package SoloX.CodeQuality.Prod --version 2.0.0-alpha.2
 or
-dotnet add package SoloX.CodeQuality.Test --version 2.0.0-alpha.1
+dotnet add package SoloX.CodeQuality.Test --version 2.0.0-alpha.2
 
-dotnet add package SoloX.CodeQuality.Test.Helpers --version 2.0.0-alpha.1
+dotnet add package SoloX.CodeQuality.Test.Helpers --version 2.0.0-alpha.2
 ```
 
 **Install editing your project file (csproj):**
 ```xml
-<PackageReference Include="SoloX.CodeQuality.Prod" Version="2.0.0-alpha.1" />
+<PackageReference Include="SoloX.CodeQuality.Prod" Version="2.0.0-alpha.2" />
 or
-<PackageReference Include="SoloX.CodeQuality.Test" Version="2.0.0-alpha.1" />
+<PackageReference Include="SoloX.CodeQuality.Test" Version="2.0.0-alpha.2" />
 
-<PackageReference Include="SoloX.CodeQuality.Test.Helpers" Version="2.0.0-alpha.1" />
+<PackageReference Include="SoloX.CodeQuality.Test.Helpers" Version="2.0.0-alpha.2" />
 ```

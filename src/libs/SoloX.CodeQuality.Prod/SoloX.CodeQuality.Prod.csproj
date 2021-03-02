@@ -20,12 +20,28 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="resources\style.cs.compiler.ca.editorconfig" />
+    <None Remove="resources\style.cs.compiler.cs.editorconfig" />
+    <None Remove="resources\style.cs.ide1.editorconfig" />
+    <None Remove="resources\style.cs.ide2.editorconfig" />
+    <None Remove="resources\style.generated.editorconfig" />
+    <None Remove="resources\style.razor.editorconfig" />
+    <None Remove="resources\style.web.editorconfig" />
+    <None Remove="resources\global.editorconfig" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Include="buildMultiTargeting\SoloX.CodeQuality.Prod.props" PackagePath="buildMultiTargeting\" />
     <Content Include="buildMultiTargeting\SoloX.CodeQuality.Prod.targets" PackagePath="buildMultiTargeting\" />
     <Content Include="build\SoloX.CodeQuality.Prod.props" PackagePath="build\" />
     <Content Include="build\SoloX.CodeQuality.Prod.targets" PackagePath="build\" />
-    <Content Include="resources\style2.editorconfig" PackagePath="resources\" />
-    <Content Include="resources\style1.editorconfig" PackagePath="resources\" />
+    <Content Include="resources\style.cs.compiler.ca.editorconfig" PackagePath="resources\" />
+    <Content Include="resources\style.web.editorconfig" PackagePath="resources\" />
+    <Content Include="resources\style.razor.editorconfig" PackagePath="resources\" />
+    <Content Include="resources\style.generated.editorconfig" PackagePath="resources\" />
+    <Content Include="resources\style.cs.ide1.editorconfig" PackagePath="resources\" />
+    <Content Include="resources\style.cs.ide2.editorconfig" PackagePath="resources\" />
+    <Content Include="resources\style.cs.compiler.cs.editorconfig" PackagePath="resources\" />
     <Content Include="resources\global.editorconfig" PackagePath="resources\" />
   </ItemGroup>
 

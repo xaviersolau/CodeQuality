@@ -1,7 +1,7 @@
 ﻿<Project>
 
   <PropertyGroup>
-    <DocumentationFile>$(OutputPath)$(MSBuildProjectName).xml</DocumentationFile>
+    <DocumentationFile>$(IntermediateOutputPath)$(MSBuildProjectName).xml</DocumentationFile>
 
     <EnableNETAnalyzers>true</EnableNETAnalyzers>
     <AnalysisLevel>latest</AnalysisLevel>

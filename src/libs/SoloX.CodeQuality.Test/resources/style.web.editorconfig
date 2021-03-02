@@ -1,0 +1,14 @@
+﻿
+[*.{xml,html,css,js,json,resx}]
+
+#### Core EditorConfig Options ####
+
+# Indentation and spacing
+indent_size = 2
+indent_style = space
+tab_width = 2
+
+# New line preferences
+end_of_line = crlf
+insert_final_newline = false
+

@@ -9,9 +9,11 @@ namespace SoloX.CodeQuality.Test.Example
 {
     public static class Class1
     {
+        private const string TestCase = "trtrt";
+
         public static int MethodPublic()
         {
-            return 2;
+            return TestCase.Length;
         }
     }
 }
