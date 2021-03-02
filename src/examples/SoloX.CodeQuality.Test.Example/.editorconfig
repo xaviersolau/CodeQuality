@@ -5,7 +5,7 @@ indent_size = 2
 indent_style = space
 tab_width = 2
 # New line preferences
-end_of_line = lf
+end_of_line = crlf
 insert_final_newline = false
 [*.{razor,cshtml}]
 #### Core EditorConfig Options ####
@@ -14,7 +14,7 @@ indent_size = 4
 indent_style = space
 tab_width = 4
 # New line preferences
-end_of_line = lf
+end_of_line = crlf
 insert_final_newline = false
 [*.{generated.cs,g.cs}]
 generated_code = true
@@ -28,7 +28,7 @@ indent_size = 4
 indent_style = space
 tab_width = 4
 # New line preferences
-end_of_line = lf
+end_of_line = crlf
 insert_final_newline = false
 #### .NET Coding Conventions ####
 # Organize usings
@@ -40,7 +40,7 @@ csharp_using_directive_placement = outside_namespace:error
 dotnet_diagnostic.IDE0005.severity = error
 # IDE0073: File header
 dotnet_diagnostic.IDE0073.severity = error
-file_header_template = ----------------------------------------------------------------------\n<copyright file="{fileName}" company="SoloX Software">\nCopyright (c) SoloX Software. All rights reserved.\nLicensed under the MIT license. See LICENSE file in the project root for full license information.\n</copyright>\n----------------------------------------------------------------------
+file_header_template = ----------------------------------------------------------------------\r\n<copyright file="{fileName}" company="SoloX Software">\r\nCopyright (c) SoloX Software. All rights reserved.\r\nLicensed under the MIT license. See LICENSE file in the project root for full license information.\r\n</copyright>\r\n----------------------------------------------------------------------
 # IDE0044: Ajouter un modificateur readonly
 dotnet_diagnostic.IDE0044.severity = error
 # IDE0009: L'accès au membre doit être qualifié.
