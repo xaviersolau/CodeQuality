@@ -5,7 +5,7 @@ indent_size = 2
 indent_style = space
 tab_width = 2
 # New line preferences
-end_of_line = crlf
+end_of_line = lf
 insert_final_newline = false
 [*.{razor,cshtml}]
 #### Core EditorConfig Options ####
@@ -14,7 +14,7 @@ indent_size = 4
 indent_style = space
 tab_width = 4
 # New line preferences
-end_of_line = crlf
+end_of_line = lf
 insert_final_newline = false
 [*.{generated.cs,g.cs}]
 generated_code = true
@@ -28,7 +28,7 @@ indent_size = 4
 indent_style = space
 tab_width = 4
 # New line preferences
-end_of_line = crlf
+end_of_line = lf
 insert_final_newline = false
 #### .NET Coding Conventions ####
 # Organize usings
