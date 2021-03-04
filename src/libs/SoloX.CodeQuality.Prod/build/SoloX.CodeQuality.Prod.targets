@@ -1,5 +1,31 @@
 ﻿<Project>
 
+  <UsingTask
+      TaskName="CopyTextFile"
+      TaskFactory="RoslynCodeTaskFactory"
+      AssemblyFile="$(MSBuildToolsPath)\Microsoft.Build.Tasks.Core.dll">
+    <ParameterGroup>
+      <InputFilename ParameterType="System.String" Required="true" />
+      <OutputFilename ParameterType="System.String" Required="true" />
+      <Overwrite ParameterType="System.Boolean" Required="true" />
+    </ParameterGroup>
+    <Task>
+      <Using Namespace="System.IO"/>
+      <Code Type="Fragment" Language="cs">
+        <![CDATA[  
+            if (Overwrite)
+            {
+                File.WriteAllText(OutputFilename, File.ReadAllText(InputFilename));
+            }
+            else
+            {
+                File.AppendAllText(OutputFilename, File.ReadAllText(InputFilename));
+            }
+        ]]>
+      </Code>
+    </Task>
+  </UsingTask>
+
   <Target Condition="$(CodeQualityOverrideEditorConfig) == true"
           Name="CodeQualityMain"
           BeforeTargets="BeforeBuild;BeforeRebuild;AfterResolveReferences">
@@ -14,65 +40,23 @@
       <RazorEditorConfigFile Include="$(MSBuildThisFileDirectory)../resources/style.razor.editorconfig" />
       <WebEditorConfigFile Include="$(MSBuildThisFileDirectory)../resources/style.web.editorconfig" />
     </ItemGroup>
-    
-    <ReadLinesFromFile File="@(WebEditorConfigFile)" >
-      <Output
-          TaskParameter="Lines"
-          ItemName="WebEditorConfigFileItems"/>
-    </ReadLinesFromFile>
 
-    <WriteLinesToFile File="@(OutputEditorConfigFile)" Lines="@(WebEditorConfigFileItems)"
-            Overwrite="true"/>
-
-    <ReadLinesFromFile File="@(RazorEditorConfigFile)" >
-      <Output
-          TaskParameter="Lines"
-          ItemName="RazorEditorConfigFileItems"/>
-    </ReadLinesFromFile>
-
-    <WriteLinesToFile File="@(OutputEditorConfigFile)" Lines="@(RazorEditorConfigFileItems)"/>
-
-    <ReadLinesFromFile File="@(GenEditorConfigFile)" >
-      <Output
-          TaskParameter="Lines"
-          ItemName="GenEditorConfigFileItems"/>
-    </ReadLinesFromFile>
-
-    <WriteLinesToFile File="@(OutputEditorConfigFile)" Lines="@(GenEditorConfigFileItems)"/>
-
-    <!-- Load IDE rules -->
-    <ReadLinesFromFile Condition="$(CodeQualityFieldsUseUnderscorStyle) == false"
-                       File="@(Ide1EditorConfigFile)" >
-      <Output
-          TaskParameter="Lines"
-          ItemName="IdeEditorConfigFileItems"/>
-    </ReadLinesFromFile>
-
-    <ReadLinesFromFile Condition="$(CodeQualityFieldsUseUnderscorStyle) == true"
-                   File="@(Ide2EditorConfigFile)" >
-      <Output
-          TaskParameter="Lines"
-          ItemName="IdeEditorConfigFileItems"/>
-    </ReadLinesFromFile>
-
-    <!-- Write IDE rules -->
-    <WriteLinesToFile File="@(OutputEditorConfigFile)" Lines="@(IdeEditorConfigFileItems)"/>
-
-    <ReadLinesFromFile File="@(CsCsEditorConfigFile)" >
-      <Output
-          TaskParameter="Lines"
-          ItemName="CsCsEditorConfigFileItems"/>
-    </ReadLinesFromFile>
-
-    <WriteLinesToFile File="@(OutputEditorConfigFile)" Lines="@(CsCsEditorConfigFileItems)"/>
-
-    <ReadLinesFromFile File="@(CsCaEditorConfigFile)" >
-      <Output
-          TaskParameter="Lines"
-          ItemName="CsCaEditorConfigFileItems"/>
-    </ReadLinesFromFile>
-
-    <WriteLinesToFile File="@(OutputEditorConfigFile)" Lines="@(CsCaEditorConfigFileItems)"/>
+    <CopyTextFile
+      InputFilename="@(WebEditorConfigFile)" OutputFilename="@(OutputEditorConfigFile)" Overwrite="true" />
+    <CopyTextFile
+      InputFilename="@(RazorEditorConfigFile)" OutputFilename="@(OutputEditorConfigFile)" Overwrite="false" />
+    <CopyTextFile
+      InputFilename="@(GenEditorConfigFile)" OutputFilename="@(OutputEditorConfigFile)" Overwrite="false" />
+    <CopyTextFile
+      Condition="$(CodeQualityFieldsUseUnderscorStyle) == false"
+      InputFilename="@(Ide1EditorConfigFile)" OutputFilename="@(OutputEditorConfigFile)" Overwrite="false" />
+    <CopyTextFile
+      Condition="$(CodeQualityFieldsUseUnderscorStyle) == true"
+      InputFilename="@(Ide2EditorConfigFile)" OutputFilename="@(OutputEditorConfigFile)" Overwrite="false" />
+    <CopyTextFile
+      InputFilename="@(CsCsEditorConfigFile)" OutputFilename="@(OutputEditorConfigFile)" Overwrite="false" />
+    <CopyTextFile
+      InputFilename="@(CsCaEditorConfigFile)" OutputFilename="@(OutputEditorConfigFile)" Overwrite="false" />
 
   </Target>
   
