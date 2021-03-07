@@ -30,32 +30,36 @@ You can checkout this Github repository or you can use the NuGet package:
 
 **Install using the command line from the Package Manager:**
 ```bash
-Install-Package SoloX.CodeQuality.Prod -version 2.0.0
+Install-Package SoloX.CodeQuality.Prod -version 2.0.1
 or
-Install-Package SoloX.CodeQuality.Test -version 2.0.0
+Install-Package SoloX.CodeQuality.Test -version 2.0.1
 
-Install-Package SoloX.CodeQuality.Test.Helpers -version 2.0.0
+Install-Package SoloX.CodeQuality.Test.Helpers -version 2.0.1
 ```
 
 **Install using the .Net CLI:**
 ```bash
-dotnet add package SoloX.CodeQuality.Prod --version 2.0.0
+dotnet add package SoloX.CodeQuality.Prod --version 2.0.1
 or
-dotnet add package SoloX.CodeQuality.Test --version 2.0.0
+dotnet add package SoloX.CodeQuality.Test --version 2.0.1
 
-dotnet add package SoloX.CodeQuality.Test.Helpers --version 2.0.0
+dotnet add package SoloX.CodeQuality.Test.Helpers --version 2.0.1
 ```
 
 **Install editing your project file (csproj):**
 ```xml
-<PackageReference Include="SoloX.CodeQuality.Prod" Version="2.0.0" />
+<PackageReference Include="SoloX.CodeQuality.Prod" Version="2.0.1" />
 or
-<PackageReference Include="SoloX.CodeQuality.Test" Version="2.0.0" />
+<PackageReference Include="SoloX.CodeQuality.Test" Version="2.0.1" />
 
-<PackageReference Include="SoloX.CodeQuality.Test.Helpers" Version="2.0.0" />
+<PackageReference Include="SoloX.CodeQuality.Test.Helpers" Version="2.0.1" />
 ```
 
+ * * *
+
 ## Options
+
+### .editorconfig file generation
 
 By default, using the Nuget in your project will generate a `.editorconfig` file in your project root folder.
 Note that it will override the file if is already exists in your project folder. You can disable the override
@@ -66,6 +70,8 @@ by setting the property `CodeQualityOverrideEditorConfig` to `false` in the `csp
     <CodeQualityOverrideEditorConfig>false</CodeQualityOverrideEditorConfig>
   </PropertyGroup>
 ```
+
+### Felds coding style rules
 
 The default coding style rules of the fields are defined as **camelCase** and the field access must be write with the
 `this.` prefix. But on this point this is also common to use the `_` as prefix with **camelCase** naming and
@@ -78,3 +84,71 @@ In order to enable this underscore style you can set the property in the `csproj
   </PropertyGroup>
 ```
 
+### File header options
+
+File header are required in the C# files by default. The header is defined with the following pattern:
+
+```csharp
+// ----------------------------------------------------------------------
+// <copyright file="{FileName}" company="{Authors}">
+// {Copyright}.
+// Licensed under the {LicenseName} license.
+// See {LicenseFile} file in the project root for full license information.
+// </copyright>
+// ----------------------------------------------------------------------
+
+```
+
+| Variable    | Description                                                                   |
+|-------------|-------------------------------------------------------------------------------|
+| FileName    | is basically the C# file name.                                                |
+| Authors     | is the Authors list and can be defined with the property `CodeQualityHeaderCompanyName` or `Authors` (also used in NuGet package definition) |
+| Copyright   | is the copyright message list and can be defined with the property `CodeQualityHeaderCopyright` or `Copyright` (also used in NuGet package definition) |
+| LicenseName | is the name of the license you use. It can be defined with the property `CodeQualityHeaderLicense` or `PackageLicenseExpression` (also used in NuGet package definition) |
+| LicenseFile | is the file path of the license you use. It can be defined with the property `CodeQualityHeaderLicenseFile`. |
+
+Here is a full header configuration example:
+
+```xml
+  <PropertyGroup>
+    <CodeQualityHeaderEnable>true</CodeQualityHeaderEnable>
+    <CodeQualityHeaderCompanyName>MyComany</CodeQualityHeaderCompanyName>
+    <CodeQualityHeaderCopyright>Copyright © 2021 MyComany</CodeQualityHeaderCopyright>
+    <CodeQualityHeaderLicense>MIT</CodeQualityHeaderLicense>
+    <CodeQualityHeaderLicenseFile>LICENSE</CodeQualityHeaderLicenseFile>
+  </PropertyGroup>
+```
+
+or using the package properties:
+
+```xml
+  <PropertyGroup>
+    <CodeQualityHeaderEnable>true</CodeQualityHeaderEnable>
+    <Authors>MyComany</Authors>
+    <Copyright>Copyright © 2021 MyComany</Copyright>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <CodeQualityHeaderLicenseFile>LICENSE</CodeQualityHeaderLicenseFile>
+  </PropertyGroup>
+```
+
+Resulting in this header:
+
+```csharp
+// ----------------------------------------------------------------------
+// <copyright file="MyFile.cs" company="MyComany">
+// Copyright © 2021 MyComany.
+// Licensed under the MIT license.
+// See LICENSE file in the project root for full license information.
+// </copyright>
+// ----------------------------------------------------------------------
+
+```
+
+Note that you can disable this header file rule by setting the property
+`CodeQualityHeaderEnable` to `false` in the `csproj` file:
+
+```xml
+  <PropertyGroup>
+    <CodeQualityHeaderEnable>false</CodeQualityHeaderEnable>
+  </PropertyGroup>
+```

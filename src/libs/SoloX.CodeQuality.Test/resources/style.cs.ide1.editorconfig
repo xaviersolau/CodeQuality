@@ -24,10 +24,6 @@ csharp_using_directive_placement = outside_namespace:error
 # IDE0005: La directive using n'est pas nécessaire.
 dotnet_diagnostic.IDE0005.severity = error
 
-# IDE0073: File header
-dotnet_diagnostic.IDE0073.severity = error
-file_header_template = ----------------------------------------------------------------------\n<copyright file="{fileName}" company="SoloX Software">\nCopyright (c) SoloX Software. All rights reserved.\nLicensed under the MIT license. See LICENSE file in the project root for full license information.\n</copyright>\n----------------------------------------------------------------------
-
 # IDE0044: Ajouter un modificateur readonly
 dotnet_diagnostic.IDE0044.severity = error
 

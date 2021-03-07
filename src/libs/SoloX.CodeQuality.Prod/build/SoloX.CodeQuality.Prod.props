@@ -1,7 +1,7 @@
 ﻿<Project>
 
   <PropertyGroup>
-    <DocumentationFile>$(IntermediateOutputPath)$(MSBuildProjectName).xml</DocumentationFile>
+    <DocumentationFile>$(OutputPath)$(MSBuildProjectName).xml</DocumentationFile>
 
     <EnableNETAnalyzers>true</EnableNETAnalyzers>
     <AnalysisLevel>latest</AnalysisLevel>
@@ -15,6 +15,17 @@
 
     <CodeQualityOverrideEditorConfig>true</CodeQualityOverrideEditorConfig>
     <CodeQualityFieldsUseUnderscorStyle>false</CodeQualityFieldsUseUnderscorStyle>
+
+    <CodeQualityHeaderEnable>true</CodeQualityHeaderEnable>
+
+    <CodeQualityHeaderCompanyName Condition="'$(Authors)' == ''" >(Please define CodeQualityHeaderCompanyName or Authors property)</CodeQualityHeaderCompanyName>
+    <CodeQualityHeaderCopyright Condition="'$(Copyright)' == ''" >(Please define CodeQualityHeaderCopyright or Copyright property)</CodeQualityHeaderCopyright>
+    <CodeQualityHeaderLicense Condition="'$(PackageLicenseExpression)' == ''" >(Please define CodeQualityHeaderLicense or PackageLicenseExpression property)</CodeQualityHeaderLicense>
+    <CodeQualityHeaderLicenseFile>LICENSE</CodeQualityHeaderLicenseFile>
+
+    <CodeQualityHeaderCompanyName Condition="'$(Authors)' != ''" >$(Authors)</CodeQualityHeaderCompanyName>
+    <CodeQualityHeaderCopyright Condition="'$(Copyright)' != ''" >$(Copyright)</CodeQualityHeaderCopyright>
+    <CodeQualityHeaderLicense Condition="'$(PackageLicenseExpression)' != ''" >$(PackageLicenseExpression)</CodeQualityHeaderLicense>
 
     <NoWarn>$(NoWarn),CA1014</NoWarn>
 

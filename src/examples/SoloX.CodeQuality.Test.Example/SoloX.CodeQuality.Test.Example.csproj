@@ -1,5 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
+  <Import Project="../../SharedProperties.props" />
+
   <Import Project="../../libs/SoloX.CodeQuality.Test/build/SoloX.CodeQuality.Test.props" />
 
   <Import Project="../../libs/SoloX.CodeQuality.Test/build/SoloX.CodeQuality.Test.targets" />
