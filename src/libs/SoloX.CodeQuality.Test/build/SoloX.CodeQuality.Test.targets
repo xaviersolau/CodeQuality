@@ -1,6 +1,31 @@
 ﻿<Project>
 
   <UsingTask
+      TaskName="ReplaceTextFile"
+      TaskFactory="RoslynCodeTaskFactory"
+      AssemblyFile="$(MSBuildToolsPath)\Microsoft.Build.Tasks.Core.dll">
+    <ParameterGroup>
+      <InputFilename ParameterType="System.String" Required="true" />
+      <OutputFilename ParameterType="System.String" Required="true" />
+    </ParameterGroup>
+    <Task>
+      <Using Namespace="System"/>
+      <Using Namespace="System.IO"/>
+      <Code Type="Fragment" Language="cs">
+        <![CDATA[
+            var inputTxt = File.ReadAllText(InputFilename);
+            var outputTxt = File.Exists(OutputFilename) ? File.ReadAllText(OutputFilename) : string.Empty;
+
+            if (!inputTxt.Equals(outputTxt, StringComparison.Ordinal))
+            {
+                File.WriteAllText(OutputFilename, inputTxt);
+            }
+        ]]>
+      </Code>
+    </Task>
+  </UsingTask>
+
+  <UsingTask
       TaskName="CopyTextFile"
       TaskFactory="RoslynCodeTaskFactory"
       AssemblyFile="$(MSBuildToolsPath)\Microsoft.Build.Tasks.Core.dll">
@@ -27,6 +52,12 @@
                 }
             }
 
+            var outputDirectory = Path.GetDirectoryName(OutputFilename);
+            if (!Directory.Exists(outputDirectory))
+            {
+                Directory.CreateDirectory(outputDirectory);
+            }
+
             if (Overwrite)
             {
                 File.WriteAllText(OutputFilename, txt);
@@ -46,6 +77,7 @@
 
     <ItemGroup>
       <OutputEditorConfigFile Include="$(MSBuildProjectDirectory)/.editorconfig" />
+      <IntermediateOutputEditorConfigFile Include="$(IntermediateOutputPath)/.editorconfig" />
       <CsCaEditorConfigFile Include="$(MSBuildThisFileDirectory)../resources/style.cs.compiler.ca.editorconfig" />
       <CsCsEditorConfigFile Include="$(MSBuildThisFileDirectory)../resources/style.cs.compiler.cs.editorconfig" />
       <Ide1EditorConfigFile Include="$(MSBuildThisFileDirectory)../resources/style.cs.ide1.editorconfig" />
@@ -58,28 +90,30 @@
     </ItemGroup>
 
     <CopyTextFile
-      InputFilename="@(WebEditorConfigFile)" OutputFilename="@(OutputEditorConfigFile)" Overwrite="true" />
+      InputFilename="@(WebEditorConfigFile)" OutputFilename="@(IntermediateOutputEditorConfigFile)" Overwrite="true" />
     <CopyTextFile
-      InputFilename="@(RazorEditorConfigFile)" OutputFilename="@(OutputEditorConfigFile)" />
+      InputFilename="@(RazorEditorConfigFile)" OutputFilename="@(IntermediateOutputEditorConfigFile)" />
     <CopyTextFile
-      InputFilename="@(GenEditorConfigFile)" OutputFilename="@(OutputEditorConfigFile)" />
+      InputFilename="@(GenEditorConfigFile)" OutputFilename="@(IntermediateOutputEditorConfigFile)" />
     <CopyTextFile
       Condition="$(CodeQualityFieldsUseUnderscorStyle) == false"
-      InputFilename="@(Ide1EditorConfigFile)" OutputFilename="@(OutputEditorConfigFile)" />
+      InputFilename="@(Ide1EditorConfigFile)" OutputFilename="@(IntermediateOutputEditorConfigFile)" />
     <CopyTextFile
       Condition="$(CodeQualityFieldsUseUnderscorStyle) == true"
-      InputFilename="@(Ide2EditorConfigFile)" OutputFilename="@(OutputEditorConfigFile)" />
+      InputFilename="@(Ide2EditorConfigFile)" OutputFilename="@(IntermediateOutputEditorConfigFile)" />
     <CopyTextFile
       Condition="$(CodeQualityHeaderEnable) == false"
-      InputFilename="@(HeaderNoneEditorConfigFile)" OutputFilename="@(OutputEditorConfigFile)" />
+      InputFilename="@(HeaderNoneEditorConfigFile)" OutputFilename="@(IntermediateOutputEditorConfigFile)" />
     <CopyTextFile
       Condition="$(CodeQualityHeaderEnable) == true"
-      InputFilename="@(HeaderCopyrightEditorConfigFile)" OutputFilename="@(OutputEditorConfigFile)"
+      InputFilename="@(HeaderCopyrightEditorConfigFile)" OutputFilename="@(IntermediateOutputEditorConfigFile)"
       Replace="companyName=$(CodeQualityHeaderCompanyName);copyright=$(CodeQualityHeaderCopyright);license=$(CodeQualityHeaderLicense);licenseFile=$(CodeQualityHeaderLicenseFile)"/>
     <CopyTextFile
-      InputFilename="@(CsCsEditorConfigFile)" OutputFilename="@(OutputEditorConfigFile)" />
+      InputFilename="@(CsCsEditorConfigFile)" OutputFilename="@(IntermediateOutputEditorConfigFile)" />
     <CopyTextFile
-      InputFilename="@(CsCaEditorConfigFile)" OutputFilename="@(OutputEditorConfigFile)" />
+      InputFilename="@(CsCaEditorConfigFile)" OutputFilename="@(IntermediateOutputEditorConfigFile)" />
+    <ReplaceTextFile
+      InputFilename="@(IntermediateOutputEditorConfigFile)" OutputFilename="@(OutputEditorConfigFile)" />
 
   </Target>
 

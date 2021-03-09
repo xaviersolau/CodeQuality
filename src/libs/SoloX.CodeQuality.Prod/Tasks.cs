@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 
 namespace SoloX.CodeQuality.Prod
 {
@@ -23,6 +24,12 @@ namespace SoloX.CodeQuality.Prod
                 }
             }
 
+            var outputDirectory = Path.GetDirectoryName(OutputFilename);
+            if (!Directory.Exists(outputDirectory))
+            {
+                Directory.CreateDirectory(outputDirectory);
+            }
+
             if (Overwrite)
             {
                 File.WriteAllText(OutputFilename, txt);
@@ -30,6 +37,17 @@ namespace SoloX.CodeQuality.Prod
             else
             {
                 File.AppendAllText(OutputFilename, txt);
+            }
+        }
+
+        public void ReplaceTextFile()
+        {
+            var inputTxt = File.ReadAllText(InputFilename);
+            var outputTxt = File.Exists(OutputFilename) ? File.ReadAllText(OutputFilename) : string.Empty;
+
+            if (!inputTxt.Equals(outputTxt, StringComparison.Ordinal))
+            {
+                File.WriteAllText(OutputFilename, inputTxt);
             }
         }
     }
