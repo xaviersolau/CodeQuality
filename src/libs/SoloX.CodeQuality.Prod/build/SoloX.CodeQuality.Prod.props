@@ -18,14 +18,10 @@
 
     <CodeQualityHeaderEnable>true</CodeQualityHeaderEnable>
 
-    <CodeQualityHeaderCompanyName Condition="'$(Authors)' == ''" >(Please define CodeQualityHeaderCompanyName or Authors property)</CodeQualityHeaderCompanyName>
-    <CodeQualityHeaderCopyright Condition="'$(Copyright)' == ''" >(Please define CodeQualityHeaderCopyright or Copyright property)</CodeQualityHeaderCopyright>
-    <CodeQualityHeaderLicense Condition="'$(PackageLicenseExpression)' == ''" >(Please define CodeQualityHeaderLicense or PackageLicenseExpression property)</CodeQualityHeaderLicense>
-    <CodeQualityHeaderLicenseFile>LICENSE</CodeQualityHeaderLicenseFile>
-
-    <CodeQualityHeaderCompanyName Condition="'$(Authors)' != ''" >$(Authors)</CodeQualityHeaderCompanyName>
-    <CodeQualityHeaderCopyright Condition="'$(Copyright)' != ''" >$(Copyright)</CodeQualityHeaderCopyright>
-    <CodeQualityHeaderLicense Condition="'$(PackageLicenseExpression)' != ''" >$(PackageLicenseExpression)</CodeQualityHeaderLicense>
+    <CodeQualityHeaderCompanyName Condition="'$(CodeQualityHeaderCompanyName)' == ''" >(Please define CodeQualityHeaderCompanyName property)</CodeQualityHeaderCompanyName>
+    <CodeQualityHeaderCopyright Condition="'$(CodeQualityHeaderCopyright)' == ''" >(Please define CodeQualityHeaderCopyright property)</CodeQualityHeaderCopyright>
+    <CodeQualityHeaderLicense Condition="'$(CodeQualityHeaderLicense)' == ''" >(Please define CodeQualityHeaderLicense property)</CodeQualityHeaderLicense>
+    <CodeQualityHeaderLicenseFile Condition="'$(CodeQualityHeaderLicenseFile)' == ''" >(Please define CodeQualityHeaderLicenseFile property)</CodeQualityHeaderLicenseFile>
 
     <NoWarn>$(NoWarn),CA1014</NoWarn>
 

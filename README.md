@@ -30,29 +30,29 @@ You can checkout this Github repository or you can use the NuGet package:
 
 **Install using the command line from the Package Manager:**
 ```bash
-Install-Package SoloX.CodeQuality.Prod -version 2.0.1
+Install-Package SoloX.CodeQuality.Prod -version 2.0.2
 or
-Install-Package SoloX.CodeQuality.Test -version 2.0.1
+Install-Package SoloX.CodeQuality.Test -version 2.0.2
 
-Install-Package SoloX.CodeQuality.Test.Helpers -version 2.0.1
+Install-Package SoloX.CodeQuality.Test.Helpers -version 2.0.2
 ```
 
 **Install using the .Net CLI:**
 ```bash
-dotnet add package SoloX.CodeQuality.Prod --version 2.0.1
+dotnet add package SoloX.CodeQuality.Prod --version 2.0.2
 or
-dotnet add package SoloX.CodeQuality.Test --version 2.0.1
+dotnet add package SoloX.CodeQuality.Test --version 2.0.2
 
-dotnet add package SoloX.CodeQuality.Test.Helpers --version 2.0.1
+dotnet add package SoloX.CodeQuality.Test.Helpers --version 2.0.2
 ```
 
 **Install editing your project file (csproj):**
 ```xml
-<PackageReference Include="SoloX.CodeQuality.Prod" Version="2.0.1" />
+<PackageReference Include="SoloX.CodeQuality.Prod" Version="2.0.2" />
 or
-<PackageReference Include="SoloX.CodeQuality.Test" Version="2.0.1" />
+<PackageReference Include="SoloX.CodeQuality.Test" Version="2.0.2" />
 
-<PackageReference Include="SoloX.CodeQuality.Test.Helpers" Version="2.0.1" />
+<PackageReference Include="SoloX.CodeQuality.Test.Helpers" Version="2.0.2" />
 ```
 
  * * *
@@ -102,9 +102,9 @@ File header are required in the C# files by default. The header is defined with 
 | Variable    | Description                                                                   |
 |-------------|-------------------------------------------------------------------------------|
 | FileName    | is basically the C# file name.                                                |
-| Authors     | is the Authors list and can be defined with the property `CodeQualityHeaderCompanyName` or `Authors` (also used in NuGet package definition) |
-| Copyright   | is the copyright message list and can be defined with the property `CodeQualityHeaderCopyright` or `Copyright` (also used in NuGet package definition) |
-| LicenseName | is the name of the license you use. It can be defined with the property `CodeQualityHeaderLicense` or `PackageLicenseExpression` (also used in NuGet package definition) |
+| Authors     | is the Authors list and can be defined with the property `CodeQualityHeaderCompanyName`. |
+| Copyright   | is the copyright message list and can be defined with the property `CodeQualityHeaderCopyright`. |
+| LicenseName | is the name of the license you use. It can be defined with the property `CodeQualityHeaderLicense`. |
 | LicenseFile | is the file path of the license you use. It can be defined with the property `CodeQualityHeaderLicenseFile`. |
 
 Here is a full header configuration example:
@@ -115,18 +115,6 @@ Here is a full header configuration example:
     <CodeQualityHeaderCompanyName>MyComany</CodeQualityHeaderCompanyName>
     <CodeQualityHeaderCopyright>Copyright © 2021 MyComany</CodeQualityHeaderCopyright>
     <CodeQualityHeaderLicense>MIT</CodeQualityHeaderLicense>
-    <CodeQualityHeaderLicenseFile>LICENSE</CodeQualityHeaderLicenseFile>
-  </PropertyGroup>
-```
-
-or using the package properties:
-
-```xml
-  <PropertyGroup>
-    <CodeQualityHeaderEnable>true</CodeQualityHeaderEnable>
-    <Authors>MyComany</Authors>
-    <Copyright>Copyright © 2021 MyComany</Copyright>
-    <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <CodeQualityHeaderLicenseFile>LICENSE</CodeQualityHeaderLicenseFile>
   </PropertyGroup>
 ```
@@ -142,6 +130,18 @@ Resulting in this header:
 // </copyright>
 // ----------------------------------------------------------------------
 
+```
+
+Note that you can also reuse the Nuget package properties if those are defined in your csproj file:
+
+```xml
+  <PropertyGroup>
+    <CodeQualityHeaderEnable>true</CodeQualityHeaderEnable>
+    <CodeQualityHeaderCompanyName>$(Authors)</CodeQualityHeaderCompanyName>
+    <CodeQualityHeaderCopyright>$(Copyright)</CodeQualityHeaderCopyright>
+    <CodeQualityHeaderLicense>$(PackageLicenseExpression)</CodeQualityHeaderLicense>
+    <CodeQualityHeaderLicenseFile>LICENSE</CodeQualityHeaderLicenseFile>
+  </PropertyGroup>
 ```
 
 Note that you can disable this header file rule by setting the property
