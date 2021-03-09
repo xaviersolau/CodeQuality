@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 
 namespace SoloX.CodeQuality.Prod
 {
@@ -48,6 +49,20 @@ namespace SoloX.CodeQuality.Prod
             if (!inputTxt.Equals(outputTxt, StringComparison.Ordinal))
             {
                 File.WriteAllText(OutputFilename, inputTxt);
+            }
+        }
+
+        public string Lines { get; set; }
+
+        public void AddTextLines()
+        {
+            var lines = Lines.Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries);
+            var outputLines = File.Exists(OutputFilename) ? File.ReadAllLines(OutputFilename) : Array.Empty<string>();
+
+            var linesToAdd = lines.Where(line => !outputLines.Contains(line)).ToArray();
+            if (linesToAdd.Any())
+            {
+                File.AppendAllLines(OutputFilename, linesToAdd);
             }
         }
     }

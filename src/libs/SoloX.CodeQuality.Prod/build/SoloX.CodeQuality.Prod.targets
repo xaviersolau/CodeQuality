@@ -1,6 +1,33 @@
 ﻿<Project>
 
   <UsingTask
+    TaskName="AddTextLines"
+    TaskFactory="RoslynCodeTaskFactory"
+    AssemblyFile="$(MSBuildToolsPath)\Microsoft.Build.Tasks.Core.dll">
+    <ParameterGroup>
+      <Lines ParameterType="System.String" Required="true" />
+      <OutputFilename ParameterType="System.String" Required="true" />
+    </ParameterGroup>
+    <Task>
+      <Using Namespace="System"/>
+      <Using Namespace="System.IO"/>
+      <Using Namespace="System.Linq"/>
+      <Code Type="Fragment" Language="cs">
+        <![CDATA[
+            var lines = Lines.Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries);
+            var outputLines = File.Exists(OutputFilename) ? File.ReadAllLines(OutputFilename) : Array.Empty<string>();
+
+            var linesToAdd = lines.Where(line => !outputLines.Contains(line)).ToArray();
+            if (linesToAdd.Any())
+            {
+                File.AppendAllLines(OutputFilename, linesToAdd);
+            }
+        ]]>
+      </Code>
+    </Task>
+  </UsingTask>
+
+  <UsingTask
       TaskName="ReplaceTextFile"
       TaskFactory="RoslynCodeTaskFactory"
       AssemblyFile="$(MSBuildToolsPath)\Microsoft.Build.Tasks.Core.dll">
@@ -75,45 +102,62 @@
           Name="CodeQualityMain"
           BeforeTargets="BeforeBuild;BeforeRebuild;AfterResolveReferences">
 
-    <ItemGroup>
-      <OutputEditorConfigFile Include="$(MSBuildProjectDirectory)/.editorconfig" />
-      <IntermediateOutputEditorConfigFile Include="$(IntermediateOutputPath)/.editorconfig" />
-      <CsCaEditorConfigFile Include="$(MSBuildThisFileDirectory)../resources/style.cs.compiler.ca.editorconfig" />
-      <CsCsEditorConfigFile Include="$(MSBuildThisFileDirectory)../resources/style.cs.compiler.cs.editorconfig" />
-      <Ide1EditorConfigFile Include="$(MSBuildThisFileDirectory)../resources/style.cs.ide1.editorconfig" />
-      <Ide2EditorConfigFile Include="$(MSBuildThisFileDirectory)../resources/style.cs.ide2.editorconfig" />
-      <HeaderNoneEditorConfigFile Include="$(MSBuildThisFileDirectory)../resources/style.cs.header.none.editorconfig" />
-      <HeaderCopyrightEditorConfigFile Include="$(MSBuildThisFileDirectory)../resources/style.cs.header.copyright.editorconfig" />
-      <GenEditorConfigFile Include="$(MSBuildThisFileDirectory)../resources/style.generated.editorconfig" />
-      <RazorEditorConfigFile Include="$(MSBuildThisFileDirectory)../resources/style.razor.editorconfig" />
-      <WebEditorConfigFile Include="$(MSBuildThisFileDirectory)../resources/style.web.editorconfig" />
-    </ItemGroup>
+    <PropertyGroup>
+      <OutputEditorConfigFile>$(MSBuildProjectDirectory)/.editorconfig</OutputEditorConfigFile>
+      <IntermediateOutputEditorConfigFile>$(IntermediateOutputPath)/.editorconfig</IntermediateOutputEditorConfigFile>
+      <CsCaEditorConfigFile>$(MSBuildThisFileDirectory)../resources/style.cs.compiler.ca.editorconfig</CsCaEditorConfigFile>
+      <CsCsEditorConfigFile>$(MSBuildThisFileDirectory)../resources/style.cs.compiler.cs.editorconfig</CsCsEditorConfigFile>
+      <Ide1EditorConfigFile>$(MSBuildThisFileDirectory)../resources/style.cs.ide1.editorconfig</Ide1EditorConfigFile>
+      <Ide2EditorConfigFile>$(MSBuildThisFileDirectory)../resources/style.cs.ide2.editorconfig</Ide2EditorConfigFile>
+      <HeaderNoneEditorConfigFile>$(MSBuildThisFileDirectory)../resources/style.cs.header.none.editorconfig</HeaderNoneEditorConfigFile>
+      <HeaderCopyrightEditorConfigFile>$(MSBuildThisFileDirectory)../resources/style.cs.header.copyright.editorconfig</HeaderCopyrightEditorConfigFile>
+      <GenEditorConfigFile>$(MSBuildThisFileDirectory)../resources/style.generated.editorconfig</GenEditorConfigFile>
+      <RazorEditorConfigFile>$(MSBuildThisFileDirectory)../resources/style.razor.editorconfig</RazorEditorConfigFile>
+      <WebEditorConfigFile>$(MSBuildThisFileDirectory)../resources/style.web.editorconfig</WebEditorConfigFile>
+
+    </PropertyGroup>
 
     <CopyTextFile
-      InputFilename="@(WebEditorConfigFile)" OutputFilename="@(IntermediateOutputEditorConfigFile)" Overwrite="true" />
+      InputFilename="$(WebEditorConfigFile)" OutputFilename="$(IntermediateOutputEditorConfigFile)" Overwrite="true" />
     <CopyTextFile
-      InputFilename="@(RazorEditorConfigFile)" OutputFilename="@(IntermediateOutputEditorConfigFile)" />
+      InputFilename="$(RazorEditorConfigFile)" OutputFilename="$(IntermediateOutputEditorConfigFile)" />
     <CopyTextFile
-      InputFilename="@(GenEditorConfigFile)" OutputFilename="@(IntermediateOutputEditorConfigFile)" />
+      InputFilename="$(GenEditorConfigFile)" OutputFilename="$(IntermediateOutputEditorConfigFile)" />
     <CopyTextFile
       Condition="$(CodeQualityFieldsUseUnderscorStyle) == false"
-      InputFilename="@(Ide1EditorConfigFile)" OutputFilename="@(IntermediateOutputEditorConfigFile)" />
+      InputFilename="$(Ide1EditorConfigFile)" OutputFilename="$(IntermediateOutputEditorConfigFile)" />
     <CopyTextFile
       Condition="$(CodeQualityFieldsUseUnderscorStyle) == true"
-      InputFilename="@(Ide2EditorConfigFile)" OutputFilename="@(IntermediateOutputEditorConfigFile)" />
+      InputFilename="$(Ide2EditorConfigFile)" OutputFilename="$(IntermediateOutputEditorConfigFile)" />
     <CopyTextFile
       Condition="$(CodeQualityHeaderEnable) == false"
-      InputFilename="@(HeaderNoneEditorConfigFile)" OutputFilename="@(IntermediateOutputEditorConfigFile)" />
+      InputFilename="$(HeaderNoneEditorConfigFile)" OutputFilename="$(IntermediateOutputEditorConfigFile)" />
     <CopyTextFile
       Condition="$(CodeQualityHeaderEnable) == true"
-      InputFilename="@(HeaderCopyrightEditorConfigFile)" OutputFilename="@(IntermediateOutputEditorConfigFile)"
+      InputFilename="$(HeaderCopyrightEditorConfigFile)" OutputFilename="$(IntermediateOutputEditorConfigFile)"
       Replace="companyName=$(CodeQualityHeaderCompanyName);copyright=$(CodeQualityHeaderCopyright);license=$(CodeQualityHeaderLicense);licenseFile=$(CodeQualityHeaderLicenseFile)"/>
     <CopyTextFile
-      InputFilename="@(CsCsEditorConfigFile)" OutputFilename="@(IntermediateOutputEditorConfigFile)" />
+      InputFilename="$(CsCsEditorConfigFile)" OutputFilename="$(IntermediateOutputEditorConfigFile)" />
     <CopyTextFile
-      InputFilename="@(CsCaEditorConfigFile)" OutputFilename="@(IntermediateOutputEditorConfigFile)" />
+      InputFilename="$(CsCaEditorConfigFile)" OutputFilename="$(IntermediateOutputEditorConfigFile)" />
     <ReplaceTextFile
-      InputFilename="@(IntermediateOutputEditorConfigFile)" OutputFilename="@(OutputEditorConfigFile)" />
+      InputFilename="$(IntermediateOutputEditorConfigFile)" OutputFilename="$(OutputEditorConfigFile)" />
+
+  </Target>
+
+  <Target Condition="$(CodeQualityUpdateGitIgnore) == true"
+          Name="GitIgnoreUpdate"
+          BeforeTargets="BeforeBuild;BeforeRebuild;AfterResolveReferences">
+
+    <PropertyGroup>
+      <GitIgnoreFile>$(MSBuildProjectDirectory)/.gitignore</GitIgnoreFile>
+
+      <GitIgnoreList>$(DocumentationFile)</GitIgnoreList>
+      <GitIgnoreList Condition="$(CodeQualityOverrideEditorConfig) == true">$(GitIgnoreList);.editorconfig</GitIgnoreList>
+    </PropertyGroup>
+
+    <AddTextLines
+      OutputFilename="$(GitIgnoreFile)" Lines="$(GitIgnoreList)"/>
 
   </Target>
 

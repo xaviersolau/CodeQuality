@@ -71,7 +71,7 @@ by setting the property `CodeQualityOverrideEditorConfig` to `false` in the `csp
   </PropertyGroup>
 ```
 
-### Felds coding style rules
+### Fields coding style rules
 
 The default coding style rules of the fields are defined as **camelCase** and the field access must be write with the
 `this.` prefix. But on this point this is also common to use the `_` as prefix with **camelCase** naming and
@@ -150,5 +150,17 @@ Note that you can disable this header file rule by setting the property
 ```xml
   <PropertyGroup>
     <CodeQualityHeaderEnable>false</CodeQualityHeaderEnable>
+  </PropertyGroup>
+```
+
+### Add/Update .gitignore file
+
+Since .editorconfig and XML project document files are generated automatically you can optionally
+enable the project .gitignore file update with the generated files. You just have to set the
+`CodeQualityUpdateGitIgnore` property to `true`.
+
+```xml
+  <PropertyGroup>
+    <CodeQualityUpdateGitIgnore>true</CodeQualityUpdateGitIgnore>
   </PropertyGroup>
 ```
