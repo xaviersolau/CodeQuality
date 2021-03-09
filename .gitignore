@@ -3,11 +3,3 @@
 bin
 obj
 
-src/libs/SoloX.CodeQuality.Test.Helpers/SoloX.CodeQuality.Test.Helpers.xml
-src/libs/SoloX.CodeQuality.Test.Helpers/.editorconfig
-
-src/examples/SoloX.CodeQuality.Prod.Example/SoloX.CodeQuality.Prod.Example.xml
-src/examples/SoloX.CodeQuality.Prod.Example/.editorconfig
-
-src/examples/SoloX.CodeQuality.Test.Example/SoloX.CodeQuality.Test.Example.xml
-src/examples/SoloX.CodeQuality.Test.Example/.editorconfig

@@ -22,6 +22,9 @@
     <IsPackable>true</IsPackable>
 
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+
+    <CodeQualityUpdateGitIgnore>true</CodeQualityUpdateGitIgnore>
+
   </PropertyGroup>
 
   <ItemGroup>

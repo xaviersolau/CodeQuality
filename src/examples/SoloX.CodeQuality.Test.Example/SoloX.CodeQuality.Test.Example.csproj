@@ -8,6 +8,9 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+
+    <CodeQualityUpdateGitIgnore>true</CodeQualityUpdateGitIgnore>
+
   </PropertyGroup>
 
 </Project>

@@ -11,7 +11,7 @@
 
     <CodeQualityHeaderEnable>true</CodeQualityHeaderEnable>
 
-    <!--<CodeQualityFieldsUseUnderscorStyle>true</CodeQualityFieldsUseUnderscorStyle>-->
+    <CodeQualityUpdateGitIgnore>true</CodeQualityUpdateGitIgnore>
 
   </PropertyGroup>
 
