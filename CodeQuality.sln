@@ -16,13 +16,23 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documents", "Documents", "{
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SoloX.CodeQuality.Test.Helpers", "src\libs\SoloX.CodeQuality.Test.Helpers\SoloX.CodeQuality.Test.Helpers.csproj", "{B4ED680E-2B7B-4DFE-87E6-A3CBEE75C3DD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SoloX.CodeQuality.Prod.Example", "src\examples\SoloX.CodeQuality.Prod.Example\SoloX.CodeQuality.Prod.Example.csproj", "{6FB11F33-250F-4DE8-934A-F63CDC8976D6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SoloX.CodeQuality.Prod.Example", "src\examples\SoloX.CodeQuality.Prod.Example\SoloX.CodeQuality.Prod.Example.csproj", "{6FB11F33-250F-4DE8-934A-F63CDC8976D6}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Examples", "Examples", "{B1962CF8-DE8C-42AA-BC4E-99E99D722E26}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libs", "Libs", "{5B172423-1455-41CB-8D81-7DCFCFF8855D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SoloX.CodeQuality.Test.Example", "src\examples\SoloX.CodeQuality.Test.Example\SoloX.CodeQuality.Test.Example.csproj", "{E4FAC4E6-2853-4464-B78F-6BAB619EEF8D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SoloX.CodeQuality.Test.Example", "src\examples\SoloX.CodeQuality.Test.Example\SoloX.CodeQuality.Test.Example.csproj", "{E4FAC4E6-2853-4464-B78F-6BAB619EEF8D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build", "Build", "{4EA08750-259C-4D7B-9B9C-5A56DBD4775E}"
+	ProjectSection(SolutionItems) = preProject
+		.github\workflows\build-ci.yml = .github\workflows\build-ci.yml
+		.github\workflows\build-pr.yml = .github\workflows\build-pr.yml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{1D5021C0-2423-494A-98F6-71AB937CDF8B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SoloX.CodeQuality.Test.Helpers.UTest", "src\tests\SoloX.CodeQuality.Test.Helpers.UTest\SoloX.CodeQuality.Test.Helpers.UTest.csproj", "{4D9D7FB7-CB50-4F61-92E7-A2CD669B15A7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -50,6 +60,10 @@ Global
 		{E4FAC4E6-2853-4464-B78F-6BAB619EEF8D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E4FAC4E6-2853-4464-B78F-6BAB619EEF8D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E4FAC4E6-2853-4464-B78F-6BAB619EEF8D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4D9D7FB7-CB50-4F61-92E7-A2CD669B15A7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4D9D7FB7-CB50-4F61-92E7-A2CD669B15A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4D9D7FB7-CB50-4F61-92E7-A2CD669B15A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4D9D7FB7-CB50-4F61-92E7-A2CD669B15A7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -60,6 +74,7 @@ Global
 		{B4ED680E-2B7B-4DFE-87E6-A3CBEE75C3DD} = {5B172423-1455-41CB-8D81-7DCFCFF8855D}
 		{6FB11F33-250F-4DE8-934A-F63CDC8976D6} = {B1962CF8-DE8C-42AA-BC4E-99E99D722E26}
 		{E4FAC4E6-2853-4464-B78F-6BAB619EEF8D} = {B1962CF8-DE8C-42AA-BC4E-99E99D722E26}
+		{4D9D7FB7-CB50-4F61-92E7-A2CD669B15A7} = {1D5021C0-2423-494A-98F6-71AB937CDF8B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {74BCF463-5FDE-4DBC-B32A-431E8A228CA0}
