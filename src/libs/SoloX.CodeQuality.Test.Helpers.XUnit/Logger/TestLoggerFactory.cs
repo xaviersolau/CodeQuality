@@ -10,7 +10,7 @@ using System;
 using Microsoft.Extensions.Logging;
 using Xunit.Abstractions;
 
-namespace SoloX.CodeQuality.Test.Helpers.Logger
+namespace SoloX.CodeQuality.Test.Helpers.XUnit.Logger
 {
     /// <summary>
     /// TestLoggerFactory for use in unit tests (Xunit).

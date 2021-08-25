@@ -10,7 +10,7 @@ using System.Diagnostics;
 using System.IO;
 using Xunit;
 
-namespace SoloX.CodeQuality.Test.Helpers
+namespace SoloX.CodeQuality.Test.Helpers.XUnit
 {
     /// <summary>
     /// Snapshot helper to test generated file against a reference snapshot.

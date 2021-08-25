@@ -8,10 +8,10 @@
 
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using SoloX.CodeQuality.Test.Helpers.Logger;
+using SoloX.CodeQuality.Test.Helpers.XUnit.Logger;
 using Xunit.Abstractions;
 
-namespace SoloX.CodeQuality.Test.Helpers
+namespace SoloX.CodeQuality.Test.Helpers.XUnit
 {
     public static class TestHelperExtensions
     {
