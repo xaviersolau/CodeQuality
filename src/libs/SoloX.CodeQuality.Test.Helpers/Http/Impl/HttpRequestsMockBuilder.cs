@@ -1,5 +1,5 @@
 ﻿// ----------------------------------------------------------------------
-// <copyright file="MockBuilder.cs" company="Xavier Solau">
+// <copyright file="HttpRequestsMockBuilder.cs" company="Xavier Solau">
 // Copyright © 2021 Xavier Solau.
 // Licensed under the MIT license.
 // See LICENSE file in the project root for full license information.
@@ -13,12 +13,12 @@ using System.Threading.Tasks;
 
 namespace SoloX.CodeQuality.Test.Helpers.Http.Impl
 {
-    internal class MockBuilder : IHttpClientRequestMockBuilder
+    internal class HttpRequestsMockBuilder : IHttpClientRequestMockBuilder
     {
         private readonly Dictionary<string, Dictionary<string, Func<HttpRequestMessage, Task<HttpResponseMessage>>>> responseBuilderMap = new Dictionary<string, Dictionary<string, Func<HttpRequestMessage, Task<HttpResponseMessage>>>>();
         private readonly Uri baseAddress;
 
-        public MockBuilder(Uri baseAddress)
+        public HttpRequestsMockBuilder(Uri baseAddress)
         {
             this.baseAddress = baseAddress;
         }

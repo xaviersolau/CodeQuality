@@ -43,6 +43,11 @@ namespace SoloX.CodeQuality.Test.Helpers.Http.Impl
             return RespondingStatus(r => status);
         }
 
+        public IHttpClientRequestMockBuilder RespondingJsonContent<TResponseContent>(TResponseContent content, HttpStatusCode status = HttpStatusCode.OK)
+        {
+            return RespondingJsonContent(r => content, status);
+        }
+
         public IHttpClientRequestMockBuilder RespondingStatus(Func<HttpRequestMessage, Task<HttpStatusCode>> responseHandler)
         {
             if (responseHandler is null)
