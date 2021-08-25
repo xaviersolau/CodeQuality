@@ -161,5 +161,37 @@ namespace SoloX.CodeQuality.Test.Helpers.UTest.Http
 
             response.EnsureSuccessStatusCode();
         }
+
+        [Fact]
+        public async Task ItShouldMockHttpClientAndRespondeWithJsonDataAndStatusAsync()
+        {
+            var baseAddress = "http://host/api/test";
+
+            var dataObject = new Person()
+            {
+                FirstName = "John",
+                LastName = "Doe",
+            };
+
+            var builder = new HttpClientMockBuilder();
+
+            var httpClient = builder
+                .WithBaseAddress(new Uri(baseAddress))
+                .WithRequest("/api/test/target").RespondingJsonContent(dataObject, HttpStatusCode.Accepted)
+                .Build();
+
+            Assert.NotNull(httpClient);
+
+#pragma warning disable CA2234 // Pass system uri objects instead of strings
+            var response = await httpClient.GetAsync("target").ConfigureAwait(false);
+#pragma warning restore CA2234 // Pass system uri objects instead of strings
+
+            response.EnsureSuccessStatusCode();
+
+            response.StatusCode.Should().Be(HttpStatusCode.Accepted);
+            var content = await response.Content.ReadFromJsonAsync<Person>().ConfigureAwait(false);
+
+            content.Should().BeEquivalentTo(dataObject);
+        }
     }
 }

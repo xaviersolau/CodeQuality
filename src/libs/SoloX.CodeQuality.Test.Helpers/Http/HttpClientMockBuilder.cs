@@ -34,7 +34,7 @@ namespace SoloX.CodeQuality.Test.Helpers.Http
                 baseAddress = new Uri($"{baseAddress}/");
             }
 
-            return new MockBuilder(baseAddress);
+            return new HttpRequestsMockBuilder(baseAddress);
         }
     }
 }
