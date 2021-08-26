@@ -1,71 +1,75 @@
 # CodeQuality
+
+This project provides an easy way to set up .Net Core [static code analysis](#coding-style-and-analysis) with pre-configured quality and coding style
+rules for your Test and your Prod C# projects.
+
+It also provides [test helpers](#test-helpers) to use in your unit test projects helping with test logging, HttpClient mocking...
+
+## Project dashboard
 [![Build - CI](https://github.com/xaviersolau/CodeQuality/actions/workflows/build-ci.yml/badge.svg)](https://github.com/xaviersolau/CodeQuality/actions/workflows/build-ci.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
-## CodeQuality Prod
-[![NuGet Beta](https://img.shields.io/nuget/vpre/SoloX.CodeQuality.Prod.svg)](https://www.nuget.org/packages/SoloX.CodeQuality.Prod)
-
-## CodeQuality Test
-[![NuGet Beta](https://img.shields.io/nuget/vpre/SoloX.CodeQuality.Test.svg)](https://www.nuget.org/packages/SoloX.CodeQuality.Test)
-
-Allows to setup coding style and analysis rules for a high code quality in your C# projects!
-
-It basically provides two Nuget packages that will setup and enable code quality checks (analysis and style)
-on your C# projects:
-* one Prod Nuget package to enable a very high code quality;
-* and one Test Nuget package to enable a very high code quality with some rules customized for the tests;
-
-This project is not implementing analysis by itself, it is using existing analysis packages like:
-* Microsoft.CodeAnalysis.*.NetAnalyzers
-* Microsoft.CodeAnalysis.*.CodeStyle
+| Package                                 | Nuget.org |
+|-----------------------------------------|-----------|
+|**SoloX.CodeQuality.Prod**               |[![NuGet Beta](https://img.shields.io/nuget/vpre/SoloX.CodeQuality.Prod.svg)](https://www.nuget.org/packages/SoloX.CodeQuality.Prod)
+|**SoloX.CodeQuality.Test**               |[![NuGet Beta](https://img.shields.io/nuget/vpre/SoloX.CodeQuality.Test.svg)](https://www.nuget.org/packages/SoloX.CodeQuality.Test)
+|**SoloX.CodeQuality.Test.Helpers**       |[![NuGet Beta](https://img.shields.io/nuget/vpre/SoloX.CodeQuality.Test.Helpers.svg)](https://www.nuget.org/packages/SoloX.CodeQuality.Test.Helpers)
+|**SoloX.CodeQuality.Test.Helpers.XUnit** |[![NuGet Beta](https://img.shields.io/nuget/vpre/SoloX.CodeQuality.Test.Helpers.XUnit.svg)](https://www.nuget.org/packages/SoloX.CodeQuality.Test.Helpers.XUnit)
 
 ## License and credits
 
 CodeQuality project is written by Xavier Solau. It's licensed under the MIT license.
 
- * * *
+* * *
 
-## Installation
+## Coding style and Analysis
+
+It basically provides two Nuget packages:
+* one Prod Nuget package to enable a very high code quality: `SoloX.CodeQuality.Prod`;
+* and one Test Nuget package to enable a high code quality with some rules customized for the tests `SoloX.CodeQuality.Test`;
+
+This project is not implementing analysis by itself, it is using existing analysis packages like:
+* Microsoft.CodeAnalysis.*.NetAnalyzers
+* Microsoft.CodeAnalysis.*.CodeStyle
+
+* * *
+
+### Installation
 
 You can checkout this Github repository or you can use the NuGet package:
 
 **Install using the command line from the Package Manager:**
 ```bash
-Install-Package SoloX.CodeQuality.Prod -version 2.0.6
+Install-Package SoloX.CodeQuality.Prod -version 2.0.7
 or
-Install-Package SoloX.CodeQuality.Test -version 2.0.6
-
-Install-Package SoloX.CodeQuality.Test.Helpers -version 2.0.6
+Install-Package SoloX.CodeQuality.Test -version 2.0.7
 ```
 
 **Install using the .Net CLI:**
 ```bash
-dotnet add package SoloX.CodeQuality.Prod --version 2.0.6
+dotnet add package SoloX.CodeQuality.Prod --version 2.0.7
 or
-dotnet add package SoloX.CodeQuality.Test --version 2.0.6
-
-dotnet add package SoloX.CodeQuality.Test.Helpers --version 2.0.6
+dotnet add package SoloX.CodeQuality.Test --version 2.0.7
 ```
 
 **Install editing your project file (csproj):**
 ```xml
-<PackageReference Include="SoloX.CodeQuality.Prod" Version="2.0.6">
+<PackageReference Include="SoloX.CodeQuality.Prod" Version="2.0.7">
   <PrivateAssets>all</PrivateAssets>
   <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
 </PackageReference>
 or
-<PackageReference Include="SoloX.CodeQuality.Test" Version="2.0.6">
+<PackageReference Include="SoloX.CodeQuality.Test" Version="2.0.7">
   <PrivateAssets>all</PrivateAssets>
   <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
 </PackageReference>
-
-<PackageReference Include="SoloX.CodeQuality.Test.Helpers" Version="2.0.6" />
 ```
 
  * * *
 
-## Options
+### Options
 
-### .editorconfig file generation
+#### .editorconfig file generation
 
 By default, using the Nuget in your project will generate a `.editorconfig` file in your project root folder.
 Note that it will override the file if is already exists in your project folder. You can disable the override
@@ -77,7 +81,7 @@ by setting the property `CodeQualityOverrideEditorConfig` to `false` in the `csp
   </PropertyGroup>
 ```
 
-### Fields coding style rules
+#### Fields coding style rules
 
 The default coding style rules of the fields are defined as **camelCase** and the field access must be write with the
 `this.` prefix. But on this point this is also common to use the `_` as prefix with **camelCase** naming and
@@ -90,7 +94,7 @@ In order to enable this underscore style you can set the property in the `csproj
   </PropertyGroup>
 ```
 
-### File header options
+#### File header options
 
 File header are required in the C# files by default. The header is defined with the following pattern:
 
@@ -159,7 +163,7 @@ Note that you can disable this header file rule by setting the property
   </PropertyGroup>
 ```
 
-### Add/Update .gitignore file
+#### Add/Update .gitignore file
 
 Since .editorconfig and XML project document files are generated automatically you can optionally
 enable the project .gitignore file update with the generated files. You just have to set the
@@ -170,3 +174,67 @@ enable the project .gitignore file update with the generated files. You just hav
     <CodeQualityUpdateGitIgnore>true</CodeQualityUpdateGitIgnore>
   </PropertyGroup>
 ```
+
+* * *
+
+## Test Helpers
+
+This aspect of the project helps to write your tests providing useful classes to handle test logging, HttpClient mocking....
+
+* * *
+
+### Installation
+
+You can checkout this Github repository or you can use the NuGet package:
+
+**Install using the command line from the Package Manager:**
+```bash
+Install-Package SoloX.CodeQuality.Test.Helpers -version 2.0.7
+
+Install-Package SoloX.CodeQuality.Test.Helpers.XUnit -version 2.0.7
+```
+
+**Install using the .Net CLI:**
+```bash
+dotnet add package SoloX.CodeQuality.Test.Helpers --version 2.0.7
+
+dotnet add package SoloX.CodeQuality.Test.Helpers.XUnit --version 2.0.7
+```
+
+**Install editing your project file (csproj):**
+```xml
+<PackageReference Include="SoloX.CodeQuality.Test.Helpers" Version="2.0.7" />
+
+<PackageReference Include="SoloX.CodeQuality.Test.Helpers.XUnit" Version="2.0.7" />
+```
+
+ * * *
+
+### HttpClient mocking
+
+It is really easy to mock a HttpClient with the `HttpClientMockBuilder` provided in
+`SoloX.CodeQuality.Test.Helpers` nuget.
+
+Here is an example of how you can use it in a Fluent way:
+
+```csharp
+// First we need the using statement.
+using SoloX.CodeQuality.Test.Helpers.Http;
+
+// Then we get the builder.
+var builder = new HttpClientMockBuilder();
+
+// Some data object.
+var data = new Person(/*...*/);
+
+// And build the mock with a request configured and responding with a JSON data content and a status OK.
+var httpClient = builder
+    .WithBaseAddress(new Uri("http://host/api/test"))
+    .WithRequest("/api/test/target").RespondingJsonContent(data, HttpStatusCode.OK)
+    .Build();
+
+// Then you can just use the client to get your data back.
+var response = await httpClient.GetFromJsonAsync<Person>("target");
+
+```
+
