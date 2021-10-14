@@ -296,7 +296,7 @@ dotnet_diagnostic.CA2000.severity = error
 dotnet_diagnostic.CA2002.severity = error
 
 # CA2007: Appeler ConfigureAwait sur la tâche attendue
-dotnet_diagnostic.CA2007.severity = error
+dotnet_diagnostic.CA2007.severity = warning
 
 # CA2008: Ne pas créer de tâches sans passer TaskScheduler
 dotnet_diagnostic.CA2008.severity = error

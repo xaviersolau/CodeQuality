@@ -125,7 +125,7 @@ dotnet_naming_symbols.type_parameters.applicable_kinds = type_parameter
 dotnet_naming_style.type_parameter_style.capitalization = pascal_case
 dotnet_naming_style.type_parameter_style.required_prefix = T
 
-# Async methods are PascalCase and suffixed with Async
+# Async methods are PascalCase
 dotnet_naming_rule.async_methods_should_be_pascal_case.severity = error
 dotnet_naming_rule.async_methods_should_be_pascal_case.symbols = async_methods
 dotnet_naming_rule.async_methods_should_be_pascal_case.style = async_method_style
@@ -134,7 +134,6 @@ dotnet_naming_symbols.async_methods.applicable_kinds = method
 dotnet_naming_symbols.async_methods.required_modifiers = async
 
 dotnet_naming_style.async_method_style.capitalization = pascal_case
-dotnet_naming_style.async_method_style.required_suffix = Async
 
 # Events are PascalCase and suffixed with Event
 dotnet_naming_rule.events_should_be_pascal_case.severity = error
