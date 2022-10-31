@@ -11,6 +11,9 @@
 
     <CodeQualityUpdateGitIgnore>true</CodeQualityUpdateGitIgnore>
 
+    <Nullable>enable</Nullable>
+    <LangVersion>latest</LangVersion>
+
   </PropertyGroup>
 
 </Project>

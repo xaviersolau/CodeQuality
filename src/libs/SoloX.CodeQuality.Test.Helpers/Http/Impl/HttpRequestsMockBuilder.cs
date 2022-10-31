@@ -47,7 +47,7 @@ namespace SoloX.CodeQuality.Test.Helpers.Http.Impl
 
             if (!absolutePath.StartsWith("/", StringComparison.Ordinal))
             {
-                throw new ArgumentException($"{nameof(absolutePath)} should start with '/'");
+                absolutePath = '/' + absolutePath;
             }
 
             var httpMethodName = httpMethod.Method.ToUpperInvariant();
