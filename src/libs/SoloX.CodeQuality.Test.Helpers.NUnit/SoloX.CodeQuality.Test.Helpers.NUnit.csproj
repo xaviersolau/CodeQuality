@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <Import Project="../../SharedProperties.props" />
 
@@ -9,17 +9,14 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
 
-    <PackageId>SoloX.CodeQuality.Test.Helpers</PackageId>
+    <PackageId>SoloX.CodeQuality.Test.Helpers.XUnit</PackageId>
 
     <NoPackageAnalysis>true</NoPackageAnalysis>
 
     <PackageTags>code quality, test, integration</PackageTags>
-    <PackageReleaseNotes>
-      - Reworked HttpClient mock API.
-      - Removed XUnit dependency.
-    </PackageReleaseNotes>
+    <PackageReleaseNotes>- Add TestLogger.</PackageReleaseNotes>
     <AssemblyVersion>1.0.0.0</AssemblyVersion>
-    <Description>Provides some helpers for integration test use.</Description>
+    <Description>Provides some helpers for integration test use with XUnit.</Description>
     <IncludeBuildOutput>true</IncludeBuildOutput>
 
     <IsPackable>true</IsPackable>
@@ -27,11 +24,12 @@
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 
     <CodeQualityUpdateGitIgnore>true</CodeQualityUpdateGitIgnore>
-
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="System.Net.Http.Json" Version="6.0.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="6.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="6.0.2" />
+    <PackageReference Include="NUnit" Version="3.13.3" />
   </ItemGroup>
 
 </Project>

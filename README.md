@@ -40,26 +40,26 @@ You can checkout this Github repository or you can use the NuGet package:
 
 **Install using the command line from the Package Manager:**
 ```bash
-Install-Package SoloX.CodeQuality.Prod -version 2.0.8
+Install-Package SoloX.CodeQuality.Prod -version 2.0.9
 or
-Install-Package SoloX.CodeQuality.Test -version 2.0.8
+Install-Package SoloX.CodeQuality.Test -version 2.0.9
 ```
 
 **Install using the .Net CLI:**
 ```bash
-dotnet add package SoloX.CodeQuality.Prod --version 2.0.8
+dotnet add package SoloX.CodeQuality.Prod --version 2.0.9
 or
-dotnet add package SoloX.CodeQuality.Test --version 2.0.8
+dotnet add package SoloX.CodeQuality.Test --version 2.0.9
 ```
 
 **Install editing your project file (csproj):**
 ```xml
-<PackageReference Include="SoloX.CodeQuality.Prod" Version="2.0.8">
+<PackageReference Include="SoloX.CodeQuality.Prod" Version="2.0.9">
   <PrivateAssets>all</PrivateAssets>
   <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
 </PackageReference>
 or
-<PackageReference Include="SoloX.CodeQuality.Test" Version="2.0.8">
+<PackageReference Include="SoloX.CodeQuality.Test" Version="2.0.9">
   <PrivateAssets>all</PrivateAssets>
   <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
 </PackageReference>
@@ -189,23 +189,29 @@ You can checkout this Github repository or you can use the NuGet package:
 
 **Install using the command line from the Package Manager:**
 ```bash
-Install-Package SoloX.CodeQuality.Test.Helpers -version 2.0.8
+Install-Package SoloX.CodeQuality.Test.Helpers -version 2.0.9
 
-Install-Package SoloX.CodeQuality.Test.Helpers.XUnit -version 2.0.8
+Install-Package SoloX.CodeQuality.Test.Helpers.XUnit -version 2.0.9
+
+Install-Package SoloX.CodeQuality.Test.Helpers.NUnit -version 2.0.9
 ```
 
 **Install using the .Net CLI:**
 ```bash
-dotnet add package SoloX.CodeQuality.Test.Helpers --version 2.0.8
+dotnet add package SoloX.CodeQuality.Test.Helpers --version 2.0.9
 
-dotnet add package SoloX.CodeQuality.Test.Helpers.XUnit --version 2.0.8
+dotnet add package SoloX.CodeQuality.Test.Helpers.XUnit --version 2.0.9
+
+dotnet add package SoloX.CodeQuality.Test.Helpers.NUnit --version 2.0.9
 ```
 
 **Install editing your project file (csproj):**
 ```xml
-<PackageReference Include="SoloX.CodeQuality.Test.Helpers" Version="2.0.8" />
+<PackageReference Include="SoloX.CodeQuality.Test.Helpers" Version="2.0.9" />
 
-<PackageReference Include="SoloX.CodeQuality.Test.Helpers.XUnit" Version="2.0.8" />
+<PackageReference Include="SoloX.CodeQuality.Test.Helpers.XUnit" Version="2.0.9" />
+
+<PackageReference Include="SoloX.CodeQuality.Test.Helpers.NUnit" Version="2.0.9" />
 ```
 
  * * *
@@ -236,5 +242,135 @@ var httpClient = builder
 // Then you can just use the client to get your data back.
 var response = await httpClient.GetFromJsonAsync<Person>("target");
 
+```
+
+### ILogger\<T> mocking
+
+We often need to provide a ILogger\<T> instance to the class we want to test. This is easy to provide a
+mock of this interface but sometime it is actually useful to be able to write the logs into the test
+output. In order to write the logs in the test console output you can use the TestLogger available for
+XUnit and NUnit.
+
+#### With XUnit
+
+The XUnit TestLogger is provided in the package `SoloX.CodeQuality.Test.Helpers.XUnit` and it can be
+used like this:
+
+```csharp
+using Microsoft.Extensions.Logging;
+using SoloX.CodeQuality.Test.Helpers.XUnit.Logger;
+using Xunit;
+using Xunit.Abstractions;
+
+public class LoggerTest
+{
+    private readonly ITestOutputHelper testOutputHelper;
+
+    public LoggerTest(ITestOutputHelper testOutputHelper)
+    {
+        this.testOutputHelper = testOutputHelper;
+    }
+
+    [Fact]
+    public void IsShouldLogThoughTestLogger()
+    {
+        var logger = new TestLogger<LoggerTest>(this.testOutputHelper);
+
+        logger.LogError("This is an error log message!");
+
+        Assert.True(true);
+    }
+}
+```
+
+Or it is also possible to use it through Dependency Injection in the case where you would like to build
+some integration tests using a service provider:
+
+```csharp
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+using SoloX.CodeQuality.Test.Helpers.XUnit.Logger;
+using Xunit;
+using Xunit.Abstractions;
+
+public class LoggerTest
+{
+    private readonly ITestOutputHelper testOutputHelper;
+
+    public LoggerTest(ITestOutputHelper testOutputHelper)
+    {
+        this.testOutputHelper = testOutputHelper;
+    }
+
+    [Fact]
+    public void IsShouldRegisterXUnitLoggerFactory()
+    {
+        var serviceCollection = new ServiceCollection();
+
+        serviceCollection.AddTestLogging(this.testOutputHelper);
+
+        using var serviceProvider = serviceCollection.BuildServiceProvider();
+
+        var logger = serviceProvider.GetRequiredService<ILogger<LoggerTest>>();
+
+        logger.LogError("This is an error log message!");
+
+        Assert.True(true);
+    }
+}
+```
+
+
+#### With NUnit
+
+The NUnit TestLogger is provided in the package `SoloX.CodeQuality.Test.Helpers.NUnit` and it can be
+used like this:
+
+```csharp
+using Microsoft.Extensions.Logging;
+using NUnit.Framework;
+using SoloX.CodeQuality.Test.Helpers.NUnit.Logger;
+
+public class LoggerTest
+{
+    [Test]
+    public void IsShouldLogThoughTestLogger()
+    {
+        var logger = new TestLogger<LoggerTest>();
+
+        logger.LogError("This is an error log message!");
+
+        Assert.Pass();
+    }
+}
+```
+
+Or it is also possible to use it through Dependency Injection in the case where you would like to build
+some integration tests using a service provider:
+
+```csharp
+using Microsoft.Extensions.Logging;
+using NUnit.Framework;
+using Microsoft.Extensions.DependencyInjection;
+using SoloX.CodeQuality.Test.Helpers.NUnit.Logger;
+
+public class LoggerTest
+{
+    [Test]
+    public void IsShouldRegisterNUnitLoggerFactory()
+    {
+        var serviceCollection = new ServiceCollection();
+ 
+        serviceCollection.AddTestLogging();
+ 
+        using var serviceProvider = serviceCollection.BuildServiceProvider();
+ 
+        var logger = serviceProvider.GetRequiredService<ILogger<LoggerTest>>();
+ 
+        logger.LogError("This is an error log message!");
+ 
+        Assert.Pass();
+    }
+}
 ```
 

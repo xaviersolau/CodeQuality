@@ -7,3 +7,6 @@ dotnet_diagnostic.CS1572.severity = error
 
 # CS0168: La variable est déclarée mais jamais utilisée
 dotnet_diagnostic.CS0168.severity = error
+
+# CS8603: Possible null reference return.
+dotnet_diagnostic.CS8603.severity = error

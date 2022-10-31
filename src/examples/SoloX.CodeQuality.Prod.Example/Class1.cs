@@ -69,6 +69,36 @@ namespace SoloX.CodeQuality.Prod.Example
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        public void MethodWithNullable1(string? data)
+        {
+            if (data == null)
+            {
+                throw new ArgumentNullException(nameof(data));
+            }
+
+            var hash = data.GetHashCode();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        public string MethodWithNullable2(string? data)
+        {
+            if (data == null)
+            {
+                throw new ArgumentNullException(nameof(data));
+            }
+
+            return data;
+        }
+
         private static int MethodOne(string str1)
         {
             var str2 = "fqsdfqs";
