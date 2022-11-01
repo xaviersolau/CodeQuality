@@ -9,7 +9,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
 
-    <PackageId>SoloX.CodeQuality.Test.Helpers.XUnit</PackageId>
+    <PackageId>SoloX.CodeQuality.Test.Helpers.NUnit</PackageId>
 
     <NoPackageAnalysis>true</NoPackageAnalysis>
 
