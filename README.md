@@ -15,6 +15,7 @@ It also provides [test helpers](#test-helpers) to use in your unit test projects
 |**SoloX.CodeQuality.Test**               |[![NuGet Beta](https://img.shields.io/nuget/vpre/SoloX.CodeQuality.Test.svg)](https://www.nuget.org/packages/SoloX.CodeQuality.Test)
 |**SoloX.CodeQuality.Test.Helpers**       |[![NuGet Beta](https://img.shields.io/nuget/vpre/SoloX.CodeQuality.Test.Helpers.svg)](https://www.nuget.org/packages/SoloX.CodeQuality.Test.Helpers)
 |**SoloX.CodeQuality.Test.Helpers.XUnit** |[![NuGet Beta](https://img.shields.io/nuget/vpre/SoloX.CodeQuality.Test.Helpers.XUnit.svg)](https://www.nuget.org/packages/SoloX.CodeQuality.Test.Helpers.XUnit)
+|**SoloX.CodeQuality.Test.Helpers.NUnit** |[![NuGet Beta](https://img.shields.io/nuget/vpre/SoloX.CodeQuality.Test.Helpers.NUnit.svg)](https://www.nuget.org/packages/SoloX.CodeQuality.Test.Helpers.NUnit)
 
 ## License and credits
 
