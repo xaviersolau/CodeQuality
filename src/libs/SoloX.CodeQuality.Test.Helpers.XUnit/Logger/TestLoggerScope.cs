@@ -11,7 +11,7 @@ using Microsoft.Extensions.Logging;
 
 namespace SoloX.CodeQuality.Test.Helpers.XUnit.Logger
 {
-    internal class TestLoggerScope<T, TState> : IDisposable
+    internal sealed class TestLoggerScope<T, TState> : IDisposable
     {
         private readonly ILogger<T> logger;
         private readonly TState state;

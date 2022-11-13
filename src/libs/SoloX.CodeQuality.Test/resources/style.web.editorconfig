@@ -1,5 +1,5 @@
 ﻿
-[*.{xml,html,css,js,json,resx}]
+[*.{xml,html,css,js,json,resx,csproj,props,targets}]
 
 #### Core EditorConfig Options ####
 

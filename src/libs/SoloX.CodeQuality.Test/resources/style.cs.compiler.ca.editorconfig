@@ -2,13 +2,16 @@
 dotnet_code_quality.CAXXXX.api_surface = private, internal, protected, public
 
 # CA1812: Éviter les classes internes non instanciées
-dotnet_diagnostic.CA1812.severity = error
+dotnet_diagnostic.CA1812.severity = none
 
 # CA1001: Les types qui ont des champs supprimables doivent être supprimables
 dotnet_diagnostic.CA1001.severity = error
 
 # CA1032: Implémenter des constructeurs d'exception standard
 dotnet_diagnostic.CA1032.severity = error
+
+# CA1506: class coupling
+dotnet_diagnostic.CA1506.severity = warning
 
 # CA1507: Utiliser nameof pour exprimer les noms de symboles
 dotnet_diagnostic.CA1507.severity = error
@@ -29,7 +32,7 @@ dotnet_diagnostic.CA1008.severity = error
 dotnet_diagnostic.CA1012.severity = error
 
 # CA1014: Marquer les assemblys avec CLSCompliant
-dotnet_diagnostic.CA1014.severity = silent
+dotnet_diagnostic.CA1014.severity = none
 
 # CA1018: Marquer les attributs avec AttributeUsageAttribute
 dotnet_diagnostic.CA1018.severity = error
@@ -111,6 +114,9 @@ dotnet_diagnostic.CA1003.severity = error
 
 # CA1010: Une interface générique doit également être implémentée
 dotnet_diagnostic.CA1010.severity = error
+
+# CA1021: Avoid 'out' parameters as they are not designed for general audience
+dotnet_diagnostic.CA1021.severity = none
 
 # CA1024: Utiliser des propriétés quand cela est approprié
 dotnet_diagnostic.CA1024.severity = error
@@ -289,6 +295,12 @@ dotnet_diagnostic.CA1837.severity = error
 # CA1838: Éviter les paramètres 'StringBuilder' pour les P/Invoke
 dotnet_diagnostic.CA1838.severity = error
 
+# CA1848: For improved performance, use the LoggerMessage delegates
+dotnet_diagnostic.CA1848.severity = none
+
+# CA1852: Type can be sealed because it has no subtypes in its containing assembly and is not externally visible
+dotnet_diagnostic.CA1852.severity = none
+
 # CA2000: Supprimer les objets avant la mise hors de portée
 dotnet_diagnostic.CA2000.severity = error
 
@@ -411,6 +423,9 @@ dotnet_diagnostic.CA2248.severity = error
 
 # CA2249: Utiliser de préférence 'string.Contains' à la place de 'string.IndexOf'
 dotnet_diagnostic.CA2249.severity = error
+
+# CA2254: The logging message template should not vary between calls
+dotnet_diagnostic.CA2254.severity = none
 
 # CA2300: Ne pas utiliser le désérialiseur non sécurisé BinaryFormatter
 dotnet_diagnostic.CA2300.severity = error
