@@ -8,6 +8,7 @@
 
 namespace SoloX.CodeQuality.Test.Helpers
 {
+#pragma warning disable CA1021 // Avoid out parameters
     public static class DotnetHelper
     {
         private const string DOTNET = "dotnet";
@@ -41,4 +42,5 @@ namespace SoloX.CodeQuality.Test.Helpers
             return ProcessHelper.Run(projectPath, DOTNET, $"{RUN} {args}", out stdout, out stderr) == 0;
         }
     }
+#pragma warning restore CA1021 // Avoid out parameters
 }

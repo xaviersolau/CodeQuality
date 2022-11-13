@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace SoloX.CodeQuality.Test.Helpers.Http.Impl
 {
-    internal class JsonRequestBuilder<TRequestContent> : RequestBuilder, IHttpClientResponseFromJsonRequestMockBuilder<TRequestContent>
+    internal sealed class JsonRequestBuilder<TRequestContent> : RequestBuilder, IHttpClientResponseFromJsonRequestMockBuilder<TRequestContent>
     {
         public JsonRequestBuilder(Func<Func<HttpRequestMessage, Task<HttpResponseMessage>>, IHttpClientRequestMockBuilder> callback)
             : base(callback)

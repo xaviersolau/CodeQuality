@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace SoloX.CodeQuality.Test.Helpers.Http.Impl
 {
-    internal class HttpRequestsMockBuilder : IHttpClientRequestMockBuilder
+    internal sealed class HttpRequestsMockBuilder : IHttpClientRequestMockBuilder
     {
         private readonly Dictionary<string, Dictionary<string, Func<HttpRequestMessage, Task<HttpResponseMessage>>>> responseBuilderMap = new Dictionary<string, Dictionary<string, Func<HttpRequestMessage, Task<HttpResponseMessage>>>>();
         private readonly Uri baseAddress;

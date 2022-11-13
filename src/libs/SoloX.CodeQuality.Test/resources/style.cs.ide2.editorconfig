@@ -1,5 +1,6 @@
 ﻿
 [*.cs]
+[!*{.generated.cs,.g.cs}]
 
 #### Core EditorConfig Options ####
 
