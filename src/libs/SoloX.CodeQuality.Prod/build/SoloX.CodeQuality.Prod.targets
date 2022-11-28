@@ -161,4 +161,14 @@
 
   </Target>
 
+  <Target Condition="$(CodeQualityLoggerUseDisabled) == true"
+          Name="LoggerUseDisableWarn"
+          BeforeTargets="BeforeBuild;BeforeRebuild">
+
+    <PropertyGroup>
+		<NoWarn>$(NoWarn),CA1848,CA2254</NoWarn>
+	</PropertyGroup>
+
+  </Target>
+
 </Project>

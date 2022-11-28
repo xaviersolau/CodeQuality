@@ -41,26 +41,26 @@ You can checkout this Github repository or you can use the NuGet package:
 
 **Install using the command line from the Package Manager:**
 ```bash
-Install-Package SoloX.CodeQuality.Prod -version 2.0.11
+Install-Package SoloX.CodeQuality.Prod -version 2.0.12
 or
-Install-Package SoloX.CodeQuality.Test -version 2.0.11
+Install-Package SoloX.CodeQuality.Test -version 2.0.12
 ```
 
 **Install using the .Net CLI:**
 ```bash
-dotnet add package SoloX.CodeQuality.Prod --version 2.0.11
+dotnet add package SoloX.CodeQuality.Prod --version 2.0.12
 or
-dotnet add package SoloX.CodeQuality.Test --version 2.0.11
+dotnet add package SoloX.CodeQuality.Test --version 2.0.12
 ```
 
 **Install editing your project file (csproj):**
 ```xml
-<PackageReference Include="SoloX.CodeQuality.Prod" Version="2.0.11">
+<PackageReference Include="SoloX.CodeQuality.Prod" Version="2.0.12">
   <PrivateAssets>all</PrivateAssets>
   <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
 </PackageReference>
 or
-<PackageReference Include="SoloX.CodeQuality.Test" Version="2.0.11">
+<PackageReference Include="SoloX.CodeQuality.Test" Version="2.0.12">
   <PrivateAssets>all</PrivateAssets>
   <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
 </PackageReference>
@@ -176,6 +176,22 @@ enable the project .gitignore file update with the generated files. You just hav
   </PropertyGroup>
 ```
 
+#### ILogger use analyzer (CA1848, CA2254)
+
+By default some rules about the use of the ILogger are reported as errors in Prod configuration.
+* CA1848: Use the LoggerMessage delegates instead of calling LoggerExtensions methods
+* CA2254: The logging message template should not vary between calls
+
+You may need to disable those rules. To do so, you just have to set the
+`CodeQualityLoggerUseDisabled` property to `true`.
+
+```xml
+  <PropertyGroup>
+    <CodeQualityUpdateGitIgnore>true</CodeQualityUpdateGitIgnore>
+  </PropertyGroup>
+```
+
+
 * * *
 
 ## Test Helpers
@@ -190,29 +206,29 @@ You can checkout this Github repository or you can use the NuGet package:
 
 **Install using the command line from the Package Manager:**
 ```bash
-Install-Package SoloX.CodeQuality.Test.Helpers -version 2.0.11
+Install-Package SoloX.CodeQuality.Test.Helpers -version 2.0.12
 
-Install-Package SoloX.CodeQuality.Test.Helpers.XUnit -version 2.0.11
+Install-Package SoloX.CodeQuality.Test.Helpers.XUnit -version 2.0.12
 
-Install-Package SoloX.CodeQuality.Test.Helpers.NUnit -version 2.0.11
+Install-Package SoloX.CodeQuality.Test.Helpers.NUnit -version 2.0.12
 ```
 
 **Install using the .Net CLI:**
 ```bash
-dotnet add package SoloX.CodeQuality.Test.Helpers --version 2.0.11
+dotnet add package SoloX.CodeQuality.Test.Helpers --version 2.0.12
 
-dotnet add package SoloX.CodeQuality.Test.Helpers.XUnit --version 2.0.11
+dotnet add package SoloX.CodeQuality.Test.Helpers.XUnit --version 2.0.12
 
-dotnet add package SoloX.CodeQuality.Test.Helpers.NUnit --version 2.0.11
+dotnet add package SoloX.CodeQuality.Test.Helpers.NUnit --version 2.0.12
 ```
 
 **Install editing your project file (csproj):**
 ```xml
-<PackageReference Include="SoloX.CodeQuality.Test.Helpers" Version="2.0.11" />
+<PackageReference Include="SoloX.CodeQuality.Test.Helpers" Version="2.0.12" />
 
-<PackageReference Include="SoloX.CodeQuality.Test.Helpers.XUnit" Version="2.0.11" />
+<PackageReference Include="SoloX.CodeQuality.Test.Helpers.XUnit" Version="2.0.12" />
 
-<PackageReference Include="SoloX.CodeQuality.Test.Helpers.NUnit" Version="2.0.11" />
+<PackageReference Include="SoloX.CodeQuality.Test.Helpers.NUnit" Version="2.0.12" />
 ```
 
  * * *

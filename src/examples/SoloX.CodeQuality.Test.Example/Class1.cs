@@ -6,6 +6,8 @@
 // </copyright>
 // ----------------------------------------------------------------------
 
+using Microsoft.Extensions.Logging;
+
 namespace SoloX.CodeQuality.Test.Example
 {
     public static class Class1
@@ -14,6 +16,14 @@ namespace SoloX.CodeQuality.Test.Example
 
         public static int MethodPublic()
         {
+            return TestCase.Length;
+        }
+
+        public static int MethodPublicWithLogs(ILogger<object> logger, int varInt)
+        {
+
+            logger.LogInformation($"This is a log {varInt}");
+
             return TestCase.Length;
         }
     }
