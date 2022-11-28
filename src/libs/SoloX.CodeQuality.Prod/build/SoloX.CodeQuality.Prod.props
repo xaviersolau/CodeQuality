@@ -24,6 +24,7 @@
     <CodeQualityHeaderLicenseFile Condition="'$(CodeQualityHeaderLicenseFile)' == ''" >(Please define CodeQualityHeaderLicenseFile property)</CodeQualityHeaderLicenseFile>
 
     <CodeQualityUpdateGitIgnore>false</CodeQualityUpdateGitIgnore>
+    <CodeQualityLoggerUseDisabled>false</CodeQualityLoggerUseDisabled>
 
     <NoWarn>$(NoWarn),CA1014</NoWarn>
 
