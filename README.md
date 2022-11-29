@@ -187,7 +187,7 @@ You may need to disable those rules. To do so, you just have to set the
 
 ```xml
   <PropertyGroup>
-    <CodeQualityUpdateGitIgnore>true</CodeQualityUpdateGitIgnore>
+    <CodeQualityLoggerUseDisabled>true</CodeQualityLoggerUseDisabled>
   </PropertyGroup>
 ```
 
