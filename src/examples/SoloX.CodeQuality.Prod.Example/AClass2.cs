@@ -7,6 +7,7 @@
 // ----------------------------------------------------------------------
 
 
+using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
 
 namespace SoloX.CodeQuality.Prod.Example
@@ -44,6 +45,15 @@ namespace SoloX.CodeQuality.Prod.Example
         {
             await Task.Delay(1000).ConfigureAwait(false);
             return this.test;
+        }
+
+        /// <summary>
+        /// Test ignore logging rules.
+        /// </summary>
+        /// <param name="logger"></param>
+        public void LogSomeThing(ILogger<AClass2> logger)
+        {
+            logger.LogInformation($"object is {this.test}");
         }
     }
 }

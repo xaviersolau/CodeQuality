@@ -1,6 +1,5 @@
 ﻿
 [*.{generated.cs,g.cs}]
-[!*.razor.g.cs]
 
 generated_code = true
 
@@ -20,6 +19,9 @@ dotnet_analyzer_diagnostic.category-Security.severity = none
 dotnet_analyzer_diagnostic.category-Style.severity = none
 dotnet_analyzer_diagnostic.category-Usage.severity = none
 dotnet_analyzer_diagnostic.category-CodeQuality.severity = none
+
+# CS1591: Commentaire XML manquant pour le type ou le membre visible publiquement
+dotnet_diagnostic.CS1591.severity = none
 
 
 [*.razor.g.cs]

@@ -41,26 +41,26 @@ You can checkout this Github repository or you can use the NuGet package:
 
 **Install using the command line from the Package Manager:**
 ```bash
-Install-Package SoloX.CodeQuality.Prod -version 2.0.12
+Install-Package SoloX.CodeQuality.Prod -version 2.0.13
 or
-Install-Package SoloX.CodeQuality.Test -version 2.0.12
+Install-Package SoloX.CodeQuality.Test -version 2.0.13
 ```
 
 **Install using the .Net CLI:**
 ```bash
-dotnet add package SoloX.CodeQuality.Prod --version 2.0.12
+dotnet add package SoloX.CodeQuality.Prod --version 2.0.13
 or
-dotnet add package SoloX.CodeQuality.Test --version 2.0.12
+dotnet add package SoloX.CodeQuality.Test --version 2.0.13
 ```
 
 **Install editing your project file (csproj):**
 ```xml
-<PackageReference Include="SoloX.CodeQuality.Prod" Version="2.0.12">
+<PackageReference Include="SoloX.CodeQuality.Prod" Version="2.0.13">
   <PrivateAssets>all</PrivateAssets>
   <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
 </PackageReference>
 or
-<PackageReference Include="SoloX.CodeQuality.Test" Version="2.0.12">
+<PackageReference Include="SoloX.CodeQuality.Test" Version="2.0.13">
   <PrivateAssets>all</PrivateAssets>
   <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
 </PackageReference>
@@ -206,29 +206,29 @@ You can checkout this Github repository or you can use the NuGet package:
 
 **Install using the command line from the Package Manager:**
 ```bash
-Install-Package SoloX.CodeQuality.Test.Helpers -version 2.0.12
+Install-Package SoloX.CodeQuality.Test.Helpers -version 2.0.13
 
-Install-Package SoloX.CodeQuality.Test.Helpers.XUnit -version 2.0.12
+Install-Package SoloX.CodeQuality.Test.Helpers.XUnit -version 2.0.13
 
-Install-Package SoloX.CodeQuality.Test.Helpers.NUnit -version 2.0.12
+Install-Package SoloX.CodeQuality.Test.Helpers.NUnit -version 2.0.13
 ```
 
 **Install using the .Net CLI:**
 ```bash
-dotnet add package SoloX.CodeQuality.Test.Helpers --version 2.0.12
+dotnet add package SoloX.CodeQuality.Test.Helpers --version 2.0.13
 
-dotnet add package SoloX.CodeQuality.Test.Helpers.XUnit --version 2.0.12
+dotnet add package SoloX.CodeQuality.Test.Helpers.XUnit --version 2.0.13
 
-dotnet add package SoloX.CodeQuality.Test.Helpers.NUnit --version 2.0.12
+dotnet add package SoloX.CodeQuality.Test.Helpers.NUnit --version 2.0.13
 ```
 
 **Install editing your project file (csproj):**
 ```xml
-<PackageReference Include="SoloX.CodeQuality.Test.Helpers" Version="2.0.12" />
+<PackageReference Include="SoloX.CodeQuality.Test.Helpers" Version="2.0.13" />
 
-<PackageReference Include="SoloX.CodeQuality.Test.Helpers.XUnit" Version="2.0.12" />
+<PackageReference Include="SoloX.CodeQuality.Test.Helpers.XUnit" Version="2.0.13" />
 
-<PackageReference Include="SoloX.CodeQuality.Test.Helpers.NUnit" Version="2.0.12" />
+<PackageReference Include="SoloX.CodeQuality.Test.Helpers.NUnit" Version="2.0.13" />
 ```
 
  * * *
