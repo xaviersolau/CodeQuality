@@ -1,4 +1,4 @@
-﻿<Project>
+﻿<Project InitialTargets="LoggerUseDisableWarn">
 
   <PropertyGroup>
     <DocumentationFile>$(OutputPath)$(MSBuildProjectName).xml</DocumentationFile>
@@ -26,7 +26,7 @@
     <CodeQualityUpdateGitIgnore>false</CodeQualityUpdateGitIgnore>
     <CodeQualityLoggerUseDisabled>false</CodeQualityLoggerUseDisabled>
 
-    <NoWarn>$(NoWarn),CA1014</NoWarn>
+    <NoWarn>$(NoWarn),CA1014,CA1017</NoWarn>
 
   </PropertyGroup>
 

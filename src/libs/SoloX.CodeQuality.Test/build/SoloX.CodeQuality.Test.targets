@@ -122,8 +122,6 @@
     <CopyTextFile
       InputFilename="$(RazorEditorConfigFile)" OutputFilename="$(IntermediateOutputEditorConfigFile)" />
     <CopyTextFile
-      InputFilename="$(GenEditorConfigFile)" OutputFilename="$(IntermediateOutputEditorConfigFile)" />
-    <CopyTextFile
       Condition="$(CodeQualityFieldsUseUnderscorStyle) == false"
       InputFilename="$(Ide1EditorConfigFile)" OutputFilename="$(IntermediateOutputEditorConfigFile)" />
     <CopyTextFile
@@ -140,6 +138,8 @@
       InputFilename="$(CsCsEditorConfigFile)" OutputFilename="$(IntermediateOutputEditorConfigFile)" />
     <CopyTextFile
       InputFilename="$(CsCaEditorConfigFile)" OutputFilename="$(IntermediateOutputEditorConfigFile)" />
+    <CopyTextFile
+      InputFilename="$(GenEditorConfigFile)" OutputFilename="$(IntermediateOutputEditorConfigFile)" />
     <ReplaceTextFile
       InputFilename="$(IntermediateOutputEditorConfigFile)" OutputFilename="$(OutputEditorConfigFile)" />
 
