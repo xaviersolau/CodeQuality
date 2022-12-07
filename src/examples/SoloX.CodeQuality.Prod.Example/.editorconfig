@@ -247,6 +247,9 @@ dotnet_diagnostic.CA1001.severity = error
 # CA1032: Implémenter des constructeurs d'exception standard
 dotnet_diagnostic.CA1032.severity = error
 
+# CA1506: Avoid excessive class coupling
+dotnet_diagnostic.CA1506.severity = warning
+
 # CA1507: Utiliser nameof pour exprimer les noms de symboles
 dotnet_diagnostic.CA1507.severity = error
 

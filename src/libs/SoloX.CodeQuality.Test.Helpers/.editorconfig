@@ -27,7 +27,6 @@ end_of_line = crlf
 insert_final_newline = false
 
 [*.cs]
-[!*{.generated.cs,.g.cs}]
 
 #### Core EditorConfig Options ####
 
@@ -245,7 +244,7 @@ dotnet_diagnostic.CA1001.severity = error
 dotnet_diagnostic.CA1032.severity = error
 
 # CA1506: class coupling
-dotnet_diagnostic.CA1506.severity = warning
+dotnet_diagnostic.CA1506.severity = none
 
 # CA1507: Utiliser nameof pour exprimer les noms de symboles
 dotnet_diagnostic.CA1507.severity = error
@@ -930,7 +929,6 @@ dotnet_diagnostic.IL3000.severity = error
 dotnet_diagnostic.IL3001.severity = error
 
 [*.{generated.cs,g.cs}]
-[!*.razor.g.cs]
 
 generated_code = true
 
@@ -950,6 +948,9 @@ dotnet_analyzer_diagnostic.category-Security.severity = none
 dotnet_analyzer_diagnostic.category-Style.severity = none
 dotnet_analyzer_diagnostic.category-Usage.severity = none
 dotnet_analyzer_diagnostic.category-CodeQuality.severity = none
+
+# CS1591: Commentaire XML manquant pour le type ou le membre visible publiquement
+dotnet_diagnostic.CS1591.severity = none
 
 
 [*.razor.g.cs]
