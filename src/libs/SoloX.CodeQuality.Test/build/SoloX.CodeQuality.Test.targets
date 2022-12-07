@@ -3,7 +3,7 @@
   <UsingTask
     TaskName="AddTextLines"
     TaskFactory="RoslynCodeTaskFactory"
-    AssemblyFile="$(MSBuildToolsPath)\Microsoft.Build.Tasks.Core.dll">
+    AssemblyFile="$(MSBuildToolsPath)/Microsoft.Build.Tasks.Core.dll">
     <ParameterGroup>
       <Lines ParameterType="System.String" Required="true" />
       <OutputFilename ParameterType="System.String" Required="true" />
@@ -30,7 +30,7 @@
   <UsingTask
       TaskName="ReplaceTextFile"
       TaskFactory="RoslynCodeTaskFactory"
-      AssemblyFile="$(MSBuildToolsPath)\Microsoft.Build.Tasks.Core.dll">
+      AssemblyFile="$(MSBuildToolsPath)/Microsoft.Build.Tasks.Core.dll">
     <ParameterGroup>
       <InputFilename ParameterType="System.String" Required="true" />
       <OutputFilename ParameterType="System.String" Required="true" />
@@ -55,7 +55,7 @@
   <UsingTask
       TaskName="CopyTextFile"
       TaskFactory="RoslynCodeTaskFactory"
-      AssemblyFile="$(MSBuildToolsPath)\Microsoft.Build.Tasks.Core.dll">
+      AssemblyFile="$(MSBuildToolsPath)/Microsoft.Build.Tasks.Core.dll">
     <ParameterGroup>
       <InputFilename ParameterType="System.String" Required="true" />
       <OutputFilename ParameterType="System.String" Required="true" />
@@ -100,11 +100,11 @@
 
   <Target Condition="$(CodeQualityOverrideEditorConfig) == true"
           Name="CodeQualityMain"
-          BeforeTargets="BeforeBuild;BeforeRebuild;AfterResolveReferences">
+		  BeforeTargets="GenerateMSBuildEditorConfigFile;CollectPackageReferences">
 
     <PropertyGroup>
       <OutputEditorConfigFile>$(MSBuildProjectDirectory)/.editorconfig</OutputEditorConfigFile>
-      <IntermediateOutputEditorConfigFile>$(IntermediateOutputPath)/.editorconfig</IntermediateOutputEditorConfigFile>
+      <IntermediateOutputEditorConfigFile>$(MSBuildProjectDirectory)/obj/.editorconfig</IntermediateOutputEditorConfigFile>
       <CsCaEditorConfigFile>$(MSBuildThisFileDirectory)../resources/style.cs.compiler.ca.editorconfig</CsCaEditorConfigFile>
       <CsCsEditorConfigFile>$(MSBuildThisFileDirectory)../resources/style.cs.compiler.cs.editorconfig</CsCsEditorConfigFile>
       <Ide1EditorConfigFile>$(MSBuildThisFileDirectory)../resources/style.cs.ide1.editorconfig</Ide1EditorConfigFile>
@@ -147,7 +147,7 @@
 
   <Target Condition="$(CodeQualityUpdateGitIgnore) == true"
           Name="GitIgnoreUpdate"
-          BeforeTargets="BeforeBuild;BeforeRebuild;AfterResolveReferences">
+		  BeforeTargets="GenerateMSBuildEditorConfigFile;CollectPackageReferences">
 
     <PropertyGroup>
       <GitIgnoreFile>$(MSBuildProjectDirectory)/.gitignore</GitIgnoreFile>

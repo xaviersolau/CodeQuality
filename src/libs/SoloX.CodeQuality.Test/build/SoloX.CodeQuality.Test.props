@@ -31,7 +31,7 @@
 
   <ItemGroup>
 
-    <GlobalAnalyzerConfigFiles Include="$(MSBuildThisFileDirectory)..\resources\global.editorconfig" />
+    <GlobalAnalyzerConfigFiles Include="$(MSBuildThisFileDirectory)../resources/global.editorconfig" />
 
   </ItemGroup>
 
