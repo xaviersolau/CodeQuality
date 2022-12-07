@@ -1,4 +1,241 @@
-﻿
+
+[*.{xml,html,css,js,json,resx,csproj,props,targets}]
+
+#### Core EditorConfig Options ####
+
+# Indentation and spacing
+indent_size = 2
+indent_style = space
+tab_width = 2
+
+# New line preferences
+end_of_line = crlf
+insert_final_newline = false
+
+
+[*.{razor,cshtml}]
+
+#### Core EditorConfig Options ####
+
+# Indentation and spacing
+indent_size = 4
+indent_style = space
+tab_width = 4
+
+# New line preferences
+end_of_line = crlf
+insert_final_newline = false
+
+[*.cs]
+
+#### Core EditorConfig Options ####
+
+# Indentation and spacing
+indent_size = 4
+indent_style = space
+tab_width = 4
+
+# New line preferences
+end_of_line = crlf
+insert_final_newline = false
+
+#### .NET Coding Conventions ####
+
+# Organize usings
+dotnet_separate_import_directive_groups = true:error
+dotnet_sort_system_directives_first = true:error
+
+# IDE0065: Directive using mal placée
+csharp_using_directive_placement = outside_namespace:error
+
+# IDE0005: La directive using n'est pas nécessaire.
+dotnet_diagnostic.IDE0005.severity = error
+
+# IDE0044: Ajouter un modificateur readonly
+dotnet_diagnostic.IDE0044.severity = error
+
+# IDE0009: L'accès au membre doit être qualifié.
+dotnet_diagnostic.IDE0009.severity = error
+
+csharp_style_var_for_built_in_types = true:error
+csharp_style_var_when_type_is_apparent = true:error
+csharp_style_var_elsewhere = true:error
+
+# IDE0007: Utiliser un type implicite
+dotnet_diagnostic.IDE0007.severity = error
+
+# IDE0004: Supprimer le cast inutile
+dotnet_diagnostic.IDE0004.severity = error
+
+# IDE0011: Ajouter des accolades
+dotnet_diagnostic.IDE0011.severity = error
+
+csharp_style_throw_expression = false
+
+# IDE0016: Utiliser l'expression 'throw'
+dotnet_diagnostic.IDE0016.severity = error
+
+# IDE0036: Ordonner les modificateurs
+dotnet_diagnostic.IDE0036.severity = error
+
+# IDE0040: Ajouter des modificateurs d'accessibilité
+dotnet_diagnostic.IDE0040.severity = error
+
+# Consts PascalCase
+dotnet_naming_rule.consts_should_be_upper_case.severity = error
+dotnet_naming_rule.consts_should_be_upper_case.symbols = consts
+dotnet_naming_rule.consts_should_be_upper_case.style = const_style
+
+dotnet_naming_symbols.consts.applicable_kinds = field
+dotnet_naming_symbols.consts.required_modifiers = const
+
+dotnet_naming_style.const_style.capitalization = pascal_case
+
+# Static readonly PascalCase
+dotnet_naming_rule.static_readonly_fields_should_be_upper_case.severity = error
+dotnet_naming_rule.static_readonly_fields_should_be_upper_case.symbols = static_readonly_fields
+dotnet_naming_rule.static_readonly_fields_should_be_upper_case.style = static_readonly_field_style
+
+dotnet_naming_symbols.static_readonly_fields.applicable_kinds = field
+dotnet_naming_symbols.static_readonly_fields.required_modifiers = static, readonly
+
+dotnet_naming_style.static_readonly_field_style.capitalization = pascal_case
+
+# Instance fields, locals and parameter are camelCase
+dotnet_naming_rule.instance_fields_should_be_camel_case.severity = error
+dotnet_naming_rule.instance_fields_should_be_camel_case.symbols = instance_fields
+dotnet_naming_rule.instance_fields_should_be_camel_case.style = instance_field_style
+
+dotnet_naming_symbols.instance_fields.applicable_kinds = field, local, parameter, local_function
+
+dotnet_naming_style.instance_field_style.capitalization = camel_case
+dotnet_naming_style.instance_field_style.required_prefix = 
+
+# Interfaces are PascalCase and prefixed with I
+dotnet_naming_rule.interfaces_should_be_pascal_case.severity = error
+dotnet_naming_rule.interfaces_should_be_pascal_case.symbols = interfaces
+dotnet_naming_rule.interfaces_should_be_pascal_case.style = interface_style
+
+dotnet_naming_symbols.interfaces.applicable_kinds = interface
+
+dotnet_naming_style.interface_style.capitalization = pascal_case
+dotnet_naming_style.interface_style.required_prefix = I
+
+# Abstract classes are PascalCase and prefixed with A
+dotnet_naming_rule.abstract_classes_should_be_pascal_case.severity = error
+dotnet_naming_rule.abstract_classes_should_be_pascal_case.symbols = abstract_classes
+dotnet_naming_rule.abstract_classes_should_be_pascal_case.style = abstract_class_style
+
+dotnet_naming_symbols.abstract_classes.applicable_kinds = class
+dotnet_naming_symbols.abstract_classes.required_modifiers = abstract
+
+dotnet_naming_style.abstract_class_style.capitalization = pascal_case
+dotnet_naming_style.abstract_class_style.required_prefix = A
+
+# Type parameters are PascalCase and prefixed with T
+dotnet_naming_rule.abstract_classes_should_be_pascal_case.severity = error
+dotnet_naming_rule.abstract_classes_should_be_pascal_case.symbols = type_parameters
+dotnet_naming_rule.abstract_classes_should_be_pascal_case.style = type_parameter_style
+
+dotnet_naming_symbols.type_parameters.applicable_kinds = type_parameter
+
+dotnet_naming_style.type_parameter_style.capitalization = pascal_case
+dotnet_naming_style.type_parameter_style.required_prefix = T
+
+# Async methods are PascalCase and suffixed with Async
+dotnet_naming_rule.async_methods_should_be_pascal_case.severity = error
+dotnet_naming_rule.async_methods_should_be_pascal_case.symbols = async_methods
+dotnet_naming_rule.async_methods_should_be_pascal_case.style = async_method_style
+
+dotnet_naming_symbols.async_methods.applicable_kinds = method
+dotnet_naming_symbols.async_methods.required_modifiers = async
+
+dotnet_naming_style.async_method_style.capitalization = pascal_case
+dotnet_naming_style.async_method_style.required_suffix = Async
+
+# Events are PascalCase and suffixed with Event
+dotnet_naming_rule.events_should_be_pascal_case.severity = error
+dotnet_naming_rule.events_should_be_pascal_case.symbols = events
+dotnet_naming_rule.events_should_be_pascal_case.style = event_style
+
+dotnet_naming_symbols.events.applicable_kinds = event
+
+dotnet_naming_style.event_style.capitalization = pascal_case
+dotnet_naming_style.event_style.required_suffix = Event
+
+# Delegates are PascalCase and suffixed with Handler
+dotnet_naming_rule.delegates_should_be_pascal_case.severity = error
+dotnet_naming_rule.delegates_should_be_pascal_case.symbols = delegates
+dotnet_naming_rule.delegates_should_be_pascal_case.style = delegate_style
+
+dotnet_naming_symbols.delegates.applicable_kinds = delegate
+
+dotnet_naming_style.delegate_style.capitalization = pascal_case
+dotnet_naming_style.delegate_style.required_suffix = Handler
+
+# classes and properties are PascalCase
+dotnet_naming_rule.classes_and_properties_should_be_pascal_case.severity = error
+dotnet_naming_rule.classes_and_properties_should_be_pascal_case.symbols = classes_and_properties
+dotnet_naming_rule.classes_and_properties_should_be_pascal_case.style = class_and_property_style
+
+dotnet_naming_symbols.classes_and_properties.applicable_kinds = class, struct, enum, method, property, namespace
+
+dotnet_naming_style.class_and_property_style.capitalization = pascal_case
+dotnet_naming_style.class_and_property_style.required_prefix = 
+
+# IDE1006: Styles d'affectation de noms
+dotnet_diagnostic.IDE1006.severity = error
+
+# Avoid "this." and "Me." if not necessary
+dotnet_style_qualification_for_field = true:refactoring
+dotnet_style_qualification_for_property = false:refactoring
+dotnet_style_qualification_for_method = false:refactoring
+dotnet_style_qualification_for_event = false:refactoring
+
+# IDE0049: Simplifier les noms
+dotnet_diagnostic.IDE0049.severity = error
+
+# IDE0051: Supprimer les membres privés non utilisés
+dotnet_diagnostic.IDE0051.severity = error
+
+# IDE0055: Corriger la mise en forme
+dotnet_diagnostic.IDE0055.severity = error
+
+# IDE0010: Ajouter les instructions case manquantes
+dotnet_diagnostic.IDE0010.severity = error
+
+# IDE0034: Simplifier l'expression 'default'
+dotnet_diagnostic.IDE0034.severity = error
+
+# IDE0062: Rendre la fonction locale 'static'
+dotnet_diagnostic.IDE0062.severity = error
+
+# IDE0082: 'typeof' peut être converti en 'nameof'
+dotnet_diagnostic.IDE0082.severity = error
+
+# IDE0066: Convertir l'instruction switch en expression
+dotnet_diagnostic.IDE0066.severity = error
+
+# IDE0072: Ajouter les instructions case manquantes
+dotnet_diagnostic.IDE0072.severity = error
+
+
+# IDE0073: File header
+dotnet_diagnostic.IDE0073.severity = error
+file_header_template = ----------------------------------------------------------------------\n<copyright file="{fileName}" company="Xavier Solau">\nCopyright © 2021 Xavier Solau.\nLicensed under the MIT license.\nSee LICENSE file in the project root for full license information.\n</copyright>\n----------------------------------------------------------------------
+
+# CS1591: Commentaire XML manquant pour le type ou le membre visible publiquement
+dotnet_diagnostic.CS1591.severity = error
+
+# CS1572: Le commentaire XML a une balise param, alors qu'il n'existe aucun paramètre de ce nom
+dotnet_diagnostic.CS1572.severity = error
+
+# CS0168: La variable est déclarée mais jamais utilisée
+dotnet_diagnostic.CS0168.severity = error
+
+# CS8603: Possible null reference return.
+dotnet_diagnostic.CS8603.severity = error
+
 dotnet_code_quality.CAXXXX.api_surface = private, internal, protected, public
 
 # CA1812: Éviter les classes internes non instanciées
@@ -9,9 +246,6 @@ dotnet_diagnostic.CA1001.severity = error
 
 # CA1032: Implémenter des constructeurs d'exception standard
 dotnet_diagnostic.CA1032.severity = error
-
-# CA1506: Avoid excessive class coupling
-dotnet_diagnostic.CA1506.severity = warning
 
 # CA1507: Utiliser nameof pour exprimer les noms de symboles
 dotnet_diagnostic.CA1507.severity = error
@@ -682,3 +916,33 @@ dotnet_diagnostic.IL3000.severity = error
 
 # IL3001: Évitez d'utiliser l'accès du chemin du fichier d'assembly lors de la publication en tant qu'application monofichier
 dotnet_diagnostic.IL3001.severity = error
+
+[*.{generated.cs,g.cs}]
+
+generated_code = true
+
+dotnet_analyzer_diagnostic.severity = error
+
+dotnet_analyzer_diagnostic.category-Style.severity = none
+dotnet_analyzer_diagnostic.category-Design.severity = none
+dotnet_analyzer_diagnostic.category-Documentation.severity = none
+dotnet_analyzer_diagnostic.category-Globalization.severity = none
+dotnet_analyzer_diagnostic.category-Interoperability.severity = none
+dotnet_analyzer_diagnostic.category-Maintainability.severity = none
+dotnet_analyzer_diagnostic.category-Naming.severity = none
+dotnet_analyzer_diagnostic.category-Performance.severity = none
+dotnet_analyzer_diagnostic.category-SingleFile.severity = none
+dotnet_analyzer_diagnostic.category-Reliability.severity = none
+dotnet_analyzer_diagnostic.category-Security.severity = none
+dotnet_analyzer_diagnostic.category-Style.severity = none
+dotnet_analyzer_diagnostic.category-Usage.severity = none
+dotnet_analyzer_diagnostic.category-CodeQuality.severity = none
+
+# CS1591: Commentaire XML manquant pour le type ou le membre visible publiquement
+dotnet_diagnostic.CS1591.severity = none
+
+
+[*.razor.g.cs]
+
+# CS0169: La variable est déclarée mais jamais utilisée
+dotnet_diagnostic.CS0169.severity = error
