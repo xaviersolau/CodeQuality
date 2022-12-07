@@ -1,4 +1,4 @@
-﻿<Project InitialTargets="LoggerUseDisableWarn">
+﻿<Project>
 
   <PropertyGroup>
     <DocumentationFile>$(OutputPath)$(MSBuildProjectName).xml</DocumentationFile>
@@ -32,7 +32,7 @@
 
   <ItemGroup>
 
-    <GlobalAnalyzerConfigFiles Include="$(MSBuildThisFileDirectory)..\resources\global.editorconfig" />
+    <GlobalAnalyzerConfigFiles Include="$(MSBuildThisFileDirectory)../resources/global.editorconfig" />
 
   </ItemGroup>
 
