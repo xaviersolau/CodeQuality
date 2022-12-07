@@ -24,9 +24,7 @@ namespace SoloX.CodeQuality.Test.Helpers
         /// <param name="stdout">Standard output.</param>
         /// <param name="stderr">Error output.</param>
         /// <returns>The process exit code.</returns>
-#pragma warning disable CA1021 // Avoid out parameters
         public static int Run(string workingDirectory, string command, string arguments, out string stdout, out string stderr)
-#pragma warning restore CA1021 // Avoid out parameters
         {
             var dotnet = new ProcessStartInfo(command, arguments)
             {
