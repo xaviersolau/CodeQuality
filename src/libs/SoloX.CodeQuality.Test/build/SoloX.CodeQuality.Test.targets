@@ -1,4 +1,4 @@
-﻿<Project>
+﻿<Project InitialTargets="GitIgnoreUpdate;CodeQualityMain">
 
   <UsingTask
     TaskName="AddTextLines"
@@ -99,8 +99,7 @@
   </UsingTask>
 
   <Target Condition="$(CodeQualityOverrideEditorConfig) == true"
-          Name="CodeQualityMain"
-		  BeforeTargets="GenerateMSBuildEditorConfigFile;CollectPackageReferences">
+          Name="CodeQualityMain">
 
     <PropertyGroup>
       <OutputEditorConfigFile>$(MSBuildProjectDirectory)/.editorconfig</OutputEditorConfigFile>
@@ -146,8 +145,7 @@
   </Target>
 
   <Target Condition="$(CodeQualityUpdateGitIgnore) == true"
-          Name="GitIgnoreUpdate"
-		  BeforeTargets="GenerateMSBuildEditorConfigFile;CollectPackageReferences">
+          Name="GitIgnoreUpdate">
 
     <PropertyGroup>
       <GitIgnoreFile>$(MSBuildProjectDirectory)/.gitignore</GitIgnoreFile>
