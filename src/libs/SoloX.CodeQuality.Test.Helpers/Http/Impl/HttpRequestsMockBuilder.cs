@@ -33,7 +33,7 @@ namespace SoloX.CodeQuality.Test.Helpers.Http.Impl
             return new RequestBuilder(responseBuilderAsync => Register(absolutePath, httpMethod, responseBuilderAsync));
         }
 
-        private IHttpClientRequestMockBuilder Register(string absolutePath, HttpMethod httpMethod, Func<HttpRequestMessage, Task<HttpResponseMessage>> responseBuilderAsync)
+        private HttpRequestsMockBuilder Register(string absolutePath, HttpMethod httpMethod, Func<HttpRequestMessage, Task<HttpResponseMessage>> responseBuilderAsync)
         {
             if (absolutePath is null)
             {

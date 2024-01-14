@@ -18,7 +18,7 @@ namespace SoloX.CodeQuality.Prod.Example
     /// </summary>
     public class Class1<TTest>
     {
-        private readonly IList<IInterface1> values;
+        private readonly List<IInterface1> values;
 
         /// <summary>
         /// 
@@ -54,6 +54,19 @@ namespace SoloX.CodeQuality.Prod.Example
         }
 
         /// <summary>
+        /// Test access value.
+        /// </summary>
+        /// <param name="value"></param>
+        public string AccessMethod(IInterface1 value)
+        {
+            ArgumentNullException.ThrowIfNull(value, nameof(value));
+
+            var tmp = value.TestValue;
+
+            return tmp;
+        }
+
+        /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>
@@ -76,12 +89,9 @@ namespace SoloX.CodeQuality.Prod.Example
         /// <returns></returns>
         public void MethodWithNullable1(string? data)
         {
-            if (data == null)
-            {
-                throw new ArgumentNullException(nameof(data));
-            }
+            ArgumentNullException.ThrowIfNullOrEmpty(data, nameof(data));
 
-            var hash = data.GetHashCode();
+            var hash = data.GetHashCode(StringComparison.InvariantCulture);
         }
 
         /// <summary>
@@ -91,10 +101,7 @@ namespace SoloX.CodeQuality.Prod.Example
         /// <returns></returns>
         public string MethodWithNullable2(string? data)
         {
-            if (data == null)
-            {
-                throw new ArgumentNullException(nameof(data));
-            }
+            ArgumentNullException.ThrowIfNullOrEmpty(data, nameof(data));
 
             return data;
         }

@@ -4,7 +4,7 @@
     <DocumentationFile>$(OutputPath)$(MSBuildProjectName).xml</DocumentationFile>
 
     <EnableNETAnalyzers>true</EnableNETAnalyzers>
-    <AnalysisLevel>latest</AnalysisLevel>
+    <AnalysisLevel>8.0</AnalysisLevel>
 
     <AnalysisMode>AllEnabledByDefault</AnalysisMode>
     <!--<AnalysisMode>AllDisabledByDefault</AnalysisMode>-->
