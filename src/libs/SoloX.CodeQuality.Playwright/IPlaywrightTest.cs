@@ -1,4 +1,12 @@
-﻿using Microsoft.Playwright;
+﻿// ----------------------------------------------------------------------
+// <copyright file="IPlaywrightTest.cs" company="Xavier Solau">
+// Copyright © 2021 Xavier Solau.
+// Licensed under the MIT license.
+// See LICENSE file in the project root for full license information.
+// </copyright>
+// ----------------------------------------------------------------------
+
+using Microsoft.Playwright;
 
 namespace SoloX.CodeQuality.Playwright
 {

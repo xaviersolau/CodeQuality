@@ -25,6 +25,11 @@ namespace SoloX.CodeQuality.Prod
                 }
             }
 
+            if (Environment.NewLine == "\n")
+            {
+                txt = txt.Replace("end_of_line = crlf", "end_of_line = lf");
+            }
+
             var outputDirectory = Path.GetDirectoryName(OutputFilename);
             if (!Directory.Exists(outputDirectory))
             {
