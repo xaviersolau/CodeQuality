@@ -14,10 +14,16 @@ jobs:
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: 8.0.100
+        dotnet-version: 8.0.302
     - name: Install dependencies
       run: dotnet restore
     - name: Build
       run: dotnet build --configuration Release --no-restore
-    - name: Test
+    - name: Test Helpers
       run: dotnet test ./src/tests/SoloX.CodeQuality.Test.Helpers.UTest --configuration Release --no-restore --no-build
+    - name: Test Helpers NUnit
+      run: dotnet test ./src/tests/SoloX.CodeQuality.Test.Helpers.NUnit.UTest --configuration Release --no-restore --no-build
+    - name: Test Helpers XUnit
+      run: dotnet test ./src/tests/SoloX.CodeQuality.Test.Helpers.XUnit.UTest --configuration Release --no-restore --no-build
+    - name: Test E2E
+      run: dotnet test ./src/tests/SoloX.CodeQuality.Playwright.E2ETest --configuration Release --no-restore --no-build

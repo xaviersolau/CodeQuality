@@ -36,11 +36,17 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SoloX.CodeQuality.Test.Help
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SoloX.CodeQuality.Test.Helpers.XUnit", "src\libs\SoloX.CodeQuality.Test.Helpers.XUnit\SoloX.CodeQuality.Test.Helpers.XUnit.csproj", "{460A9E21-4998-4AA1-99A1-42A30B6112FB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SoloX.CodeQuality.Test.Helpers.NUnit", "src\libs\SoloX.CodeQuality.Test.Helpers.NUnit\SoloX.CodeQuality.Test.Helpers.NUnit.csproj", "{2913D504-F7A0-4F31-83EA-D6C94BD9FB03}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SoloX.CodeQuality.Test.Helpers.NUnit", "src\libs\SoloX.CodeQuality.Test.Helpers.NUnit\SoloX.CodeQuality.Test.Helpers.NUnit.csproj", "{2913D504-F7A0-4F31-83EA-D6C94BD9FB03}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SoloX.CodeQuality.Test.Helpers.XUnit.UTest", "src\tests\SoloX.CodeQuality.Test.Helpers.XUnit.UTest\SoloX.CodeQuality.Test.Helpers.XUnit.UTest.csproj", "{288CF25A-DE2B-4A81-9EC6-DEA992E5A1A4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SoloX.CodeQuality.Test.Helpers.XUnit.UTest", "src\tests\SoloX.CodeQuality.Test.Helpers.XUnit.UTest\SoloX.CodeQuality.Test.Helpers.XUnit.UTest.csproj", "{288CF25A-DE2B-4A81-9EC6-DEA992E5A1A4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SoloX.CodeQuality.Test.Helpers.NUnit.UTest", "src\tests\SoloX.CodeQuality.Test.Helpers.NUnit.UTest\SoloX.CodeQuality.Test.Helpers.NUnit.UTest.csproj", "{972FDF9D-742F-4434-A6B8-2AB40B17A8A0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SoloX.CodeQuality.Test.Helpers.NUnit.UTest", "src\tests\SoloX.CodeQuality.Test.Helpers.NUnit.UTest\SoloX.CodeQuality.Test.Helpers.NUnit.UTest.csproj", "{972FDF9D-742F-4434-A6B8-2AB40B17A8A0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SoloX.CodeQuality.WebHost", "src\libs\SoloX.CodeQuality.WebHost\SoloX.CodeQuality.WebHost.csproj", "{3507CA64-D718-427E-BA4F-40986B34F56A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SoloX.CodeQuality.Playwright", "src\libs\SoloX.CodeQuality.Playwright\SoloX.CodeQuality.Playwright.csproj", "{B339195D-10B0-471F-9401-F883B18838CE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SoloX.CodeQuality.Playwright.E2ETest", "src\tests\SoloX.CodeQuality.Playwright.E2ETest\SoloX.CodeQuality.Playwright.E2ETest.csproj", "{D0CDEC61-7956-4F49-AC4D-C0DA3063969F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -88,6 +94,18 @@ Global
 		{972FDF9D-742F-4434-A6B8-2AB40B17A8A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{972FDF9D-742F-4434-A6B8-2AB40B17A8A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{972FDF9D-742F-4434-A6B8-2AB40B17A8A0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3507CA64-D718-427E-BA4F-40986B34F56A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3507CA64-D718-427E-BA4F-40986B34F56A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3507CA64-D718-427E-BA4F-40986B34F56A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3507CA64-D718-427E-BA4F-40986B34F56A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B339195D-10B0-471F-9401-F883B18838CE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B339195D-10B0-471F-9401-F883B18838CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B339195D-10B0-471F-9401-F883B18838CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B339195D-10B0-471F-9401-F883B18838CE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D0CDEC61-7956-4F49-AC4D-C0DA3063969F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D0CDEC61-7956-4F49-AC4D-C0DA3063969F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D0CDEC61-7956-4F49-AC4D-C0DA3063969F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D0CDEC61-7956-4F49-AC4D-C0DA3063969F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -103,6 +121,9 @@ Global
 		{2913D504-F7A0-4F31-83EA-D6C94BD9FB03} = {5B172423-1455-41CB-8D81-7DCFCFF8855D}
 		{288CF25A-DE2B-4A81-9EC6-DEA992E5A1A4} = {1D5021C0-2423-494A-98F6-71AB937CDF8B}
 		{972FDF9D-742F-4434-A6B8-2AB40B17A8A0} = {1D5021C0-2423-494A-98F6-71AB937CDF8B}
+		{3507CA64-D718-427E-BA4F-40986B34F56A} = {5B172423-1455-41CB-8D81-7DCFCFF8855D}
+		{B339195D-10B0-471F-9401-F883B18838CE} = {5B172423-1455-41CB-8D81-7DCFCFF8855D}
+		{D0CDEC61-7956-4F49-AC4D-C0DA3063969F} = {1D5021C0-2423-494A-98F6-71AB937CDF8B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {74BCF463-5FDE-4DBC-B32A-431E8A228CA0}
