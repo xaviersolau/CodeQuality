@@ -1,0 +1,25 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <Import Project="../../SharedProperties.props" />
+
+  <Import Project="../../libs/SoloX.CodeQuality.Prod/build/SoloX.CodeQuality.Prod.props" />
+
+  <Import Project="../../libs/SoloX.CodeQuality.Prod/build/SoloX.CodeQuality.Prod.targets" />
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FluentAssertions" Version="6.12.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="8.0.8" />
+    <PackageReference Include="Microsoft.Playwright" Version="1.47.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SoloX.CodeQuality.WebHost\SoloX.CodeQuality.WebHost.csproj" />
+  </ItemGroup>
+
+</Project>

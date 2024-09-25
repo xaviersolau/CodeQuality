@@ -9,6 +9,9 @@
 namespace SoloX.CodeQuality.Test.Helpers
 {
 #pragma warning disable CA1021 // Avoid out parameters
+    /// <summary>
+    /// DotnetHelper allows to run dotnet command.
+    /// </summary>
     public static class DotnetHelper
     {
         private const string DOTNET = "dotnet";

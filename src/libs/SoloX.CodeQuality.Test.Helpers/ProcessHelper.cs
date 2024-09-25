@@ -7,6 +7,8 @@
 // ----------------------------------------------------------------------
 
 using System.Diagnostics;
+using System.Text;
+using System.Threading;
 
 namespace SoloX.CodeQuality.Test.Helpers
 {
@@ -26,19 +28,58 @@ namespace SoloX.CodeQuality.Test.Helpers
         /// <returns>The process exit code.</returns>
         public static int Run(string workingDirectory, string command, string arguments, out string stdout, out string stderr)
         {
-            var dotnet = new ProcessStartInfo(command, arguments)
+            var output = new StringBuilder();
+            var error = new StringBuilder();
+
+            using (var process = new Process())
+            using (var outputWaitHandle = new AutoResetEvent(false))
+            using (var errorWaitHandle = new AutoResetEvent(false))
             {
-                WorkingDirectory = workingDirectory,
-                RedirectStandardOutput = true,
-                RedirectStandardError = true,
-                RedirectStandardInput = true,
-            };
-            using (var process = Process.Start(dotnet))
-            {
+                process.OutputDataReceived += (sender, e) =>
+                {
+                    if (e.Data == null)
+                    {
+                        outputWaitHandle.Set();
+                    }
+                    else
+                    {
+                        output.AppendLine(e.Data);
+                    }
+                };
+                process.ErrorDataReceived += (sender, e) =>
+                {
+                    if (e.Data == null)
+                    {
+                        errorWaitHandle.Set();
+                    }
+                    else
+                    {
+                        error.AppendLine(e.Data);
+                    }
+                };
+
+                var dotnetStartInfo = new ProcessStartInfo(command, arguments)
+                {
+                    WorkingDirectory = workingDirectory,
+                    RedirectStandardOutput = true,
+                    RedirectStandardError = true,
+                    RedirectStandardInput = true,
+                };
+
+                process.StartInfo = dotnetStartInfo;
+
+                process.Start();
+
+                process.BeginOutputReadLine();
+                process.BeginErrorReadLine();
+
                 process.WaitForExit();
 
-                stdout = process.StandardOutput.ReadToEnd();
-                stderr = process.StandardError.ReadToEnd();
+                outputWaitHandle.WaitOne();
+                errorWaitHandle.WaitOne();
+
+                stdout = output.ToString();
+                stderr = error.ToString();
 
                 return process.ExitCode;
             }
