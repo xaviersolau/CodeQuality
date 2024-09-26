@@ -23,7 +23,7 @@ namespace SoloX.CodeQuality.Playwright.E2ETest
                 {
                     localHostBuilder
                         .UsePortRange(new PortRange(5000, 6000))
-                        .UseWebHostWithWwwRoot(path)
+                        .UseWebHostWithWwwRoot(path, "home.html")
                         .UseWebHostBuilder(builder =>
                         {
                             //builder.ConfigureServices(services =>

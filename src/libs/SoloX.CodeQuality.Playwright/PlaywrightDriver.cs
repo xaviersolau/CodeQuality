@@ -20,6 +20,8 @@ namespace SoloX.CodeQuality.Playwright
 
         private static readonly string[] INSTALL_ARGUMENTS = new[] { "install" };
 
+        private static readonly object InstallLock = new object();
+
         /// <summary>
         /// Playwright module.
         /// </summary>
@@ -60,7 +62,6 @@ namespace SoloX.CodeQuality.Playwright
             ChromiumBrowser = new Lazy<Task<IBrowser>>(Playwright.Chromium.LaunchAsync(options));
             FirefoxBrowser = new Lazy<Task<IBrowser>>(Playwright.Firefox.LaunchAsync(options));
             WebkitBrowser = new Lazy<Task<IBrowser>>(Playwright.Webkit.LaunchAsync(options));
-
         }
 
         /// <summary>
@@ -74,19 +75,25 @@ namespace SoloX.CodeQuality.Playwright
 
         private static void InstallPlaywrightDeps()
         {
-            var exitCode = Microsoft.Playwright.Program.Main(INSTALL_DEPS_ARGUMENTS);
-            if (exitCode != 0)
+            lock (InstallLock)
             {
-                throw new PlaywrightException($"Playwright exited with code {exitCode} on install-deps");
+                var exitCode = Microsoft.Playwright.Program.Main(INSTALL_DEPS_ARGUMENTS);
+                if (exitCode != 0)
+                {
+                    throw new PlaywrightException($"Playwright exited with code {exitCode} on install-deps");
+                }
             }
         }
 
         private static void InstallPlaywrightBin()
         {
-            var exitCode2 = Microsoft.Playwright.Program.Main(INSTALL_ARGUMENTS);
-            if (exitCode2 != 0)
+            lock (InstallLock)
             {
-                throw new PlaywrightException($"Playwright exited with code {exitCode2} on install");
+                var exitCode2 = Microsoft.Playwright.Program.Main(INSTALL_ARGUMENTS);
+                if (exitCode2 != 0)
+                {
+                    throw new PlaywrightException($"Playwright exited with code {exitCode2} on install");
+                }
             }
         }
 

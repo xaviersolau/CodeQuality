@@ -27,7 +27,7 @@ namespace SoloX.CodeQuality.Playwright.E2ETest
             var builder = PlaywrightTestBuilder.Create()
                 .WithLocalHost(localHostBuilder =>
                 {
-                    localHostBuilder.UseWebHostWithWwwRoot(path);
+                    localHostBuilder.UseWebHostWithWwwRoot(path, "home.html");
                 })
                 .WithTraces(b =>
                 {
