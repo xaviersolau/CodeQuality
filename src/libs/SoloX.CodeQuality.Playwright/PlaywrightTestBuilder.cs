@@ -45,8 +45,6 @@ namespace SoloX.CodeQuality.Playwright
             private bool useHttps = true;
             private string onLineHost = string.Empty;
 
-            private Action<ILocalHostBuilder> localHostBuilderConfiguration = _ => { };
-
             private Func<string?, string?> traceFilePatternHandler = (f) => null;
             private Action<TracingStartOptions> traceFileOptionsBuilder = options => { };
 
@@ -146,7 +144,7 @@ namespace SoloX.CodeQuality.Playwright
 
             public IPlaywrightTestBuilder WithLocalHost(Action<ILocalHostBuilder> configuration)
             {
-                this.localHostBuilderConfiguration = configuration;
+                configuration(this);
 
                 return this;
             }
@@ -202,17 +200,16 @@ namespace SoloX.CodeQuality.Playwright
             {
                 var hostFactory = new TestingWebHostFactory<TEntryPoint>();
 
-                // Override host configuration to configure the url to use.
                 hostFactory
+                    // Override host configuration to configure the url to use.
                     .WithWebHostBuilder(builder =>
                     {
                         builder.UseUrls(url);
 
                         configuration(builder);
-                    });
-
-                // Create the host using the CreateDefaultClient method.
-                hostFactory.CreateDefaultClient();
+                    })
+                    // Create the host using the CreateDefaultClient method.
+                    .CreateDefaultClient();
 
                 return hostFactory;
             }
