@@ -33,7 +33,8 @@ namespace SoloX.CodeQuality.Playwright.E2ETest
                             //.ConfigureAppConfiguration((app, conf) =>
                             //{
                             //    conf.AddJsonFile("appsettings.Test.json");
-                            //});
+                            //})
+                            //.UseSetting("SomeKey", "SomeValue");
                         });
                 });
         }
@@ -41,9 +42,7 @@ namespace SoloX.CodeQuality.Playwright.E2ETest
         [Theory]
         [InlineData(Browser.Chromium)]
         [InlineData(Browser.Firefox)]
-#if !DEBUG
         [InlineData(Browser.Webkit)]
-#endif
         public async Task ItShouldOpenTheHomePageFromStaticHomeFile(Browser browser)
         {
             var playwrightTest = await this.builder

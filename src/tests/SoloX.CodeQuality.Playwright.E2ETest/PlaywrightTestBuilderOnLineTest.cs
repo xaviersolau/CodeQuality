@@ -23,9 +23,7 @@ namespace SoloX.CodeQuality.Playwright.E2ETest
         [Theory]
         [InlineData(Browser.Chromium)]
         [InlineData(Browser.Firefox)]
-#if !DEBUG
         [InlineData(Browser.Webkit)]
-#endif
         public async Task ItShouldOpenPageFromOnLineWebHost(Browser browser)
         {
             var playwrightTest = await this.builder

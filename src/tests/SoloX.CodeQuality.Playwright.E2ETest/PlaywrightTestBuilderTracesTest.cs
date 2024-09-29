@@ -15,9 +15,7 @@ namespace SoloX.CodeQuality.Playwright.E2ETest
         [Theory]
         [InlineData(Browser.Chromium)]
         [InlineData(Browser.Firefox)]
-#if !DEBUG
         [InlineData(Browser.Webkit)]
-#endif
         public async Task ItShouldOpenPageAndGenerateTraces(Browser browser)
         {
             var path = Path.GetFullPath(Path.GetDirectoryName(this.GetType().Assembly.Location)!);
@@ -29,9 +27,16 @@ namespace SoloX.CodeQuality.Playwright.E2ETest
                 {
                     localHostBuilder.UseWebHostWithWwwRoot(path, "home.html");
                 })
-                .WithTraces(b =>
+                .WithTraces(tracesBuilder =>
                 {
-                    b.UseFilePattern(f => tracesFile);
+                    tracesBuilder
+                        .UseTraceOptions(opt =>
+                        {
+                            opt.Snapshots = true;
+                            opt.Screenshots = true;
+                            opt.Sources = true;
+                        })
+                        .UseOutputFile(tracesFile);
                 });
 
             var playwrightTest = await builder
