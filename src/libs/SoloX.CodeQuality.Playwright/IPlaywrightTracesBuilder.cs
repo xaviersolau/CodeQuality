@@ -28,5 +28,12 @@ namespace SoloX.CodeQuality.Playwright
         /// <param name="configuration">Traces File Path configuration handler.</param>
         /// <returns></returns>
         IPlaywrightTracesBuilder UseFilePattern(Func<string?, string?> configuration);
+
+        /// <summary>
+        /// Configure Traces output file.
+        /// </summary>
+        /// <param name="tracesOutputFile">Traces Output File Path where to store the traces.</param>
+        /// <returns></returns>
+        IPlaywrightTracesBuilder UseOutputFile(string tracesOutputFile);
     }
 }

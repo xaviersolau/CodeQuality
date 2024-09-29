@@ -3,7 +3,12 @@
 This project provides an easy way to set up .Net Core [static code analysis](#coding-style-and-analysis) with pre-configured quality and coding style
 rules for your Test and your Prod C# projects.
 
-It also provides [test helpers](#test-helpers) to use in your unit test projects helping with test logging, HttpClient mocking...
+It also provides:
+* [Test helpers](#test-helpers) to use in your unit test projects helping with test logging or running processes.
+* A [Playwright Test Builder](#playwright-test-builder) to help you make Web application tests.
+* And a [HttpClient mock](#httpclient-mocking) to be able to inject HttpClient when ever you need it in your unit tests;
+
+
 
 ## Project dashboard
 [![Build - CI](https://github.com/xaviersolau/CodeQuality/actions/workflows/build-ci.yml/badge.svg)](https://github.com/xaviersolau/CodeQuality/actions/workflows/build-ci.yml)
@@ -13,9 +18,11 @@ It also provides [test helpers](#test-helpers) to use in your unit test projects
 |-----------------------------------------|-----------|
 |**SoloX.CodeQuality.Prod**               |[![NuGet Beta](https://img.shields.io/nuget/vpre/SoloX.CodeQuality.Prod.svg)](https://www.nuget.org/packages/SoloX.CodeQuality.Prod)
 |**SoloX.CodeQuality.Test**               |[![NuGet Beta](https://img.shields.io/nuget/vpre/SoloX.CodeQuality.Test.svg)](https://www.nuget.org/packages/SoloX.CodeQuality.Test)
+|**SoloX.CodeQuality.Playwright**         |[![NuGet Beta](https://img.shields.io/nuget/vpre/SoloX.CodeQuality.Playwright.svg)](https://www.nuget.org/packages/SoloX.CodeQuality.Playwright)
 |**SoloX.CodeQuality.Test.Helpers**       |[![NuGet Beta](https://img.shields.io/nuget/vpre/SoloX.CodeQuality.Test.Helpers.svg)](https://www.nuget.org/packages/SoloX.CodeQuality.Test.Helpers)
 |**SoloX.CodeQuality.Test.Helpers.XUnit** |[![NuGet Beta](https://img.shields.io/nuget/vpre/SoloX.CodeQuality.Test.Helpers.XUnit.svg)](https://www.nuget.org/packages/SoloX.CodeQuality.Test.Helpers.XUnit)
 |**SoloX.CodeQuality.Test.Helpers.NUnit** |[![NuGet Beta](https://img.shields.io/nuget/vpre/SoloX.CodeQuality.Test.Helpers.NUnit.svg)](https://www.nuget.org/packages/SoloX.CodeQuality.Test.Helpers.NUnit)
+|**SoloX.CodeQuality.WebHost**            |[![NuGet Beta](https://img.shields.io/nuget/vpre/SoloX.CodeQuality.WebHost.svg)](https://www.nuget.org/packages/SoloX.CodeQuality.WebHost)
 
 ## License and credits
 
@@ -45,26 +52,26 @@ You can checkout this Github repository or you can use the NuGet package:
 
 **Install using the command line from the Package Manager:**
 ```bash
-Install-Package SoloX.CodeQuality.Prod -version 2.1.0
+Install-Package SoloX.CodeQuality.Prod -version 2.1.1
 or
-Install-Package SoloX.CodeQuality.Test -version 2.1.0
+Install-Package SoloX.CodeQuality.Test -version 2.1.1
 ```
 
 **Install using the .Net CLI:**
 ```bash
-dotnet add package SoloX.CodeQuality.Prod --version 2.1.0
+dotnet add package SoloX.CodeQuality.Prod --version 2.1.1
 or
-dotnet add package SoloX.CodeQuality.Test --version 2.1.0
+dotnet add package SoloX.CodeQuality.Test --version 2.1.1
 ```
 
 **Install editing your project file (csproj):**
 ```xml
-<PackageReference Include="SoloX.CodeQuality.Prod" Version="2.1.0">
+<PackageReference Include="SoloX.CodeQuality.Prod" Version="2.1.1">
   <PrivateAssets>all</PrivateAssets>
   <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
 </PackageReference>
 or
-<PackageReference Include="SoloX.CodeQuality.Test" Version="2.1.0">
+<PackageReference Include="SoloX.CodeQuality.Test" Version="2.1.1">
   <PrivateAssets>all</PrivateAssets>
   <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
 </PackageReference>
@@ -198,6 +205,174 @@ You may need to disable those rules. To do so, you just have to set the
 
 * * *
 
+## Playwright Test Builder
+
+Whenever you have a web application to test, you can use the `PlaywrightTestBuilder`!
+The builder helps set up your host application and Playwright to process your tests.
+
+ * * *
+
+### Installation
+
+You can checkout this Github repository or use the NuGet package:
+
+**Install using the command line from the Package Manager:**
+```bash
+Install-Package SoloX.CodeQuality.Playwright -version 2.1.1
+```
+
+**Install using the .Net CLI:**
+```bash
+dotnet add package SoloX.CodeQuality.Playwright --version 2.1.1
+```
+
+**Install editing your project file (csproj):**
+```xml
+<PackageReference Include="SoloX.CodeQuality.Playwright" Version="2.1.1" />
+```
+
+* * *
+
+### Testing with Playwright
+
+Setting up your test with Playwright and your web application host is simple. The `PlaywrightTestBuilder` helps
+you create a `PlaywrightTest` by setting up your local host and configuring Playwright to target this host.
+
+Additionally, the builder automatically installs all Playwright dependencies. This means all you need to do is
+install the NuGet package, write your test, and run it.
+
+You can find an example [here](src/tests/SoloX.CodeQuality.Playwright.E2ETest/PlaywrightTestBuilderLocalTest.cs) of
+a test using the `PlaywrightTestBuilder`.
+
+* * *
+
+### Features of the PlaywrightTestBuilder
+
+The builder allows you to:
+* Mock the application services you may need to mock.
+* Set up the host on a specific network port (which is helpful for running tests in parallel).
+* Configure Playwright to target the test host.
+* Enable Playwright traces.
+
+You can use Playwright Test Builder to test any web application hosted by a .NET Core host. This includes Blazor
+Web applications and SPA applications (such as Angular, React, etc.) hosted on .NET Core.
+
+It is also possible to test a static web application. The Playwright Test Builder will configure an embedded web
+host to serve your static files.
+
+* * *
+
+### How to build a Playwright test
+
+1. Get the builder
+
+```csharp
+using SoloX.CodeQuality.Playwright;
+
+var builder = PlaywrightTestBuilder.Create();
+```
+
+2. Set up the Host
+
+.Net Core host:
+
+This is the most common use case. You need to provide a Type defined in you host entry-point assembly
+(usually Program or Startup or any other type in the assembly).
+
+```csharp
+builder.WithLocalHost(localHostBuilder =>
+    {
+        localHostBuilder
+            // Program is a type from your host entry-point assembly.
+            .UseApplication<Program>()
+            // Optionally you can specify the network port range to use.
+            .UsePortRange(new PortRange(5000, 6000))
+            // Optionally you can set up some service mocks or some configurations.
+            // As you would do with the WebApplicationFactory.
+            .UseWebHostBuilder(builder =>
+            {
+                builder
+                    .ConfigureServices(services =>
+                    {
+                        // Add service mock
+                        services.AddTransient<IService, ServiceMock>();
+                    })
+                    .ConfigureAppConfiguration((app, conf) =>
+                    {
+                        // Add configuration file
+                        conf.AddJsonFile("appsettings.Test.json");
+                    });
+                    // Or just add a configuration key value
+                    .UseSetting("SomeKey", "SomeValue");
+            });
+    });
+```
+
+On-line host:
+
+In the case where your host is on-line, use:
+
+```csharp
+builder.WithOnLineHost("https://www.google.com/");
+```
+
+Static HTML files:
+
+For applications based on static HTML files, you just need to provide the `wwwroot` folder location:
+
+```csharp
+var path = "Path to your 'wwwroot' folder";
+
+builder.WithLocalHost(localHostBuilder =>
+    {
+        localHostBuilder.UseWebHostWithWwwRoot(path, "index.html");
+    });
+```
+
+#### Set up Traces
+
+Once your host is configured, you can enable and configure traces options:
+
+```csharp
+builder
+    // It tells that you want to generate traces.
+    .WithTraces(tracesBuilder =>
+    {
+        tracesBuilder
+            // Set up traces options as you would using directly Playwright.
+            .UseTraceOptions(opt =>
+            {
+                opt.Snapshots = true;
+                opt.Screenshots = true;
+                opt.Sources = true;
+            })
+            // Tells where the traces must be stored.
+            .UseOutputFile(tracesFile);
+    });
+```
+
+#### Create and use the PlaywrightTest
+
+Finally you can build the `PlaywrightTest` and use it like this:
+
+```csharp
+// Select the browser you want to test against. (Chromium, Firefox or Webkit)
+var browser = Browser.Chromium;
+
+// Note that the IPlaywrightTest is a IAsyncDisposable so don't forget the 'await using'.
+await using var playwrightTest = await builder.BuildAsync(browser);
+
+// Run the test.
+await playwrightTest.GotoPageAsync("index.html", async (page) =>
+    {
+        var body = page.Locator("body");
+
+        await body.WaitForAsync();
+    });
+```
+
+* * *
+
 ## Test Helpers
 
 This aspect of the project helps to write your tests providing useful classes to handle test logging, HttpClient mocking....
@@ -210,29 +385,29 @@ You can checkout this Github repository or you can use the NuGet package:
 
 **Install using the command line from the Package Manager:**
 ```bash
-Install-Package SoloX.CodeQuality.Test.Helpers -version 2.1.0
+Install-Package SoloX.CodeQuality.Test.Helpers -version 2.1.1
 
-Install-Package SoloX.CodeQuality.Test.Helpers.XUnit -version 2.1.0
+Install-Package SoloX.CodeQuality.Test.Helpers.XUnit -version 2.1.1
 
-Install-Package SoloX.CodeQuality.Test.Helpers.NUnit -version 2.1.0
+Install-Package SoloX.CodeQuality.Test.Helpers.NUnit -version 2.1.1
 ```
 
 **Install using the .Net CLI:**
 ```bash
-dotnet add package SoloX.CodeQuality.Test.Helpers --version 2.1.0
+dotnet add package SoloX.CodeQuality.Test.Helpers --version 2.1.1
 
-dotnet add package SoloX.CodeQuality.Test.Helpers.XUnit --version 2.1.0
+dotnet add package SoloX.CodeQuality.Test.Helpers.XUnit --version 2.1.1
 
-dotnet add package SoloX.CodeQuality.Test.Helpers.NUnit --version 2.1.0
+dotnet add package SoloX.CodeQuality.Test.Helpers.NUnit --version 2.1.1
 ```
 
 **Install editing your project file (csproj):**
 ```xml
-<PackageReference Include="SoloX.CodeQuality.Test.Helpers" Version="2.1.0" />
+<PackageReference Include="SoloX.CodeQuality.Test.Helpers" Version="2.1.1" />
 
-<PackageReference Include="SoloX.CodeQuality.Test.Helpers.XUnit" Version="2.1.0" />
+<PackageReference Include="SoloX.CodeQuality.Test.Helpers.XUnit" Version="2.1.1" />
 
-<PackageReference Include="SoloX.CodeQuality.Test.Helpers.NUnit" Version="2.1.0" />
+<PackageReference Include="SoloX.CodeQuality.Test.Helpers.NUnit" Version="2.1.1" />
 ```
 
  * * *

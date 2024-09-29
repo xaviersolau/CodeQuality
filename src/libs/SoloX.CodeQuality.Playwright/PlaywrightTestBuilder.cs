@@ -192,6 +192,11 @@ namespace SoloX.CodeQuality.Playwright
                 return this;
             }
 
+            public IPlaywrightTracesBuilder UseOutputFile(string tracesOutputFile)
+            {
+                return UseFilePattern(f => tracesOutputFile);
+            }
+
             /// <summary>
             /// Create a typed TestingWebHostFactory.
             /// </summary>
