@@ -265,7 +265,7 @@ host to serve your static files.
 
 ### How to build a Playwright test
 
-1. Get the builder
+#### Get the builder
 
 ```csharp
 using SoloX.CodeQuality.Playwright;
@@ -273,7 +273,7 @@ using SoloX.CodeQuality.Playwright;
 var builder = PlaywrightTestBuilder.Create();
 ```
 
-2. Set up the Host
+#### Set up the Host
 
 .Net Core host:
 
@@ -354,6 +354,30 @@ builder
 
 > Note: you can check on the [Playwright](https://playwright.dev/dotnet/) web site to find out more about the
 > [Trace Viewer](https://playwright.dev/dotnet/docs/trace-viewer-intro).
+
+#### Playwright options
+
+It is also possible to specify the Playwright options:
+
+```csharp
+builder
+    .WithPlaywrightOptions(opt =>
+    {
+        // Display the browser screen.
+        opt.Headless = false;
+        // Slow down browser actions.
+        opt.SlowMo = 1000;
+    })
+    .WithPlaywrightNewContextOptions(opt =>
+    {
+        // Set up the browser screen size.
+        opt.ScreenSize = new ScreenSize() { Height = 800, Width = 1000 };
+        // Initialize browser storage.
+        opt.StorageStatePath = "path to the state Json file that will be loaded in the new context.";
+    });
+```
+
+
 
 #### Create and use the PlaywrightTest
 

@@ -37,9 +37,9 @@ namespace SoloX.CodeQuality.Playwright
             private Func<string, Action<IWebHostBuilder>, IAsyncDisposable> createTestingWebHostFactoryHandle = CreateTestingWebHostFactory<WebHost.Program>;
 
             private PortRange portRange = new PortRange(5000, 6000);
-            private int goToPageRetry = 5;
+            private int goToPageRetryCount = 3;
             private Browser browser;
-            private BrowserTypeLaunchOptions? browserTypeLaunchOptions;
+            private Action<BrowserTypeLaunchOptions> browserTypeLaunchOptionsBuilder = options => { };
             private Action<IWebHostBuilder> webHostBuilderConfiguration = _ => { };
 
             private bool useLocalHost = true;
@@ -48,14 +48,32 @@ namespace SoloX.CodeQuality.Playwright
 
             private Func<string?, string?> traceFilePatternHandler = (f) => null;
             private Action<TracingStartOptions> traceFileOptionsBuilder = options => { };
+            private Action<BrowserNewContextOptions> browserNewContextOptionsBuilder = options => { };
 
             public async Task<IPlaywrightTest> BuildAsync(Browser? browser = null)
             {
                 var port = SharedPortStore.GetPort(this.portRange);
 
-                var playwrightDriver = new PlaywrightDriver();
+                var browserNewContextOptions = new BrowserNewContextOptions { IgnoreHTTPSErrors = true };
 
-                await playwrightDriver.InitializeAsync(this.browserTypeLaunchOptions).ConfigureAwait(false);
+                this.browserNewContextOptionsBuilder(browserNewContextOptions);
+
+                var traceFileOptions = new TracingStartOptions()
+                {
+                    Screenshots = true,
+                    Snapshots = true,
+                    Sources = true
+                };
+
+                this.traceFileOptionsBuilder(traceFileOptions);
+
+                var playwrightDriver = new PlaywrightDriver(this.goToPageRetryCount, browserNewContextOptions, traceFileOptions);
+
+                var browserTypeLaunchOptions = new BrowserTypeLaunchOptions();
+
+                this.browserTypeLaunchOptionsBuilder(browserTypeLaunchOptions);
+
+                await playwrightDriver.InitializeAsync(browserTypeLaunchOptions).ConfigureAwait(false);
 
                 var disposable = (IAsyncDisposable?)null;
                 var url = this.onLineHost;
@@ -71,13 +89,11 @@ namespace SoloX.CodeQuality.Playwright
                     url,
                     disposable,
                     playwrightDriver,
-                    this.goToPageRetry,
                     () =>
                     {
                         SharedPortStore.Release(port);
                     },
-                    this.traceFilePatternHandler,
-                    this.traceFileOptionsBuilder);
+                    this.traceFilePatternHandler);
 
                 return test;
             }
@@ -117,16 +133,23 @@ namespace SoloX.CodeQuality.Playwright
                 return this;
             }
 
-            public IPlaywrightTestBuilder WithGoToPageRetry(int retry)
+            public IPlaywrightTestBuilder WithGoToPageRetry(int retryCount)
             {
-                this.goToPageRetry = retry;
+                this.goToPageRetryCount = retryCount;
 
                 return this;
             }
 
-            public IPlaywrightTestBuilder WithPlaywrightOptions(BrowserTypeLaunchOptions browserTypeLaunchOptions)
+            public IPlaywrightTestBuilder WithPlaywrightOptions(Action<BrowserTypeLaunchOptions> configuration)
             {
-                this.browserTypeLaunchOptions = browserTypeLaunchOptions;
+                this.browserTypeLaunchOptionsBuilder = configuration;
+
+                return this;
+            }
+
+            public IPlaywrightTestBuilder WithPlaywrightNewContextOptions(Action<BrowserNewContextOptions> configuration)
+            {
+                this.browserNewContextOptionsBuilder = configuration;
 
                 return this;
             }
@@ -225,42 +248,40 @@ namespace SoloX.CodeQuality.Playwright
                 private readonly Browser browser;
                 private readonly PlaywrightDriver playwrightDriver;
                 private readonly string url;
-                private readonly int goToPageRetry;
                 private readonly IAsyncDisposable? hostFactory;
                 private readonly Action disposeCallback;
                 private readonly Func<string?, string?> traceFilePatternHandler;
-                private readonly Action<TracingStartOptions> traceFileOptionsBuilder;
+
                 private bool isDisposed;
 
-                internal PlaywrightTest(Browser browser, string url, IAsyncDisposable? hostFactory, PlaywrightDriver playwrightDriver, int goToPageRetry, Action disposeCallback, Func<string?, string?> traceFilePatternHandler, Action<TracingStartOptions> traceFileOptionsBuilder)
+                internal PlaywrightTest(
+                    Browser browser,
+                    string url,
+                    IAsyncDisposable? hostFactory,
+                    PlaywrightDriver playwrightDriver,
+                    Action disposeCallback,
+                    Func<string?, string?> traceFilePatternHandler)
                 {
                     this.browser = browser;
                     this.url = url;
                     this.hostFactory = hostFactory;
                     this.playwrightDriver = playwrightDriver;
-                    this.goToPageRetry = goToPageRetry;
                     this.disposeCallback = disposeCallback;
                     this.traceFilePatternHandler = traceFilePatternHandler;
-                    this.traceFileOptionsBuilder = traceFileOptionsBuilder;
                 }
 
-                public Task GotoPageAsync(string relativePath, Func<IPage, Task> testHandler, [CallerMemberName] string? traceName = null)
+                public Task GotoPageAsync(string relativePath, Func<IPage, Task> testHandler, string? traceName = null, Func<IPage, Task>? pageSetupHandler = null)
                 {
                     ObjectDisposedException.ThrowIf(this.isDisposed, this);
 
                     var traceFileName = traceName ?? GetCallingName();
 
-                    var tracingStartOptions = new TracingStartOptions()
-                    {
-                        Screenshots = true,
-                        Snapshots = true,
-                        Sources = true
-                    };
-                    this.traceFileOptionsBuilder(tracingStartOptions);
-
                     var traceFile = this.traceFilePatternHandler(traceFileName);
 
-                    return this.playwrightDriver.GotoPageAsync(this.url.TrimEnd('/') + "/" + relativePath.TrimStart('/'), testHandler, retryCount: this.goToPageRetry, traceFile: traceFile, tracingStartOptions: tracingStartOptions);
+                    return this.playwrightDriver.GotoPageAsync(
+                        this.url.TrimEnd('/') + "/" + relativePath.TrimStart('/'),
+                        testHandler,
+                        traceFile: traceFile);
                 }
 
                 private static string GetCallingName()
@@ -271,14 +292,14 @@ namespace SoloX.CodeQuality.Playwright
 
                     var frame = stackTrace.GetFrame(idx);
 
-                    var method = GetOriginalAsyncMethodName(frame!.GetMethod()!);
+                    var method = GetOriginalAsyncMethod(frame!.GetMethod()!);
 
                     var name = $"{method.DeclaringType!.Name}_{method.Name}";
 
                     return name;
                 }
 
-                public static MethodBase GetOriginalAsyncMethodName(MethodBase method)
+                public static MethodBase GetOriginalAsyncMethod(MethodBase method)
                 {
                     // Check if the method is part of a state machine
                     var asyncStateMachineAttribute = method.DeclaringType.GetCustomAttribute<AsyncStateMachineAttribute>();
