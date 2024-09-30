@@ -9,6 +9,7 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Playwright;
 using System.Diagnostics;
+using System.Net.NetworkInformation;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
@@ -335,6 +336,28 @@ namespace SoloX.CodeQuality.Playwright
             private sealed class PortStore
             {
                 private readonly HashSet<int> usedPorts = [];
+
+                /// <summary>
+                /// Setup port store and prob all TCP port already in use.
+                /// </summary>
+                public PortStore()
+                {
+                    // Get used port with Netstat like command.
+                    var ipGlobalProperties = IPGlobalProperties.GetIPGlobalProperties();
+                    var tcpListeners = ipGlobalProperties.GetActiveTcpListeners();
+
+                    foreach (var tcpEndPoint in tcpListeners)
+                    {
+                        this.usedPorts.Add(tcpEndPoint.Port);
+                    }
+
+                    var tcpConnections = ipGlobalProperties.GetActiveTcpConnections();
+
+                    foreach (var tcpConnection in tcpConnections)
+                    {
+                        this.usedPorts.Add(tcpConnection.LocalEndPoint.Port);
+                    }
+                }
 
                 public int GetPort(PortRange portRange)
                 {
