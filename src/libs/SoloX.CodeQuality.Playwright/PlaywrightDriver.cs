@@ -22,6 +22,10 @@ namespace SoloX.CodeQuality.Playwright
 
         private static readonly object InstallLock = new object();
 
+        private readonly BrowserNewContextOptions? browserNewContextOptions;
+        private readonly TracingStartOptions? tracingStartOptions;
+        private readonly int goToPageRetryCount;
+
         /// <summary>
         /// Playwright module.
         /// </summary>
@@ -39,6 +43,19 @@ namespace SoloX.CodeQuality.Playwright
         /// Webkit lazy initializer.
         /// </summary>
         private Lazy<Task<IBrowser>> WebkitBrowser { get; set; } = default!;
+
+        /// <summary>
+        /// Build PlaywrightDriver instance.
+        /// </summary>
+        /// <param name="goToPageRetryCount">Goto page retry count.</param>
+        /// <param name="browserNewContextOptions">New context options.</param>
+        /// <param name="tracingStartOptions">Tracing start options.</param>
+        public PlaywrightDriver(int goToPageRetryCount = 3, BrowserNewContextOptions? browserNewContextOptions = null, TracingStartOptions? tracingStartOptions = null)
+        {
+            this.goToPageRetryCount = goToPageRetryCount;
+            this.browserNewContextOptions = browserNewContextOptions;
+            this.tracingStartOptions = tracingStartOptions;
+        }
 
         /// <summary>
         /// Initialize the Playwright module.
@@ -103,22 +120,21 @@ namespace SoloX.CodeQuality.Playwright
         /// <param name="url">URL to navigate to.</param>
         /// <param name="testHandler">Test handler to apply on the page.</param>
         /// <param name="browserType">The Browser to use to open the page.</param>
-        /// <param name="retryCount">retry count in case of PlaywrightException.</param>
         /// <param name="traceFile">Trace file where to store traces. No trace are generated if file is null.</param>
-        /// <param name="tracingStartOptions">Tracing options.</param>
+        /// <param name="pageSetupHandler">Page setup handler to initialize page environment before it is display (or null).</param>
         /// <returns>The GotoPage task.</returns>
 #pragma warning disable CA1054 // URI-like parameters should not be strings
-        public async Task GotoPageAsync(string url, Func<IPage, Task> testHandler, Browser browserType = Browser.Chromium, int retryCount = 5, string? traceFile = null, TracingStartOptions? tracingStartOptions = null)
+        public async Task GotoPageAsync(string url, Func<IPage, Task> testHandler, Browser browserType = Browser.Chromium, string? traceFile = null, Func<IPage, Task>? pageSetupHandler = null)
 #pragma warning restore CA1054 // URI-like parameters should not be strings
         {
             ArgumentNullException.ThrowIfNull(testHandler);
 
-            var retry = retryCount;
+            var retry = this.goToPageRetryCount;
             while (retry > 0)
             {
                 try
                 {
-                    await GotoPageInternalAsync(url, testHandler, browserType, traceFile, tracingStartOptions).ConfigureAwait(false);
+                    await GotoPageInternalAsync(url, testHandler, browserType, traceFile).ConfigureAwait(false);
                     retry = 0;
                 }
                 catch (PlaywrightException)
@@ -132,21 +148,30 @@ namespace SoloX.CodeQuality.Playwright
             }
         }
 
-        private async Task GotoPageInternalAsync(string url, Func<IPage, Task> testHandler, Browser browserType, string? traceFile, TracingStartOptions? tracingStartOptions)
+        private async Task GotoPageInternalAsync(string url, Func<IPage, Task> testHandler, Browser browserType, string? traceFile, Func<IPage, Task>? pageSetupHandler = null)
         {
             var browser = await SelectBrowserAsync(browserType).ConfigureAwait(false);
-            var context = await browser.NewContextAsync(new BrowserNewContextOptions { IgnoreHTTPSErrors = true }).ConfigureAwait(false);
+
+            var contextOptions = this.browserNewContextOptions ?? new BrowserNewContextOptions { IgnoreHTTPSErrors = true };
+
+            var context = await browser.NewContextAsync(contextOptions).ConfigureAwait(false);
+
             await using var _ = context.ConfigureAwait(false);
 
             if (!string.IsNullOrEmpty(traceFile))
             {
                 // Start tracing before creating the page.
-                await context.Tracing.StartAsync(tracingStartOptions).ConfigureAwait(false);
+                await context.Tracing.StartAsync(this.tracingStartOptions).ConfigureAwait(false);
             }
 
             var page = await context.NewPageAsync().ConfigureAwait(false);
 
             page.Should().NotBeNull();
+
+            if (pageSetupHandler != null)
+            {
+                await pageSetupHandler(page).ConfigureAwait(false);
+            }
 
             try
             {

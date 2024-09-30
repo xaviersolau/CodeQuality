@@ -20,6 +20,7 @@ namespace SoloX.CodeQuality.Playwright
         /// Specify the Browser implementation to use. It may be overridden by BuildAsync method.
         /// </summary>
         /// <param name="browser">Browser implementation to use.</param>
+        /// <remarks>Can be override in the BuildAsync method.</remarks>
         /// <returns>Self.</returns>
         IPlaywrightTestBuilder WithBrowser(Browser browser);
 
@@ -40,16 +41,23 @@ namespace SoloX.CodeQuality.Playwright
         /// <summary>
         /// Specify number of retry to apply on GoToPage method.
         /// </summary>
-        /// <param name="retry">Retry count.</param>
+        /// <param name="retryCount">Retry count.</param>
         /// <returns>Self.</returns>
-        IPlaywrightTestBuilder WithGoToPageRetry(int retry);
+        IPlaywrightTestBuilder WithGoToPageRetry(int retryCount);
 
         /// <summary>
         /// Specify Playwright options to use.
         /// </summary>
-        /// <param name="browserTypeLaunchOptions">Playwright options.</param>
+        /// <param name="configuration">Playwright options configuration.</param>
         /// <returns>Self.</returns>
-        IPlaywrightTestBuilder WithPlaywrightOptions(BrowserTypeLaunchOptions browserTypeLaunchOptions);
+        IPlaywrightTestBuilder WithPlaywrightOptions(Action<BrowserTypeLaunchOptions> configuration);
+
+        /// <summary>
+        /// Specify Playwright New Context options to use.
+        /// </summary>
+        /// <param name="configuration">Playwright new context options configuration.</param>
+        /// <returns>Self.</returns>
+        IPlaywrightTestBuilder WithPlaywrightNewContextOptions(Action<BrowserNewContextOptions> configuration);
 
         /// <summary>
         /// Specify how the playwright traces are generated. 

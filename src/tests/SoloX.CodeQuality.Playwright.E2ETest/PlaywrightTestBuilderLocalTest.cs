@@ -36,6 +36,17 @@ namespace SoloX.CodeQuality.Playwright.E2ETest
                             //})
                             //.UseSetting("SomeKey", "SomeValue");
                         });
+                })
+                .WithPlaywrightOptions(opt =>
+                {
+                    //opt.Headless = false;
+                    //opt.SlowMo = 1000;
+                    //opt.Timeout = 60000;
+                })
+                .WithPlaywrightNewContextOptions(opt =>
+                {
+                    //opt.ScreenSize = new Microsoft.Playwright.ScreenSize() { Height = 800, Width = 1000 };
+                    //opt.StorageStatePath = "State Json file";
                 });
         }
 
