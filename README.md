@@ -52,26 +52,26 @@ You can checkout this Github repository or you can use the NuGet package:
 
 **Install using the command line from the Package Manager:**
 ```bash
-Install-Package SoloX.CodeQuality.Prod -version 2.1.1
+Install-Package SoloX.CodeQuality.Prod -version 2.2.0
 or
-Install-Package SoloX.CodeQuality.Test -version 2.1.1
+Install-Package SoloX.CodeQuality.Test -version 2.2.0
 ```
 
 **Install using the .Net CLI:**
 ```bash
-dotnet add package SoloX.CodeQuality.Prod --version 2.1.1
+dotnet add package SoloX.CodeQuality.Prod --version 2.2.0
 or
-dotnet add package SoloX.CodeQuality.Test --version 2.1.1
+dotnet add package SoloX.CodeQuality.Test --version 2.2.0
 ```
 
 **Install editing your project file (csproj):**
 ```xml
-<PackageReference Include="SoloX.CodeQuality.Prod" Version="2.1.1">
+<PackageReference Include="SoloX.CodeQuality.Prod" Version="2.2.0">
   <PrivateAssets>all</PrivateAssets>
   <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
 </PackageReference>
 or
-<PackageReference Include="SoloX.CodeQuality.Test" Version="2.1.1">
+<PackageReference Include="SoloX.CodeQuality.Test" Version="2.2.0">
   <PrivateAssets>all</PrivateAssets>
   <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
 </PackageReference>
@@ -208,7 +208,7 @@ You may need to disable those rules. To do so, you just have to set the
 ## Playwright Test Builder
 
 Whenever you have a web application to test, you can use the `PlaywrightTestBuilder`!
-The builder helps set up your host application and Playwright to process your tests.
+The builder helps set up your host application and [Playwright](https://playwright.dev/dotnet/) to process your tests.
 
  * * *
 
@@ -218,17 +218,17 @@ You can checkout this Github repository or use the NuGet package:
 
 **Install using the command line from the Package Manager:**
 ```bash
-Install-Package SoloX.CodeQuality.Playwright -version 2.1.1
+Install-Package SoloX.CodeQuality.Playwright -version 2.2.0
 ```
 
 **Install using the .Net CLI:**
 ```bash
-dotnet add package SoloX.CodeQuality.Playwright --version 2.1.1
+dotnet add package SoloX.CodeQuality.Playwright --version 2.2.0
 ```
 
 **Install editing your project file (csproj):**
 ```xml
-<PackageReference Include="SoloX.CodeQuality.Playwright" Version="2.1.1" />
+<PackageReference Include="SoloX.CodeQuality.Playwright" Version="2.2.0" />
 ```
 
 * * *
@@ -236,7 +236,7 @@ dotnet add package SoloX.CodeQuality.Playwright --version 2.1.1
 ### Testing with Playwright
 
 Setting up your test with Playwright and your web application host is simple. The `PlaywrightTestBuilder` helps
-you create a `PlaywrightTest` by setting up your local host and configuring Playwright to target this host.
+you create a `PlaywrightTest` by setting up your local host and configuring [Playwright](https://playwright.dev/dotnet/) to target this host.
 
 Additionally, the builder automatically installs all Playwright dependencies. This means all you need to do is
 install the NuGet package, write your test, and run it.
@@ -251,11 +251,12 @@ a test using the `PlaywrightTestBuilder`.
 The builder allows you to:
 * Mock the application services you may need to mock.
 * Set up the host on a specific network port (which is helpful for running tests in parallel).
-* Configure Playwright to target the test host.
+* Configure [Playwright](https://playwright.dev/dotnet/) to target the test host.
 * Enable Playwright traces.
 
-You can use Playwright Test Builder to test any web application hosted by a .NET Core host. This includes Blazor
-Web applications and SPA applications (such as Angular, React, etc.) hosted on .NET Core.
+You can use Playwright Test Builder to test any web application hosted by a .NET Core host. This includes
+[Blazor](https://dotnet.microsoft.com/apps/aspnet/web-apps/blazor)
+Web applications and SPA applications (such as [Angular](https://angular.dev/), [React](https://react.dev/), etc.) hosted on .NET Core.
 
 It is also possible to test a static web application. The Playwright Test Builder will configure an embedded web
 host to serve your static files.
@@ -351,6 +352,9 @@ builder
     });
 ```
 
+> Note: you can check on the [Playwright](https://playwright.dev/dotnet/) web site to find out more about the
+> [Trace Viewer](https://playwright.dev/dotnet/docs/trace-viewer-intro).
+
 #### Create and use the PlaywrightTest
 
 Finally you can build the `PlaywrightTest` and use it like this:
@@ -371,6 +375,9 @@ await playwrightTest.GotoPageAsync("index.html", async (page) =>
     });
 ```
 
+> Note: you can check on the [Playwright](https://playwright.dev/dotnet/) web site to find out more about the
+> [Codegen Tool](https://playwright.dev/dotnet/docs/codegen-intro).
+
 * * *
 
 ## Test Helpers
@@ -385,29 +392,29 @@ You can checkout this Github repository or you can use the NuGet package:
 
 **Install using the command line from the Package Manager:**
 ```bash
-Install-Package SoloX.CodeQuality.Test.Helpers -version 2.1.1
+Install-Package SoloX.CodeQuality.Test.Helpers -version 2.2.0
 
-Install-Package SoloX.CodeQuality.Test.Helpers.XUnit -version 2.1.1
+Install-Package SoloX.CodeQuality.Test.Helpers.XUnit -version 2.2.0
 
-Install-Package SoloX.CodeQuality.Test.Helpers.NUnit -version 2.1.1
+Install-Package SoloX.CodeQuality.Test.Helpers.NUnit -version 2.2.0
 ```
 
 **Install using the .Net CLI:**
 ```bash
-dotnet add package SoloX.CodeQuality.Test.Helpers --version 2.1.1
+dotnet add package SoloX.CodeQuality.Test.Helpers --version 2.2.0
 
-dotnet add package SoloX.CodeQuality.Test.Helpers.XUnit --version 2.1.1
+dotnet add package SoloX.CodeQuality.Test.Helpers.XUnit --version 2.2.0
 
-dotnet add package SoloX.CodeQuality.Test.Helpers.NUnit --version 2.1.1
+dotnet add package SoloX.CodeQuality.Test.Helpers.NUnit --version 2.2.0
 ```
 
 **Install editing your project file (csproj):**
 ```xml
-<PackageReference Include="SoloX.CodeQuality.Test.Helpers" Version="2.1.1" />
+<PackageReference Include="SoloX.CodeQuality.Test.Helpers" Version="2.2.0" />
 
-<PackageReference Include="SoloX.CodeQuality.Test.Helpers.XUnit" Version="2.1.1" />
+<PackageReference Include="SoloX.CodeQuality.Test.Helpers.XUnit" Version="2.2.0" />
 
-<PackageReference Include="SoloX.CodeQuality.Test.Helpers.NUnit" Version="2.1.1" />
+<PackageReference Include="SoloX.CodeQuality.Test.Helpers.NUnit" Version="2.2.0" />
 ```
 
  * * *
