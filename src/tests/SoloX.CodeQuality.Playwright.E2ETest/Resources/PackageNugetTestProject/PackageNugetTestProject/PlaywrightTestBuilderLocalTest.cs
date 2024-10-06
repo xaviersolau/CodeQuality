@@ -15,7 +15,7 @@ namespace PackageNugetTestProject
                 .WithLocalHost(localHostBuilder =>
                 {
                     localHostBuilder
-                        .UsePortRange(new PortRange(5000, 6000))
+                        .UsePortRange(new PortRange(6000, 7000))
                         .UseWebHostWithWwwRoot(path, "home.html")
                         .UseWebHostBuilder(builder =>
                         {

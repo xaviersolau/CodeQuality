@@ -254,6 +254,8 @@ namespace SoloX.CodeQuality.Playwright
 
                 private bool isDisposed;
 
+                public string Url => this.url;
+
                 internal PlaywrightTest(
                     Browser browser,
                     string url,
@@ -358,28 +360,6 @@ namespace SoloX.CodeQuality.Playwright
             {
                 private readonly HashSet<int> usedPorts = [];
 
-                /// <summary>
-                /// Setup port store and prob all TCP port already in use.
-                /// </summary>
-                public PortStore()
-                {
-                    // Get used port with Netstat like command.
-                    var ipGlobalProperties = IPGlobalProperties.GetIPGlobalProperties();
-                    var tcpListeners = ipGlobalProperties.GetActiveTcpListeners();
-
-                    foreach (var tcpEndPoint in tcpListeners)
-                    {
-                        this.usedPorts.Add(tcpEndPoint.Port);
-                    }
-
-                    var tcpConnections = ipGlobalProperties.GetActiveTcpConnections();
-
-                    foreach (var tcpConnection in tcpConnections)
-                    {
-                        this.usedPorts.Add(tcpConnection.LocalEndPoint.Port);
-                    }
-                }
-
                 public int GetPort(PortRange portRange)
                 {
 #pragma warning disable CA5394 // Do not use insecure randomness
@@ -388,7 +368,11 @@ namespace SoloX.CodeQuality.Playwright
 
                     lock (this.usedPorts)
                     {
-                        while (!this.usedPorts.Add(port))
+                        var systemPort = ProbUsedPorts();
+
+                        var allUsedPorts = new HashSet<int>(systemPort.Union(this.usedPorts));
+
+                        while (allUsedPorts.Contains(port))
                         {
                             port++;
                             if (port >= portRange.EndPort)
@@ -396,6 +380,8 @@ namespace SoloX.CodeQuality.Playwright
                                 port = portRange.StartPort;
                             }
                         }
+
+                        this.usedPorts.Add(port);
                     }
                     return port;
                 }
@@ -406,6 +392,29 @@ namespace SoloX.CodeQuality.Playwright
                     {
                         this.usedPorts.Remove(port);
                     }
+                }
+
+                public static HashSet<int> ProbUsedPorts()
+                {
+                    HashSet<int> usedSystemPorts = [];
+
+                    // Get used port with Netstat like command.
+                    var ipGlobalProperties = IPGlobalProperties.GetIPGlobalProperties();
+                    var tcpListeners = ipGlobalProperties.GetActiveTcpListeners();
+
+                    foreach (var tcpEndPoint in tcpListeners)
+                    {
+                        usedSystemPorts.Add(tcpEndPoint.Port);
+                    }
+
+                    var tcpConnections = ipGlobalProperties.GetActiveTcpConnections();
+
+                    foreach (var tcpConnection in tcpConnections)
+                    {
+                        usedSystemPorts.Add(tcpConnection.LocalEndPoint.Port);
+                    }
+
+                    return usedSystemPorts;
                 }
             }
         }
