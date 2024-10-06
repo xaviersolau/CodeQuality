@@ -19,6 +19,7 @@ namespace SoloX.CodeQuality.Test.Helpers
         private const string BUILD = "build";
         private const string PUBLISH = "publish";
         private const string RUN = "run";
+        private const string TEST = "test";
 
         public static bool Restore(string projectPath, out string stdout, out string stderr)
         {
@@ -28,6 +29,11 @@ namespace SoloX.CodeQuality.Test.Helpers
         public static bool Build(string projectPath, out string stdout, out string stderr)
         {
             return ProcessHelper.Run(projectPath, DOTNET, BUILD, out stdout, out stderr) == 0;
+        }
+
+        public static bool Test(string projectPath, out string stdout, out string stderr)
+        {
+            return ProcessHelper.Run(projectPath, DOTNET, TEST, out stdout, out stderr) == 0;
         }
 
         public static bool Publish(string projectPath, out string stdout, out string stderr)

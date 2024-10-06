@@ -1,0 +1,11 @@
+<Project>
+  <Target Name="DeployWebHostDepsJsonFile" BeforeTargets="Build">
+
+    <ItemGroup>
+      <ResourceFile Include="$(MSBuildThisFileDirectory)..\resources\SoloX.CodeQuality.WebHost.deps.json" />
+    </ItemGroup>
+
+    <Copy SourceFiles="@(ResourceFile)" DestinationFolder="$(OutputPath)" />
+
+  </Target>
+</Project>

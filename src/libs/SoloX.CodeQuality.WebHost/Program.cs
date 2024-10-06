@@ -14,7 +14,13 @@ namespace SoloX.CodeQuality.WebHost
     {
         public static void Main(string[] args)
         {
-            var builder = WebApplication.CreateBuilder(args);
+            var binaryFolder = Path.GetDirectoryName(typeof(Program).Assembly.Location);
+
+            var builder = WebApplication.CreateBuilder(new WebApplicationOptions
+            {
+                Args = args,
+                ContentRootPath = binaryFolder,
+            });
             var app = builder.Build();
 
             var root = builder.Configuration["RootPath"] ?? Environment.CurrentDirectory;
