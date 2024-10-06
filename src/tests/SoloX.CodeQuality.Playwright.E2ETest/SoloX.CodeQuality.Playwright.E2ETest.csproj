@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <Import Project="../../SharedProperties.props" />
 
@@ -34,11 +34,26 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\libs\SoloX.CodeQuality.Playwright\SoloX.CodeQuality.Playwright.csproj" />
+    <ProjectReference Include="..\..\libs\SoloX.CodeQuality.Test.Helpers\SoloX.CodeQuality.Test.Helpers.csproj" />
     <ProjectReference Include="..\..\libs\SoloX.CodeQuality.WebHost\SoloX.CodeQuality.WebHost.csproj" />
   </ItemGroup>
 
   <ItemGroup>
     <Using Include="Xunit" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Resources\PackageNugetTestProject\PackageNugetTestProject\PlaywrightTestBuilderLocalTest.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Resources\**\*.*" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Resources\**\*.*">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
 </Project>
