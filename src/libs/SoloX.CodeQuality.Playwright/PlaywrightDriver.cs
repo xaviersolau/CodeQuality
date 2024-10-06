@@ -20,7 +20,8 @@ namespace SoloX.CodeQuality.Playwright
 
         private static readonly string[] INSTALL_ARGUMENTS = new[] { "install" };
 
-        private static readonly object InstallLock = new object();
+        private static readonly object LockSync = new object();
+        private static bool playwrightInstalled;
 
         private readonly BrowserNewContextOptions? browserNewContextOptions;
         private readonly TracingStartOptions? tracingStartOptions;
@@ -86,31 +87,78 @@ namespace SoloX.CodeQuality.Playwright
         /// </summary>
         private static void InstallPlaywright()
         {
-            InstallPlaywrightDeps();
-            InstallPlaywrightBin();
+            lock (LockSync)
+            {
+                if (playwrightInstalled)
+                {
+                    return;
+                }
+
+                var localApplicationData = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "PlaywrightDriver");
+
+                if (!Directory.Exists(localApplicationData))
+                {
+                    Directory.CreateDirectory(localApplicationData);
+                }
+
+                var lockFile = Path.Combine(localApplicationData, "PlaywrightInstallLock");
+
+                var timeout = 60;
+
+                while (!TryWriteLockFile(lockFile))
+                {
+                    Thread.Sleep(1000);
+                    timeout--;
+                    if (timeout < 0)
+                    {
+                        throw new PlaywrightException($"Unable to lock for Playwright install (Timeout)");
+                    }
+                }
+
+                try
+                {
+                    InstallPlaywrightDeps();
+                    InstallPlaywrightBin();
+                }
+                finally
+                {
+                    playwrightInstalled = true;
+                    File.Delete(lockFile);
+                }
+            }
+        }
+
+        private static bool TryWriteLockFile(string lockFile)
+        {
+            try
+            {
+                using var file = new FileStream(lockFile, FileMode.CreateNew, FileAccess.Write);
+                file.WriteByte(0);
+                file.Flush();
+                file.Close();
+            }
+            catch (IOException)
+            {
+                return false;
+            }
+            return true;
         }
 
         private static void InstallPlaywrightDeps()
         {
-            lock (InstallLock)
+            var exitCode = Microsoft.Playwright.Program.Main(INSTALL_DEPS_ARGUMENTS);
+            if (exitCode != 0)
             {
-                var exitCode = Microsoft.Playwright.Program.Main(INSTALL_DEPS_ARGUMENTS);
-                if (exitCode != 0)
-                {
-                    throw new PlaywrightException($"Playwright exited with code {exitCode} on install-deps");
-                }
+                throw new PlaywrightException($"Playwright exited with code {exitCode} on install-deps");
             }
         }
 
         private static void InstallPlaywrightBin()
         {
-            lock (InstallLock)
+            var exitCode = Microsoft.Playwright.Program.Main(INSTALL_ARGUMENTS);
+            if (exitCode != 0)
             {
-                var exitCode2 = Microsoft.Playwright.Program.Main(INSTALL_ARGUMENTS);
-                if (exitCode2 != 0)
-                {
-                    throw new PlaywrightException($"Playwright exited with code {exitCode2} on install");
-                }
+                throw new PlaywrightException($"Playwright exited with code {exitCode} on install");
             }
         }
 
@@ -140,10 +188,13 @@ namespace SoloX.CodeQuality.Playwright
                 catch (PlaywrightException)
                 {
                     retry--;
+
                     if (retry == 0)
                     {
                         throw;
                     }
+
+                    await Task.Delay(1000).ConfigureAwait(false);
                 }
             }
         }
