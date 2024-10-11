@@ -182,7 +182,7 @@ namespace SoloX.CodeQuality.Playwright
             {
                 try
                 {
-                    await GotoPageInternalAsync(url, testHandler, browserType, traceFile).ConfigureAwait(false);
+                    await GotoPageInternalAsync(url, testHandler, browserType, traceFile, pageSetupHandler).ConfigureAwait(false);
                     retry = 0;
                 }
                 catch (PlaywrightException)
