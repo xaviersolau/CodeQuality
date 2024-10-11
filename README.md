@@ -309,6 +309,10 @@ builder.WithLocalHost(localHostBuilder =>
     });
 ```
 
+> Note that your host must be based on .Net 8.0 and it must use the `WebApplication.CreateBuilder(args)` method to build your Web host. If
+> you still use the hold way with `Host.CreateDefaultBuilder(args)` and a `Startup.cs` file, you will get an exception like this
+> `System.InvalidOperationException : Build can only be called once.` and you won't be able to start your test.
+
 On-line host:
 
 In the case where your host is on-line, use:
@@ -370,8 +374,8 @@ builder
     })
     .WithPlaywrightNewContextOptions(opt =>
     {
-        // Set up the browser screen size.
-        opt.ScreenSize = new ScreenSize() { Height = 800, Width = 1000 };
+        // Set up the browser view port size.
+        opt.ViewportSize = new ViewportSize() { Height = 800, Width = 1000 };
         // Initialize browser storage.
         opt.StorageStatePath = "path to the state Json file that will be loaded in the new context.";
     });
