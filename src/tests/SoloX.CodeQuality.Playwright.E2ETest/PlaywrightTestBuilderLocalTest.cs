@@ -45,7 +45,7 @@ namespace SoloX.CodeQuality.Playwright.E2ETest
                 })
                 .WithPlaywrightNewContextOptions(opt =>
                 {
-                    //opt.ScreenSize = new Microsoft.Playwright.ScreenSize() { Height = 800, Width = 1000 };
+                    //opt.ViewportSize = new Microsoft.Playwright.ViewportSize() { Height = 800, Width = 1000 };
                     //opt.StorageStatePath = "State Json file";
                 });
         }
