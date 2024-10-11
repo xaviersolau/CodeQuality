@@ -283,7 +283,8 @@ namespace SoloX.CodeQuality.Playwright
                     return this.playwrightDriver.GotoPageAsync(
                         this.url.TrimEnd('/') + "/" + relativePath.TrimStart('/'),
                         testHandler,
-                        traceFile: traceFile);
+                        traceFile: traceFile,
+                        pageSetupHandler: pageSetupHandler);
                 }
 
                 private static string GetCallingName()
