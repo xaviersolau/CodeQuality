@@ -7,17 +7,23 @@
   <Import Project="../../libs/SoloX.CodeQuality.Test/build/SoloX.CodeQuality.Test.targets" />
 
   <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
+    <TargetFrameworks>net8.0;net9.0</TargetFrameworks>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
 
     <IsPackable>true</IsPackable>
 
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Include="$(OutDir)\SoloX.CodeQuality.WebHost.deps.json" Link="Resources\SoloX.CodeQuality.WebHost.deps.json" Pack="true" PackagePath="resources\" Visible="False" />
+    <InternalsVisibleTo Include="SoloX.CodeQuality.Playwright" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="$(OutputPath)\net8.0\SoloX.CodeQuality.WebHost.deps.json" Link="Resources\net8.0\SoloX.CodeQuality.WebHost.deps.json" Pack="true" PackagePath="resources\net8.0\" Visible="False" />
+    <Content Include="$(OutputPath)\net9.0\SoloX.CodeQuality.WebHost.deps.json" Link="Resources\net9.0\SoloX.CodeQuality.WebHost.deps.json" Pack="true" PackagePath="resources\net9.0\" Visible="False" />
   </ItemGroup>
 
   <ItemGroup>

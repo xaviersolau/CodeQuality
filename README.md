@@ -14,15 +14,15 @@ It also provides:
 [![Build - CI](https://github.com/xaviersolau/CodeQuality/actions/workflows/build-ci.yml/badge.svg)](https://github.com/xaviersolau/CodeQuality/actions/workflows/build-ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
-| Package                                 | Nuget.org |
-|-----------------------------------------|-----------|
-|**SoloX.CodeQuality.Prod**               |[![NuGet Beta](https://img.shields.io/nuget/vpre/SoloX.CodeQuality.Prod.svg)](https://www.nuget.org/packages/SoloX.CodeQuality.Prod)
-|**SoloX.CodeQuality.Test**               |[![NuGet Beta](https://img.shields.io/nuget/vpre/SoloX.CodeQuality.Test.svg)](https://www.nuget.org/packages/SoloX.CodeQuality.Test)
-|**SoloX.CodeQuality.Playwright**         |[![NuGet Beta](https://img.shields.io/nuget/vpre/SoloX.CodeQuality.Playwright.svg)](https://www.nuget.org/packages/SoloX.CodeQuality.Playwright)
-|**SoloX.CodeQuality.Test.Helpers**       |[![NuGet Beta](https://img.shields.io/nuget/vpre/SoloX.CodeQuality.Test.Helpers.svg)](https://www.nuget.org/packages/SoloX.CodeQuality.Test.Helpers)
-|**SoloX.CodeQuality.Test.Helpers.XUnit** |[![NuGet Beta](https://img.shields.io/nuget/vpre/SoloX.CodeQuality.Test.Helpers.XUnit.svg)](https://www.nuget.org/packages/SoloX.CodeQuality.Test.Helpers.XUnit)
-|**SoloX.CodeQuality.Test.Helpers.NUnit** |[![NuGet Beta](https://img.shields.io/nuget/vpre/SoloX.CodeQuality.Test.Helpers.NUnit.svg)](https://www.nuget.org/packages/SoloX.CodeQuality.Test.Helpers.NUnit)
-|**SoloX.CodeQuality.WebHost**            |[![NuGet Beta](https://img.shields.io/nuget/vpre/SoloX.CodeQuality.WebHost.svg)](https://www.nuget.org/packages/SoloX.CodeQuality.WebHost)
+| Package                                 | Nuget.org | Pre-release |
+|-----------------------------------------|-----------|-------------|
+|**SoloX.CodeQuality.Prod**               |[![NuGet Beta](https://img.shields.io/nuget/v/SoloX.CodeQuality.Prod.svg)](https://www.nuget.org/packages/SoloX.CodeQuality.Prod)                             |[![NuGet Beta](https://img.shields.io/nuget/vpre/SoloX.CodeQuality.Prod.svg)](https://www.nuget.org/packages/SoloX.CodeQuality.Prod)
+|**SoloX.CodeQuality.Test**               |[![NuGet Beta](https://img.shields.io/nuget/v/SoloX.CodeQuality.Test.svg)](https://www.nuget.org/packages/SoloX.CodeQuality.Test)                             |[![NuGet Beta](https://img.shields.io/nuget/vpre/SoloX.CodeQuality.Test.svg)](https://www.nuget.org/packages/SoloX.CodeQuality.Test)
+|**SoloX.CodeQuality.Playwright**         |[![NuGet Beta](https://img.shields.io/nuget/v/SoloX.CodeQuality.Playwright.svg)](https://www.nuget.org/packages/SoloX.CodeQuality.Playwright)                 |[![NuGet Beta](https://img.shields.io/nuget/vpre/SoloX.CodeQuality.Playwright.svg)](https://www.nuget.org/packages/SoloX.CodeQuality.Playwright)
+|**SoloX.CodeQuality.Test.Helpers**       |[![NuGet Beta](https://img.shields.io/nuget/v/SoloX.CodeQuality.Test.Helpers.svg)](https://www.nuget.org/packages/SoloX.CodeQuality.Test.Helpers)             |[![NuGet Beta](https://img.shields.io/nuget/vpre/SoloX.CodeQuality.Test.Helpers.svg)](https://www.nuget.org/packages/SoloX.CodeQuality.Test.Helpers)
+|**SoloX.CodeQuality.Test.Helpers.XUnit** |[![NuGet Beta](https://img.shields.io/nuget/v/SoloX.CodeQuality.Test.Helpers.XUnit.svg)](https://www.nuget.org/packages/SoloX.CodeQuality.Test.Helpers.XUnit) |[![NuGet Beta](https://img.shields.io/nuget/vpre/SoloX.CodeQuality.Test.Helpers.XUnit.svg)](https://www.nuget.org/packages/SoloX.CodeQuality.Test.Helpers.XUnit)
+|**SoloX.CodeQuality.Test.Helpers.NUnit** |[![NuGet Beta](https://img.shields.io/nuget/v/SoloX.CodeQuality.Test.Helpers.NUnit.svg)](https://www.nuget.org/packages/SoloX.CodeQuality.Test.Helpers.NUnit) |[![NuGet Beta](https://img.shields.io/nuget/vpre/SoloX.CodeQuality.Test.Helpers.NUnit.svg)](https://www.nuget.org/packages/SoloX.CodeQuality.Test.Helpers.NUnit)
+|**SoloX.CodeQuality.WebHost**            |[![NuGet Beta](https://img.shields.io/nuget/v/SoloX.CodeQuality.WebHost.svg)](https://www.nuget.org/packages/SoloX.CodeQuality.WebHost)                       |[![NuGet Beta](https://img.shields.io/nuget/vpre/SoloX.CodeQuality.WebHost.svg)](https://www.nuget.org/packages/SoloX.CodeQuality.WebHost)
 
 ## License and credits
 
@@ -52,26 +52,26 @@ You can checkout this Github repository or you can use the NuGet package:
 
 **Install using the command line from the Package Manager:**
 ```bash
-Install-Package SoloX.CodeQuality.Prod -version 2.2.2
+Install-Package SoloX.CodeQuality.Prod -version 2.3.0-beta.1
 or
-Install-Package SoloX.CodeQuality.Test -version 2.2.2
+Install-Package SoloX.CodeQuality.Test -version 2.3.0-beta.1
 ```
 
 **Install using the .Net CLI:**
 ```bash
-dotnet add package SoloX.CodeQuality.Prod --version 2.2.2
+dotnet add package SoloX.CodeQuality.Prod --version 2.3.0-beta.1
 or
-dotnet add package SoloX.CodeQuality.Test --version 2.2.2
+dotnet add package SoloX.CodeQuality.Test --version 2.3.0-beta.1
 ```
 
 **Install editing your project file (csproj):**
 ```xml
-<PackageReference Include="SoloX.CodeQuality.Prod" Version="2.2.2">
+<PackageReference Include="SoloX.CodeQuality.Prod" Version="2.3.0-beta.1">
   <PrivateAssets>all</PrivateAssets>
   <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
 </PackageReference>
 or
-<PackageReference Include="SoloX.CodeQuality.Test" Version="2.2.2">
+<PackageReference Include="SoloX.CodeQuality.Test" Version="2.3.0-beta.1">
   <PrivateAssets>all</PrivateAssets>
   <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
 </PackageReference>
@@ -218,17 +218,17 @@ You can checkout this Github repository or use the NuGet package:
 
 **Install using the command line from the Package Manager:**
 ```bash
-Install-Package SoloX.CodeQuality.Playwright -version 2.2.2
+Install-Package SoloX.CodeQuality.Playwright -version 2.3.0-beta.1
 ```
 
 **Install using the .Net CLI:**
 ```bash
-dotnet add package SoloX.CodeQuality.Playwright --version 2.2.2
+dotnet add package SoloX.CodeQuality.Playwright --version 2.3.0-beta.1
 ```
 
 **Install editing your project file (csproj):**
 ```xml
-<PackageReference Include="SoloX.CodeQuality.Playwright" Version="2.2.2" />
+<PackageReference Include="SoloX.CodeQuality.Playwright" Version="2.3.0-beta.1" />
 ```
 
 * * *
@@ -420,29 +420,29 @@ You can checkout this Github repository or you can use the NuGet package:
 
 **Install using the command line from the Package Manager:**
 ```bash
-Install-Package SoloX.CodeQuality.Test.Helpers -version 2.2.2
+Install-Package SoloX.CodeQuality.Test.Helpers -version 2.3.0-beta.1
 
-Install-Package SoloX.CodeQuality.Test.Helpers.XUnit -version 2.2.2
+Install-Package SoloX.CodeQuality.Test.Helpers.XUnit -version 2.3.0-beta.1
 
-Install-Package SoloX.CodeQuality.Test.Helpers.NUnit -version 2.2.2
+Install-Package SoloX.CodeQuality.Test.Helpers.NUnit -version 2.3.0-beta.1
 ```
 
 **Install using the .Net CLI:**
 ```bash
-dotnet add package SoloX.CodeQuality.Test.Helpers --version 2.2.2
+dotnet add package SoloX.CodeQuality.Test.Helpers --version 2.3.0-beta.1
 
-dotnet add package SoloX.CodeQuality.Test.Helpers.XUnit --version 2.2.2
+dotnet add package SoloX.CodeQuality.Test.Helpers.XUnit --version 2.3.0-beta.1
 
-dotnet add package SoloX.CodeQuality.Test.Helpers.NUnit --version 2.2.2
+dotnet add package SoloX.CodeQuality.Test.Helpers.NUnit --version 2.3.0-beta.1
 ```
 
 **Install editing your project file (csproj):**
 ```xml
-<PackageReference Include="SoloX.CodeQuality.Test.Helpers" Version="2.2.2" />
+<PackageReference Include="SoloX.CodeQuality.Test.Helpers" Version="2.3.0-beta.1" />
 
-<PackageReference Include="SoloX.CodeQuality.Test.Helpers.XUnit" Version="2.2.2" />
+<PackageReference Include="SoloX.CodeQuality.Test.Helpers.XUnit" Version="2.3.0-beta.1" />
 
-<PackageReference Include="SoloX.CodeQuality.Test.Helpers.NUnit" Version="2.2.2" />
+<PackageReference Include="SoloX.CodeQuality.Test.Helpers.NUnit" Version="2.3.0-beta.1" />
 ```
 
  * * *

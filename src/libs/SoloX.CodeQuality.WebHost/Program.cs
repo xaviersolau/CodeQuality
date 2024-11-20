@@ -10,7 +10,7 @@ using Microsoft.Extensions.FileProviders;
 
 namespace SoloX.CodeQuality.WebHost
 {
-    public sealed class Program
+    internal sealed class Program
     {
         public static void Main(string[] args)
         {
