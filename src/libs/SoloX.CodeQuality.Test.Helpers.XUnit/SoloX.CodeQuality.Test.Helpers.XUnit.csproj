@@ -15,7 +15,6 @@
 
     <PackageTags>code quality, test, integration</PackageTags>
     <PackageReleaseNotes>- Add TestLogger.</PackageReleaseNotes>
-    <AssemblyVersion>1.0.0.0</AssemblyVersion>
     <Description>Provides some helpers for integration test use with XUnit.</Description>
     <IncludeBuildOutput>true</IncludeBuildOutput>
 

@@ -15,7 +15,6 @@
 
     <PackageTags>code quality, test, integration</PackageTags>
     <PackageReleaseNotes>- Add TestLogger.</PackageReleaseNotes>
-    <AssemblyVersion>1.0.0.0</AssemblyVersion>
     <Description>Provides some helpers for integration test use with XUnit.</Description>
     <IncludeBuildOutput>true</IncludeBuildOutput>
 
@@ -30,15 +29,14 @@
     <PackageReference Include="NUnit" Version="4.2.2" />
   </ItemGroup>
 
-
-  <ItemGroup Condition=" '$(TargetFramework)' == 'net9.0' ">
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="9.0.0" />
-    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="9.0.0" />
-  </ItemGroup>
-
   <ItemGroup Condition=" '$(TargetFramework)' == 'net8.0' ">
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="[8.0.0,9.0.0)" />
     <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="[8.0.0,9.0.0)" />
+  </ItemGroup>
+
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net9.0' ">
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="[9.0.0,)" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="[9.0.0,)" />
   </ItemGroup>
 
 </Project>
