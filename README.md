@@ -52,26 +52,26 @@ You can checkout this Github repository or you can use the NuGet package:
 
 **Install using the command line from the Package Manager:**
 ```bash
-Install-Package SoloX.CodeQuality.Prod -version 2.3.0-beta.1
+Install-Package SoloX.CodeQuality.Prod -version 2.3.0
 or
-Install-Package SoloX.CodeQuality.Test -version 2.3.0-beta.1
+Install-Package SoloX.CodeQuality.Test -version 2.3.0
 ```
 
 **Install using the .Net CLI:**
 ```bash
-dotnet add package SoloX.CodeQuality.Prod --version 2.3.0-beta.1
+dotnet add package SoloX.CodeQuality.Prod --version 2.3.0
 or
-dotnet add package SoloX.CodeQuality.Test --version 2.3.0-beta.1
+dotnet add package SoloX.CodeQuality.Test --version 2.3.0
 ```
 
 **Install editing your project file (csproj):**
 ```xml
-<PackageReference Include="SoloX.CodeQuality.Prod" Version="2.3.0-beta.1">
+<PackageReference Include="SoloX.CodeQuality.Prod" Version="2.3.0">
   <PrivateAssets>all</PrivateAssets>
   <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
 </PackageReference>
 or
-<PackageReference Include="SoloX.CodeQuality.Test" Version="2.3.0-beta.1">
+<PackageReference Include="SoloX.CodeQuality.Test" Version="2.3.0">
   <PrivateAssets>all</PrivateAssets>
   <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
 </PackageReference>
@@ -218,17 +218,17 @@ You can checkout this Github repository or use the NuGet package:
 
 **Install using the command line from the Package Manager:**
 ```bash
-Install-Package SoloX.CodeQuality.Playwright -version 2.3.0-beta.1
+Install-Package SoloX.CodeQuality.Playwright -version 2.3.0
 ```
 
 **Install using the .Net CLI:**
 ```bash
-dotnet add package SoloX.CodeQuality.Playwright --version 2.3.0-beta.1
+dotnet add package SoloX.CodeQuality.Playwright --version 2.3.0
 ```
 
 **Install editing your project file (csproj):**
 ```xml
-<PackageReference Include="SoloX.CodeQuality.Playwright" Version="2.3.0-beta.1" />
+<PackageReference Include="SoloX.CodeQuality.Playwright" Version="2.3.0" />
 ```
 
 * * *
@@ -420,29 +420,29 @@ You can checkout this Github repository or you can use the NuGet package:
 
 **Install using the command line from the Package Manager:**
 ```bash
-Install-Package SoloX.CodeQuality.Test.Helpers -version 2.3.0-beta.1
+Install-Package SoloX.CodeQuality.Test.Helpers -version 2.3.0
 
-Install-Package SoloX.CodeQuality.Test.Helpers.XUnit -version 2.3.0-beta.1
+Install-Package SoloX.CodeQuality.Test.Helpers.XUnit -version 2.3.0
 
-Install-Package SoloX.CodeQuality.Test.Helpers.NUnit -version 2.3.0-beta.1
+Install-Package SoloX.CodeQuality.Test.Helpers.NUnit -version 2.3.0
 ```
 
 **Install using the .Net CLI:**
 ```bash
-dotnet add package SoloX.CodeQuality.Test.Helpers --version 2.3.0-beta.1
+dotnet add package SoloX.CodeQuality.Test.Helpers --version 2.3.0
 
-dotnet add package SoloX.CodeQuality.Test.Helpers.XUnit --version 2.3.0-beta.1
+dotnet add package SoloX.CodeQuality.Test.Helpers.XUnit --version 2.3.0
 
-dotnet add package SoloX.CodeQuality.Test.Helpers.NUnit --version 2.3.0-beta.1
+dotnet add package SoloX.CodeQuality.Test.Helpers.NUnit --version 2.3.0
 ```
 
 **Install editing your project file (csproj):**
 ```xml
-<PackageReference Include="SoloX.CodeQuality.Test.Helpers" Version="2.3.0-beta.1" />
+<PackageReference Include="SoloX.CodeQuality.Test.Helpers" Version="2.3.0" />
 
-<PackageReference Include="SoloX.CodeQuality.Test.Helpers.XUnit" Version="2.3.0-beta.1" />
+<PackageReference Include="SoloX.CodeQuality.Test.Helpers.XUnit" Version="2.3.0" />
 
-<PackageReference Include="SoloX.CodeQuality.Test.Helpers.NUnit" Version="2.3.0-beta.1" />
+<PackageReference Include="SoloX.CodeQuality.Test.Helpers.NUnit" Version="2.3.0" />
 ```
 
  * * *

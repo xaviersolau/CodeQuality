@@ -11,7 +11,7 @@
     
     <PackageTags>code quality, analysis, coding style</PackageTags>
     <PackageReleaseNotes>- Setup coding style and analysis.</PackageReleaseNotes>
-    <AssemblyVersion>2.0.0.0</AssemblyVersion>
+
     <Description>Setup coding style and analysis for production projects (using NetAlalyzers and CodeStyle).</Description>
     <IncludeBuildOutput>false</IncludeBuildOutput>
     <DevelopmentDependency>true</DevelopmentDependency>
