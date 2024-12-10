@@ -23,7 +23,7 @@ namespace SoloX.CodeQuality.Playwright
         private static readonly object LockSync = new object();
         private static bool playwrightInstalled;
 
-        private readonly BrowserNewContextOptions? browserNewContextOptions;
+        private BrowserNewContextOptions? browserNewContextOptions;
         private readonly TracingStartOptions? tracingStartOptions;
         private readonly int goToPageRetryCount;
 
@@ -49,12 +49,10 @@ namespace SoloX.CodeQuality.Playwright
         /// Build PlaywrightDriver instance.
         /// </summary>
         /// <param name="goToPageRetryCount">Goto page retry count.</param>
-        /// <param name="browserNewContextOptions">New context options.</param>
         /// <param name="tracingStartOptions">Tracing start options.</param>
-        public PlaywrightDriver(int goToPageRetryCount = 3, BrowserNewContextOptions? browserNewContextOptions = null, TracingStartOptions? tracingStartOptions = null)
+        public PlaywrightDriver(int goToPageRetryCount = 3, TracingStartOptions? tracingStartOptions = null)
         {
             this.goToPageRetryCount = goToPageRetryCount;
-            this.browserNewContextOptions = browserNewContextOptions;
             this.tracingStartOptions = tracingStartOptions;
         }
 
@@ -160,6 +158,26 @@ namespace SoloX.CodeQuality.Playwright
             {
                 throw new PlaywrightException($"Playwright exited with code {exitCode} on install");
             }
+        }
+
+        /// <summary>
+        /// Setup BrowserNewContextOptions for the given device name and/or the given builder.
+        /// </summary>
+        /// <param name="deviceName">Device name to get the options from.</param>
+        /// <param name="browserNewContextOptionsBuilder">BrowserNewContextOptions builder.</param>
+        public void SetupBrowserNewContextOptions(string? deviceName = null, Action<BrowserNewContextOptions>? browserNewContextOptionsBuilder = null)
+        {
+            BrowserNewContextOptions options;
+            if (string.IsNullOrEmpty(deviceName) || !Playwright.Devices.TryGetValue(deviceName, out options))
+            {
+                options = new BrowserNewContextOptions();
+            }
+
+            options.IgnoreHTTPSErrors = true;
+
+            browserNewContextOptionsBuilder?.Invoke(options);
+
+            this.browserNewContextOptions = options;
         }
 
         /// <summary>

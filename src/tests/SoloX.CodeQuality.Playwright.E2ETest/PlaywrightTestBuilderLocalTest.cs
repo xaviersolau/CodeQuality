@@ -40,7 +40,7 @@ namespace SoloX.CodeQuality.Playwright.E2ETest
                 .WithPlaywrightOptions(opt =>
                 {
                     //opt.Headless = false;
-                    //opt.SlowMo = 1000;
+                    //opt.SlowMo = 5000;
                     //opt.Timeout = 60000;
                 })
                 .WithPlaywrightNewContextOptions(opt =>
@@ -51,13 +51,17 @@ namespace SoloX.CodeQuality.Playwright.E2ETest
         }
 
         [Theory]
-        [InlineData(Browser.Chromium)]
-        [InlineData(Browser.Firefox)]
-        [InlineData(Browser.Webkit)]
-        public async Task ItShouldOpenTheHomePageFromStaticHomeFile(Browser browser)
+        [InlineData(Browser.Chromium, null)]
+        [InlineData(Browser.Chromium, Devices.Pixel)]
+        [InlineData(Browser.Chromium, Devices.PixelLandscape)]
+        [InlineData(Browser.Firefox, null)]
+        [InlineData(Browser.Webkit, null)]
+        [InlineData(Browser.Webkit, Devices.iPhone)]
+        [InlineData(Browser.Webkit, Devices.iPhoneLandscape)]
+        public async Task ItShouldOpenTheHomePageFromStaticHomeFile(Browser browser, string? deviceName)
         {
             var playwrightTest = await this.builder
-                .BuildAsync(browser)
+                .BuildAsync(browser, deviceName: deviceName)
                 .ConfigureAwait(true);
 
             await using var _ = playwrightTest.ConfigureAwait(false);

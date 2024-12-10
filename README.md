@@ -52,26 +52,26 @@ You can checkout this Github repository or you can use the NuGet package:
 
 **Install using the command line from the Package Manager:**
 ```bash
-Install-Package SoloX.CodeQuality.Prod -version 2.3.0
+Install-Package SoloX.CodeQuality.Prod -version 2.3.1
 or
-Install-Package SoloX.CodeQuality.Test -version 2.3.0
+Install-Package SoloX.CodeQuality.Test -version 2.3.1
 ```
 
 **Install using the .Net CLI:**
 ```bash
-dotnet add package SoloX.CodeQuality.Prod --version 2.3.0
+dotnet add package SoloX.CodeQuality.Prod --version 2.3.1
 or
-dotnet add package SoloX.CodeQuality.Test --version 2.3.0
+dotnet add package SoloX.CodeQuality.Test --version 2.3.1
 ```
 
 **Install editing your project file (csproj):**
 ```xml
-<PackageReference Include="SoloX.CodeQuality.Prod" Version="2.3.0">
+<PackageReference Include="SoloX.CodeQuality.Prod" Version="2.3.1">
   <PrivateAssets>all</PrivateAssets>
   <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
 </PackageReference>
 or
-<PackageReference Include="SoloX.CodeQuality.Test" Version="2.3.0">
+<PackageReference Include="SoloX.CodeQuality.Test" Version="2.3.1">
   <PrivateAssets>all</PrivateAssets>
   <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
 </PackageReference>
@@ -218,17 +218,17 @@ You can checkout this Github repository or use the NuGet package:
 
 **Install using the command line from the Package Manager:**
 ```bash
-Install-Package SoloX.CodeQuality.Playwright -version 2.3.0
+Install-Package SoloX.CodeQuality.Playwright -version 2.3.1
 ```
 
 **Install using the .Net CLI:**
 ```bash
-dotnet add package SoloX.CodeQuality.Playwright --version 2.3.0
+dotnet add package SoloX.CodeQuality.Playwright --version 2.3.1
 ```
 
 **Install editing your project file (csproj):**
 ```xml
-<PackageReference Include="SoloX.CodeQuality.Playwright" Version="2.3.0" />
+<PackageReference Include="SoloX.CodeQuality.Playwright" Version="2.3.1" />
 ```
 
 * * *
@@ -406,6 +406,10 @@ await playwrightTest.GotoPageAsync("index.html", async (page) =>
 > Note: you can check on the [Playwright](https://playwright.dev/dotnet/) web site to find out more about the
 > [Codegen Tool](https://playwright.dev/dotnet/docs/codegen-intro).
 
+> Note: you can also specify the [Playwright device](https://github.com/microsoft/playwright/blob/main/packages/playwright-core/src/server/deviceDescriptorsSource.json)
+> name in the BuildAsync method to simulate browser behavior for a specific device such as desktop, tablet and mobile
+> devices.
+
 * * *
 
 ## Test Helpers
@@ -420,29 +424,29 @@ You can checkout this Github repository or you can use the NuGet package:
 
 **Install using the command line from the Package Manager:**
 ```bash
-Install-Package SoloX.CodeQuality.Test.Helpers -version 2.3.0
+Install-Package SoloX.CodeQuality.Test.Helpers -version 2.3.1
 
-Install-Package SoloX.CodeQuality.Test.Helpers.XUnit -version 2.3.0
+Install-Package SoloX.CodeQuality.Test.Helpers.XUnit -version 2.3.1
 
-Install-Package SoloX.CodeQuality.Test.Helpers.NUnit -version 2.3.0
+Install-Package SoloX.CodeQuality.Test.Helpers.NUnit -version 2.3.1
 ```
 
 **Install using the .Net CLI:**
 ```bash
-dotnet add package SoloX.CodeQuality.Test.Helpers --version 2.3.0
+dotnet add package SoloX.CodeQuality.Test.Helpers --version 2.3.1
 
-dotnet add package SoloX.CodeQuality.Test.Helpers.XUnit --version 2.3.0
+dotnet add package SoloX.CodeQuality.Test.Helpers.XUnit --version 2.3.1
 
-dotnet add package SoloX.CodeQuality.Test.Helpers.NUnit --version 2.3.0
+dotnet add package SoloX.CodeQuality.Test.Helpers.NUnit --version 2.3.1
 ```
 
 **Install editing your project file (csproj):**
 ```xml
-<PackageReference Include="SoloX.CodeQuality.Test.Helpers" Version="2.3.0" />
+<PackageReference Include="SoloX.CodeQuality.Test.Helpers" Version="2.3.1" />
 
-<PackageReference Include="SoloX.CodeQuality.Test.Helpers.XUnit" Version="2.3.0" />
+<PackageReference Include="SoloX.CodeQuality.Test.Helpers.XUnit" Version="2.3.1" />
 
-<PackageReference Include="SoloX.CodeQuality.Test.Helpers.NUnit" Version="2.3.0" />
+<PackageReference Include="SoloX.CodeQuality.Test.Helpers.NUnit" Version="2.3.1" />
 ```
 
  * * *
