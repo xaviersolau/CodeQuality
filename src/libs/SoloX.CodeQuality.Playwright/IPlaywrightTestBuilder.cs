@@ -70,7 +70,8 @@ namespace SoloX.CodeQuality.Playwright
         /// Build and set up Web host and Playwright test driver.
         /// </summary>
         /// <param name="browser">Browser override (optional).</param>
+        /// <param name="deviceName">Device name to use (optional).</param>
         /// <returns>The Playwright test.</returns>
-        Task<IPlaywrightTest> BuildAsync(Browser? browser = null);
+        Task<IPlaywrightTest> BuildAsync(Browser? browser = null, string? deviceName = null);
     }
 }

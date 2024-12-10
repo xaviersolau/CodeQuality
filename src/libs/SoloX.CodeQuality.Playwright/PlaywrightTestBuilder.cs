@@ -50,13 +50,9 @@ namespace SoloX.CodeQuality.Playwright
             private Action<TracingStartOptions> traceFileOptionsBuilder = options => { };
             private Action<BrowserNewContextOptions> browserNewContextOptionsBuilder = options => { };
 
-            public async Task<IPlaywrightTest> BuildAsync(Browser? browser = null)
+            public async Task<IPlaywrightTest> BuildAsync(Browser? browser = null, string? deviceName = null)
             {
                 var port = SharedPortStore.GetPort(this.portRange);
-
-                var browserNewContextOptions = new BrowserNewContextOptions { IgnoreHTTPSErrors = true };
-
-                this.browserNewContextOptionsBuilder(browserNewContextOptions);
 
                 var traceFileOptions = new TracingStartOptions()
                 {
@@ -67,13 +63,15 @@ namespace SoloX.CodeQuality.Playwright
 
                 this.traceFileOptionsBuilder(traceFileOptions);
 
-                var playwrightDriver = new PlaywrightDriver(this.goToPageRetryCount, browserNewContextOptions, traceFileOptions);
+                var playwrightDriver = new PlaywrightDriver(this.goToPageRetryCount, traceFileOptions);
 
                 var browserTypeLaunchOptions = new BrowserTypeLaunchOptions();
 
                 this.browserTypeLaunchOptionsBuilder(browserTypeLaunchOptions);
 
                 await playwrightDriver.InitializeAsync(browserTypeLaunchOptions).ConfigureAwait(false);
+
+                playwrightDriver.SetupBrowserNewContextOptions(deviceName, this.browserNewContextOptionsBuilder);
 
                 var disposable = (IAsyncDisposable?)null;
                 var url = this.onLineHost;
@@ -283,6 +281,7 @@ namespace SoloX.CodeQuality.Playwright
                     return this.playwrightDriver.GotoPageAsync(
                         this.url.TrimEnd('/') + "/" + relativePath.TrimStart('/'),
                         testHandler,
+                        browserType: this.browser,
                         traceFile: traceFile,
                         pageSetupHandler: pageSetupHandler);
                 }
