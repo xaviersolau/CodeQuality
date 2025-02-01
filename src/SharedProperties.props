@@ -1,7 +1,7 @@
 <Project>
 
   <PropertyGroup>
-    <Version>2.3.1</Version>
+    <Version>2.3.2</Version>
     <Authors>Xavier Solau</Authors>
     <Copyright>Copyright © 2021 Xavier Solau</Copyright>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
@@ -14,7 +14,7 @@
     <CodeQualityHeaderLicense>$(PackageLicenseExpression)</CodeQualityHeaderLicense>
     <CodeQualityHeaderLicenseFile>LICENSE</CodeQualityHeaderLicenseFile>
 
-    <AssemblyVersion>2.3.0.0</AssemblyVersion>
+    <AssemblyVersion>2.3.2.0</AssemblyVersion>
   </PropertyGroup>
 
 </Project>
