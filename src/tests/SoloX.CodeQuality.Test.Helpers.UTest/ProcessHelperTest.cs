@@ -6,6 +6,7 @@
 // </copyright>
 // ----------------------------------------------------------------------
 
+using System.Linq;
 using FluentAssertions;
 using Xunit;
 
@@ -25,6 +26,22 @@ namespace SoloX.CodeQuality.Test.Helpers.UTest
             stderr.Should().BeEmpty();
             stdout.Should().Contain("Microsoft.");
             stdout.Should().Contain(version);
+        }
+
+        [Fact]
+        public void IsShouldRunACommandAndGetTheLogs()
+        {
+            var version = System.Environment.Version.ToString();
+
+            var processResult = ProcessHelper.Run(".", "dotnet", "--list-runtimes");
+
+            processResult.ExitCode.Should().Be(0);
+
+            processResult.LogMessages.Where(x => x.IsError).Should().BeEmpty();
+
+            var logs = processResult.GetLogs();
+            logs.Should().Contain("Microsoft.");
+            logs.Should().Contain(version);
         }
     }
 }

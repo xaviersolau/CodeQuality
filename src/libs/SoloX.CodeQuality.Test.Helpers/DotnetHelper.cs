@@ -20,35 +20,71 @@ namespace SoloX.CodeQuality.Test.Helpers
         private const string PUBLISH = "publish";
         private const string RUN = "run";
         private const string TEST = "test";
+        private const string NEW = "new";
+        private const string SLN = "sln";
+        private const string ADD = "add";
+        private const string PACKAGE = "package";
+        private const string REFERENCE = "reference ";
 
-        public static bool Restore(string projectPath, out string stdout, out string stderr)
+        public static bool Restore(string projectPath, out ProcessResult processResult)
         {
-            return ProcessHelper.Run(projectPath, DOTNET, RESTORE, out stdout, out stderr) == 0;
+            return Dotnet(projectPath, RESTORE, out processResult);
         }
 
-        public static bool Build(string projectPath, out string stdout, out string stderr)
+        public static bool Build(string projectPath, out ProcessResult processResult)
         {
-            return ProcessHelper.Run(projectPath, DOTNET, BUILD, out stdout, out stderr) == 0;
+            return Dotnet(projectPath, BUILD, out processResult);
         }
 
-        public static bool Test(string projectPath, out string stdout, out string stderr)
+        public static bool Test(string projectPath, out ProcessResult processResult)
         {
-            return ProcessHelper.Run(projectPath, DOTNET, TEST, out stdout, out stderr) == 0;
+            return Dotnet(projectPath, TEST, out processResult);
         }
 
-        public static bool Publish(string projectPath, out string stdout, out string stderr)
+        public static bool Publish(string projectPath, out ProcessResult processResult)
         {
-            return ProcessHelper.Run(projectPath, DOTNET, PUBLISH, out stdout, out stderr) == 0;
+            return Dotnet(projectPath, PUBLISH, out processResult);
         }
 
-        public static bool Run(string projectPath, out string stdout, out string stderr)
+        public static bool New(string path, string template, string output, out ProcessResult processResult)
         {
-            return Run(projectPath, string.Empty, out stdout, out stderr);
+            return Dotnet(path, $"{NEW} {template} --output {output}", out processResult);
         }
 
-        public static bool Run(string projectPath, string args, out string stdout, out string stderr)
+        public static bool NewSln(string path, string solutionName, out ProcessResult processResult)
         {
-            return ProcessHelper.Run(projectPath, DOTNET, $"{RUN} {args}", out stdout, out stderr) == 0;
+            return New(path, SLN, solutionName, out processResult);
+        }
+
+        public static bool SlnAdd(string path, string project, out ProcessResult processResult)
+        {
+            return Dotnet(path, $"{SLN} {ADD} {project}", out processResult);
+        }
+
+        public static bool AddPackage(string path, string projectFilePath, string packageName, out ProcessResult processResult)
+        {
+            return Dotnet(path, $"{ADD} {projectFilePath} {PACKAGE} {packageName}", out processResult);
+        }
+
+        public static bool AddReference(string path, string projectFilePath, string projectReferenceFilePath, out ProcessResult processResult)
+        {
+            return Dotnet(path, $"{ADD} {projectFilePath} {REFERENCE} {projectReferenceFilePath}", out processResult);
+        }
+
+        public static bool Run(string projectPath, out ProcessResult processResult)
+        {
+            return Run(projectPath, string.Empty, out processResult);
+        }
+
+        public static bool Run(string projectPath, string args, out ProcessResult processResult)
+        {
+            return Dotnet(projectPath, $"{RUN} {args}", out processResult);
+        }
+
+        public static bool Dotnet(string path, string args, out ProcessResult processResult)
+        {
+            processResult = ProcessHelper.Run(path, DOTNET, args);
+            return processResult.ExitCode == 0;
         }
     }
 #pragma warning restore CA1021 // Avoid out parameters

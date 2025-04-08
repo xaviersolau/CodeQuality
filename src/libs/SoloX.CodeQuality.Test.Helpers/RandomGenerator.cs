@@ -11,6 +11,9 @@ using System.Text;
 
 namespace SoloX.CodeQuality.Test.Helpers
 {
+    /// <summary>
+    /// RandomGenerator class to generate random values for test purpose.
+    /// </summary>
     public class RandomGenerator
     {
         private readonly Random random = new Random();

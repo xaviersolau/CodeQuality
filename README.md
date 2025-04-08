@@ -6,9 +6,9 @@ rules for your Test and your Prod C# projects.
 It also provides:
 * [Test helpers](#test-helpers) to use in your unit test projects helping with test logging or running processes.
 * A [Playwright Test Builder](#playwright-test-builder) to help you make Web application tests.
-* And a [HttpClient mock](#httpclient-mocking) to be able to inject HttpClient when ever you need it in your unit tests;
-
-
+* A [HttpClient mock](#httpclient-mocking) to be able to inject HttpClient when ever you need it in your unit tests.
+* A Dotnet Solution builder that can help to process end to end tests on a project consuming the nuget package you
+  want to test. It can be very handy to test analyzer or code generation tools. Here is [an example](src/tests/SoloX.CodeQuality.Playwright.E2ETest/Package/PackageNugetTest.cs) where it's used.
 
 ## Project dashboard
 [![Build - CI](https://github.com/xaviersolau/CodeQuality/actions/workflows/build-ci.yml/badge.svg)](https://github.com/xaviersolau/CodeQuality/actions/workflows/build-ci.yml)

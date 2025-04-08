@@ -49,17 +49,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Remove="Resources\PackageNugetTestProject\PackageNugetTestProject\PlaywrightTestBuilderLocalTest.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Remove="Resources\**\*.*" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Include="Resources\**\*.*">
+    <Compile Update="PlaywrightTestBuilderLocalTest.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
+    </Compile>
   </ItemGroup>
 
 </Project>

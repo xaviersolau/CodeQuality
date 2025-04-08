@@ -167,8 +167,7 @@ namespace SoloX.CodeQuality.Playwright
         /// <param name="browserNewContextOptionsBuilder">BrowserNewContextOptions builder.</param>
         public void SetupBrowserNewContextOptions(string? deviceName = null, Action<BrowserNewContextOptions>? browserNewContextOptionsBuilder = null)
         {
-            BrowserNewContextOptions options;
-            if (string.IsNullOrEmpty(deviceName) || !Playwright.Devices.TryGetValue(deviceName, out options))
+            if (string.IsNullOrEmpty(deviceName) || !Playwright.Devices.TryGetValue(deviceName, out var options))
             {
                 options = new BrowserNewContextOptions();
             }
@@ -247,7 +246,7 @@ namespace SoloX.CodeQuality.Playwright
                 var gotoResult = await page.GotoAsync(url, new PageGotoOptions { WaitUntil = WaitUntilState.NetworkIdle, Timeout = 60000 }).ConfigureAwait(false);
                 gotoResult.Should().NotBeNull();
 
-                await gotoResult.FinishedAsync().ConfigureAwait(false);
+                await gotoResult!.FinishedAsync().ConfigureAwait(false);
 
                 gotoResult.Ok.Should().BeTrue();
 
@@ -330,7 +329,7 @@ namespace SoloX.CodeQuality.Playwright
                 }
 
                 Playwright.Dispose();
-                Playwright = null;
+                Playwright = default!;
             }
 
             GC.SuppressFinalize(this);

@@ -6,6 +6,7 @@
 // </copyright>
 // ----------------------------------------------------------------------
 
+using System;
 using System.Diagnostics;
 using System.IO;
 using Xunit;
@@ -62,8 +63,8 @@ namespace SoloX.CodeQuality.Test.Helpers.XUnit
                 }
 
                 Assert.Equal(
-                    generatedRef.Replace("\r\n", "\n"),
-                    generated.Replace("\r\n", "\n"));
+                    generatedRef.Replace("\r\n", "\n", StringComparison.InvariantCulture),
+                    generated.Replace("\r\n", "\n", StringComparison.InvariantCulture));
             }
         }
 
@@ -74,9 +75,9 @@ namespace SoloX.CodeQuality.Test.Helpers.XUnit
         /// <returns>Folder location in the project of the calling code assembly.</returns>
         public static string GetLocationFromCallingCodeProjectRoot(string folder)
         {
-            var callingAssembly = new StackTrace().GetFrame(1).GetMethod().DeclaringType.Assembly;
+            var callingAssembly = new StackTrace().GetFrame(1)!.GetMethod()!.DeclaringType!.Assembly;
             var assemblyFolder = Path.GetDirectoryName(callingAssembly.Location);
-            var projectRoot = Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(assemblyFolder)));
+            var projectRoot = Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(assemblyFolder)))!;
             return folder != null ? Path.Combine(projectRoot, folder) : projectRoot;
         }
     }

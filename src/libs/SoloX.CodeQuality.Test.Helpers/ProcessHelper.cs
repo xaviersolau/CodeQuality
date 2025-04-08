@@ -6,7 +6,10 @@
 // </copyright>
 // ----------------------------------------------------------------------
 
+using System;
+using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Text;
 using System.Threading;
 
@@ -26,11 +29,51 @@ namespace SoloX.CodeQuality.Test.Helpers
         /// <param name="stdout">Standard output.</param>
         /// <param name="stderr">Error output.</param>
         /// <returns>The process exit code.</returns>
-        public static int Run(string workingDirectory, string command, string arguments, out string stdout, out string stderr)
+        public static int Run(string workingDirectory, string command, string arguments,
+            out string stdout, out string stderr)
         {
-            var output = new StringBuilder();
-            var error = new StringBuilder();
+            var outBuilder = new StringBuilder();
+            var errBuilder = new StringBuilder();
 
+            var exitCode = RunInternal(
+                workingDirectory,
+                command,
+                arguments,
+                s => outBuilder.Append(s),
+                s => errBuilder.Append(s));
+
+            stderr = errBuilder.ToString();
+            stdout = outBuilder.ToString();
+
+            return exitCode;
+        }
+
+        /// <summary>
+        /// Run a process with the given arguments and wait for exit.
+        /// </summary>
+        /// <param name="workingDirectory">Working directory.</param>
+        /// <param name="command">The command to run.</param>
+        /// <param name="arguments">The command arguments.</param>
+        /// <returns>The process result.</returns>
+        public static ProcessResult Run(string workingDirectory, string command, string arguments)
+        {
+            var processResult = new ProcessResult();
+
+            var exitCode = RunInternal(
+                workingDirectory,
+                command,
+                arguments,
+                processResult.AppendInfo,
+                processResult.AppendError);
+
+            processResult.SetReturnCode(exitCode);
+
+            return processResult;
+        }
+
+        private static int RunInternal(string workingDirectory, string command, string arguments,
+            Action<string> outCallback, Action<string> errorCallback)
+        {
             using (var process = new Process())
             using (var outputWaitHandle = new AutoResetEvent(false))
             using (var errorWaitHandle = new AutoResetEvent(false))
@@ -43,7 +86,7 @@ namespace SoloX.CodeQuality.Test.Helpers
                     }
                     else
                     {
-                        output.AppendLine(e.Data);
+                        outCallback(e.Data);
                     }
                 };
                 process.ErrorDataReceived += (sender, e) =>
@@ -54,7 +97,7 @@ namespace SoloX.CodeQuality.Test.Helpers
                     }
                     else
                     {
-                        error.AppendLine(e.Data);
+                        errorCallback(e.Data);
                     }
                 };
 
@@ -78,11 +121,77 @@ namespace SoloX.CodeQuality.Test.Helpers
                 outputWaitHandle.WaitOne();
                 errorWaitHandle.WaitOne();
 
-                stdout = output.ToString();
-                stderr = error.ToString();
-
                 return process.ExitCode;
             }
+        }
+    }
+
+    /// <summary>
+    /// A log message.
+    /// </summary>
+    /// <param name="Message">Message log.</param>
+    /// <param name="IsError">Tells if this is an error log.</param>
+    public record Log(string Message, bool IsError)
+    {
+        public DateTime TimeStamp { get; } = DateTime.Now;
+    }
+
+    /// <summary>
+    /// Process logs.
+    /// </summary>
+    public class ProcessResult
+    {
+        private readonly List<Log> logs = new List<Log>();
+
+        /// <summary>
+        /// Log messages.
+        /// </summary>
+        public IReadOnlyList<Log> LogMessages => this.logs;
+
+        /// <summary>
+        /// Process exit code.
+        /// </summary>
+        public int ExitCode { get; private set; }
+
+        internal void AppendInfo(string logMessage)
+        {
+            this.logs.Add(new Log(logMessage, false));
+        }
+
+        internal void AppendError(string logMessage)
+        {
+            this.logs.Add(new Log(logMessage, true));
+        }
+
+        internal void SetReturnCode(int exitCode)
+        {
+            this.ExitCode = exitCode;
+        }
+
+        public string GetErrors()
+        {
+            return GetLogs(l => l.IsError);
+        }
+
+        public string GetInfo()
+        {
+            return GetLogs(l => !l.IsError);
+        }
+
+        public string GetLogs(Func<Log, bool>? filter = null)
+        {
+            var stringBuilder = new StringBuilder();
+
+            var logItems = filter != null
+                ? this.logs.Where(filter)
+                : this.logs;
+
+            foreach (var log in logItems)
+            {
+                stringBuilder.AppendLine(log.Message);
+            }
+
+            return stringBuilder.ToString();
         }
     }
 }
