@@ -19,17 +19,14 @@ namespace SoloX.CodeQuality.Test.Helpers.Http
         /// <inheritdoc/>
         public IHttpClientRequestMockBuilder WithBaseAddress(Uri baseAddress)
         {
-            if (baseAddress is null)
-            {
-                throw new ArgumentNullException(nameof(baseAddress));
-            }
+            ArgumentNullException.ThrowIfNull(baseAddress);
 
             if (!string.IsNullOrEmpty(baseAddress.Query))
             {
                 throw new ArgumentException($"{nameof(baseAddress)} should not contain query data");
             }
 
-            if (!baseAddress.AbsolutePath.EndsWith("/", StringComparison.Ordinal))
+            if (!baseAddress.AbsolutePath.EndsWith('/'))
             {
                 baseAddress = new Uri($"{baseAddress}/");
             }

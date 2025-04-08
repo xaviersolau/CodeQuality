@@ -23,39 +23,32 @@ namespace SoloX.CodeQuality.Test.Helpers.Http.Impl
             this.baseAddress = baseAddress;
         }
 
-        public IHttpClientResponseFromJsonRequestMockBuilder<TRequestContent> WithJsonContentRequest<TRequestContent>(string absolutePath, HttpMethod httpMethod = null)
+        public IHttpClientResponseFromJsonRequestMockBuilder<TRequestContent> WithJsonContentRequest<TRequestContent>(string absolutePath, HttpMethod? httpMethod = null)
         {
             return new JsonRequestBuilder<TRequestContent>(responseBuilderAsync => Register(absolutePath, httpMethod, responseBuilderAsync));
         }
 
-        public IHttpClientResponseFromRequestMockBuilder WithRequest(string absolutePath, HttpMethod httpMethod = null)
+        public IHttpClientResponseFromRequestMockBuilder WithRequest(string absolutePath, HttpMethod? httpMethod = null)
         {
             return new RequestBuilder(responseBuilderAsync => Register(absolutePath, httpMethod, responseBuilderAsync));
         }
 
-        private HttpRequestsMockBuilder Register(string absolutePath, HttpMethod httpMethod, Func<HttpRequestMessage, Task<HttpResponseMessage>> responseBuilderAsync)
+        private HttpRequestsMockBuilder Register(string absolutePath, HttpMethod? httpMethod, Func<HttpRequestMessage, Task<HttpResponseMessage>> responseBuilderAsync)
         {
-            if (absolutePath is null)
-            {
-                throw new ArgumentNullException(nameof(absolutePath));
-            }
+            ArgumentNullException.ThrowIfNull(absolutePath);
+            ArgumentNullException.ThrowIfNull(responseBuilderAsync);
 
             if (httpMethod is null)
             {
                 httpMethod = HttpMethod.Get;
             }
 
-            if (!absolutePath.StartsWith("/", StringComparison.Ordinal))
+            if (!absolutePath.StartsWith('/'))
             {
                 absolutePath = '/' + absolutePath;
             }
 
             var httpMethodName = httpMethod.Method.ToUpperInvariant();
-
-            if (responseBuilderAsync is null)
-            {
-                throw new ArgumentNullException(nameof(responseBuilderAsync));
-            }
 
             if (!this.responseBuilderMap.TryGetValue(httpMethodName, out var map))
             {

@@ -303,20 +303,22 @@ namespace SoloX.CodeQuality.Playwright
 
                 public static MethodBase GetOriginalAsyncMethod(MethodBase method)
                 {
-                    // Check if the method is part of a state machine
-                    var asyncStateMachineAttribute = method.DeclaringType.GetCustomAttribute<AsyncStateMachineAttribute>();
+                    var methodDeclaringType = method.DeclaringType!;
 
-                    var compilerGeneratedAttribute = method.DeclaringType.GetCustomAttribute<CompilerGeneratedAttribute>();
+                    // Check if the method is part of a state machine
+                    var asyncStateMachineAttribute = methodDeclaringType.GetCustomAttribute<AsyncStateMachineAttribute>();
+
+                    var compilerGeneratedAttribute = methodDeclaringType.GetCustomAttribute<CompilerGeneratedAttribute>();
 
                     if (asyncStateMachineAttribute != null || compilerGeneratedAttribute != null)
                     {
                         if (method.Name == "MoveNext")
                         {
                             // Get the original type
-                            var declaringType = method.DeclaringType.DeclaringType;
+                            var declaringType = methodDeclaringType.DeclaringType;
 
                             // The class name will be something like "<OriginalMethod>d__X"
-                            var declaringTypeName = method.DeclaringType.Name;
+                            var declaringTypeName = methodDeclaringType.Name;
 
                             // Regex pattern to extract the original method name from "<MethodName>d__X"
                             var match = Regex.Match(declaringTypeName, @"\<(?<methodName>.+)\>d__\d+");

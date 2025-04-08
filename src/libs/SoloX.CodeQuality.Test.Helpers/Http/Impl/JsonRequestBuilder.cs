@@ -23,10 +23,7 @@ namespace SoloX.CodeQuality.Test.Helpers.Http.Impl
 
         public IHttpClientRequestMockBuilder Responding(Func<TRequestContent, Task<HttpResponseMessage>> responseHandler)
         {
-            if (responseHandler is null)
-            {
-                throw new ArgumentNullException(nameof(responseHandler));
-            }
+            ArgumentNullException.ThrowIfNull(responseHandler);
 
             return base.Responding(async request =>
             {
@@ -37,20 +34,14 @@ namespace SoloX.CodeQuality.Test.Helpers.Http.Impl
 
         public IHttpClientRequestMockBuilder Responding(Func<TRequestContent, HttpResponseMessage> responseHandler)
         {
-            if (responseHandler is null)
-            {
-                throw new ArgumentNullException(nameof(responseHandler));
-            }
+            ArgumentNullException.ThrowIfNull(responseHandler);
 
             return Responding(request => Task.FromResult(responseHandler(request)));
         }
 
         public IHttpClientRequestMockBuilder RespondingStatus(Func<TRequestContent, Task<HttpStatusCode>> responseHandler)
         {
-            if (responseHandler is null)
-            {
-                throw new ArgumentNullException(nameof(responseHandler));
-            }
+            ArgumentNullException.ThrowIfNull(responseHandler);
 
             return Responding(async request =>
             {
@@ -62,20 +53,14 @@ namespace SoloX.CodeQuality.Test.Helpers.Http.Impl
 
         public IHttpClientRequestMockBuilder RespondingStatus(Func<TRequestContent, HttpStatusCode> responseHandler)
         {
-            if (responseHandler is null)
-            {
-                throw new ArgumentNullException(nameof(responseHandler));
-            }
+            ArgumentNullException.ThrowIfNull(responseHandler);
 
             return RespondingStatus(request => Task.FromResult(responseHandler(request)));
         }
 
         public IHttpClientRequestMockBuilder RespondingJsonContent<TResponseContent>(Func<TRequestContent, Task<TResponseContent>> responseHandler, HttpStatusCode status = HttpStatusCode.OK)
         {
-            if (responseHandler is null)
-            {
-                throw new ArgumentNullException(nameof(responseHandler));
-            }
+            ArgumentNullException.ThrowIfNull(responseHandler);
 
             return Responding(async request =>
             {
@@ -90,10 +75,7 @@ namespace SoloX.CodeQuality.Test.Helpers.Http.Impl
 
         public IHttpClientRequestMockBuilder RespondingJsonContent<TResponseContent>(Func<TRequestContent, TResponseContent> responseHandler, HttpStatusCode status = HttpStatusCode.OK)
         {
-            if (responseHandler is null)
-            {
-                throw new ArgumentNullException(nameof(responseHandler));
-            }
+            ArgumentNullException.ThrowIfNull(responseHandler);
 
             return RespondingJsonContent(request => Task.FromResult(responseHandler(request)), status);
         }

@@ -21,7 +21,7 @@ namespace SoloX.CodeQuality.Test.Helpers.XUnit.Logger
             this.testOutputHelper = testOutputHelper;
         }
 
-        public IDisposable BeginScope<TState>(TState state)
+        public IDisposable? BeginScope<TState>(TState state) where TState : notnull
         {
             return new TestLoggerScope<T, TState>(this, state);
         }
@@ -35,8 +35,8 @@ namespace SoloX.CodeQuality.Test.Helpers.XUnit.Logger
             LogLevel logLevel,
             EventId eventId,
             TState state,
-            Exception exception,
-            Func<TState, Exception, string> formatter)
+            Exception? exception,
+            Func<TState, Exception?, string> formatter)
         {
             this.testOutputHelper.WriteLine($"{logLevel}: {formatter(state, exception)}");
         }

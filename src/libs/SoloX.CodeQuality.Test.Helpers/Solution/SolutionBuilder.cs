@@ -1,0 +1,228 @@
+﻿// ----------------------------------------------------------------------
+// <copyright file="SolutionBuilder.cs" company="Xavier Solau">
+// Copyright © 2021 Xavier Solau.
+// Licensed under the MIT license.
+// See LICENSE file in the project root for full license information.
+// </copyright>
+// ----------------------------------------------------------------------
+
+using System;
+using System.Collections.Generic;
+using System.IO;
+using SoloX.CodeQuality.Test.Helpers.Solution.Exceptions;
+using SoloX.CodeQuality.Test.Helpers.Solution.Impl;
+
+namespace SoloX.CodeQuality.Test.Helpers.Solution
+{
+    /// <summary>
+    /// Dotnet fluent solution builder.
+    /// It helps to create a solution and its projects to make E2E tests dedicated for testing:
+    /// - Your packaged Nugets;
+    /// - Your Dotnet tools
+    /// - Your Dotnet Analyzers;
+    /// </summary>
+    public class SolutionBuilder
+    {
+        private const string DefaultPackageFolder = "Packages";
+        private static readonly Action<INugetConfigConfiguration> DefaultNugetConfigConfiguration =
+            configuration => configuration.UsePackageSources(s =>
+            {
+                s.Clear();
+                s.AddNugetOrg();
+            });
+
+        /// <summary>
+        /// Solution builder root folder where the solution will be created.
+        /// </summary>
+        public string Root { get; }
+
+        /// <summary>
+        /// Name of the solution to build.
+        /// </summary>
+        public string SolutionName { get; }
+
+        /// <summary>
+        /// Path of the solution to build.
+        /// </summary>
+        public string SolutionPath { get; }
+
+        private bool withNugetConfig;
+        private string globalPackagesFolder = DefaultPackageFolder;
+        private Action<INugetConfigConfiguration> nugetConfigConfiguration = DefaultNugetConfigConfiguration;
+
+        private readonly Dictionary<string, ProjectConfiguration> projectConfigurations =
+            new Dictionary<string, ProjectConfiguration>();
+
+        /// <summary>
+        /// Build SolutionBuilder instance.
+        /// </summary>
+        /// <param name="root">Root folder.</param>
+        /// <param name="solutionName">Solution name.</param>
+        public SolutionBuilder(string root, string solutionName)
+        {
+            this.Root = root;
+            this.SolutionName = solutionName;
+            this.SolutionPath = Path.Combine(this.Root, this.SolutionName);
+        }
+
+        /// <summary>
+        /// Generate the solution with a nuget.config file.
+        /// </summary>
+        /// <param name="globalPackagesFolder">The globalPackagesFolder where Nugets cache is located.
+        /// Relative to the Solution builder Root folder.</param>
+        /// <param name="configuration">nuget.config file configuration.</param>
+        /// <returns>Self.</returns>
+        public SolutionBuilder WithNugetConfig(
+            string globalPackagesFolder = DefaultPackageFolder,
+            Action<INugetConfigConfiguration>? configuration = null)
+        {
+            if (this.withNugetConfig)
+            {
+                throw new SolutionBuilderException("WithNugetConfig builder method already called.");
+            }
+
+            this.withNugetConfig = true;
+            this.globalPackagesFolder = globalPackagesFolder;
+            this.nugetConfigConfiguration = configuration ?? DefaultNugetConfigConfiguration;
+
+            return this;
+        }
+
+        /// <summary>
+        /// Generate the solution with a project named with the given projectName.
+        /// </summary>
+        /// <param name="projectName">Name of the project to create.</param>
+        /// <param name="template">Project Template to use (like 'classlib', 'xunit'...).</param>
+        /// <param name="configuration">Project configuration.</param>
+        /// <returns>Self.</returns>
+        public SolutionBuilder WithProject(string projectName, string template, Action<IProjectConfiguration> configuration)
+        {
+            var projectConfiguration = new ProjectConfiguration(this, projectName, template, configuration);
+
+            this.projectConfigurations.Add(projectName, projectConfiguration);
+
+            return this;
+        }
+
+        /// <summary>
+        /// Build the solution and all its projects.
+        /// </summary>
+        public ISolution Build()
+        {
+            Directory.CreateDirectory(this.Root);
+
+            try
+            {
+                if (!Directory.Exists(Path.Combine(this.Root, this.globalPackagesFolder)))
+                {
+                    Directory.CreateDirectory(Path.Combine(this.Root, this.globalPackagesFolder));
+                }
+
+                DotnetCall((out ProcessResult processResult) =>
+                    DotnetHelper.NewSln(this.Root, this.SolutionName, out processResult)
+                );
+
+                if (this.withNugetConfig)
+                {
+                    var nugetConfigWriter = new NugetConfigWriter(this, this.globalPackagesFolder);
+
+                    this.nugetConfigConfiguration(nugetConfigWriter);
+
+                    nugetConfigWriter.Build();
+                }
+
+                var projectPathMap = new Dictionary<string, string>();
+
+                foreach (var projectConfigurationItem in this.projectConfigurations)
+                {
+                    var projectConfiguration = projectConfigurationItem.Value;
+
+                    projectPathMap.Add(
+                        projectConfiguration.ProjectName,
+                        projectConfiguration.ProjectPath);
+
+                    var projectFilePath = projectConfiguration.ProjectFilePath;
+
+                    projectConfiguration.Build();
+
+                    DotnetCall((out ProcessResult processResult) =>
+                        DotnetHelper.SlnAdd(this.SolutionPath, projectFilePath, out processResult)
+                    );
+                }
+
+                return new Solution(this.SolutionPath, projectPathMap);
+            }
+            catch (Exception)
+            {
+                Directory.Delete(this.Root, true);
+
+                throw;
+            }
+        }
+
+        private delegate bool DotnetCallHandler(out ProcessResult processResult);
+
+        private static void DotnetCall(DotnetCallHandler handler)
+        {
+            if (!handler(out var processResult))
+            {
+                throw new SolutionBuilderException(processResult);
+            }
+        }
+
+        private class Solution : ISolution
+        {
+            private readonly string solutionPath;
+            private readonly IReadOnlyDictionary<string, string> projectPathMap;
+
+            public Solution(string solutionPath, IReadOnlyDictionary<string, string> projectPathMap)
+            {
+                this.solutionPath = solutionPath;
+                this.projectPathMap = projectPathMap;
+            }
+
+            public void Build(string? project = null)
+            {
+                var path = string.IsNullOrEmpty(project)
+                    ? this.solutionPath
+                    : GetProjectPath(project);
+
+                DotnetCall((out ProcessResult processResult) =>
+                    DotnetHelper.Build(path, out processResult)
+                );
+            }
+
+            public void Run(string? project = null)
+            {
+                var path = string.IsNullOrEmpty(project)
+                    ? this.solutionPath
+                    : GetProjectPath(project);
+
+                DotnetCall((out ProcessResult processResult) =>
+                    DotnetHelper.Run(path, out processResult)
+                );
+            }
+
+            public void Test(string? project = null)
+            {
+                var path = string.IsNullOrEmpty(project)
+                    ? this.solutionPath
+                    : GetProjectPath(project);
+
+                DotnetCall((out ProcessResult processResult) =>
+                    DotnetHelper.Test(path, out processResult)
+                );
+            }
+
+            private string GetProjectPath(string project)
+            {
+                if (this.projectPathMap.TryGetValue(project, out var projectPath))
+                {
+                    return Path.Combine(this.solutionPath, projectPath);
+                }
+
+                throw new SolutionBuilderException($"Could not find project {project}");
+            }
+        }
+    }
+}
