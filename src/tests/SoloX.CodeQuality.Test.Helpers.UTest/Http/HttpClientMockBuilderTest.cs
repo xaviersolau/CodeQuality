@@ -9,11 +9,8 @@
 using FluentAssertions;
 using SoloX.CodeQuality.Test.Helpers.Http;
 using SoloX.CodeQuality.Test.Helpers.UTest.Data;
-using System;
 using System.Net;
-using System.Net.Http;
 using System.Net.Http.Json;
-using System.Threading.Tasks;
 using Xunit;
 
 namespace SoloX.CodeQuality.Test.Helpers.UTest.Http

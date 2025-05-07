@@ -8,8 +8,11 @@
 
   <PropertyGroup>
     <TargetFramework>net9.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
 
     <IsPackable>false</IsPackable>
+    <IsTestProject>true</IsTestProject>
   </PropertyGroup>
 
   <ItemGroup>
@@ -28,6 +31,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\libs\SoloX.CodeQuality.Test.Helpers\SoloX.CodeQuality.Test.Helpers.csproj" />
+    <ProjectReference Include="..\SoloX.CodeQuality.TestTool\SoloX.CodeQuality.TestTool.csproj" />
   </ItemGroup>
 
 </Project>
