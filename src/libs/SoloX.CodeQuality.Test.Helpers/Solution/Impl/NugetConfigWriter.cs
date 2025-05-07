@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using SoloX.CodeQuality.Test.Helpers.Solution.Exceptions;
 
 namespace SoloX.CodeQuality.Test.Helpers.Solution.Impl
 {
@@ -77,10 +78,17 @@ namespace SoloX.CodeQuality.Test.Helpers.Solution.Impl
                 "</configuration>",
             ];
 
-            File.WriteAllLines(configFilePath,
-                begin
-                .Concat(this.config)
-                .Concat(end));
+            try
+            {
+                File.WriteAllLines(configFilePath,
+                    begin
+                    .Concat(this.config)
+                    .Concat(end));
+            }
+            catch (Exception e)
+            {
+                throw new SolutionBuilderException<NugetConfigError>("Could not write Nuget config file.", e);
+            }
         }
     }
 }

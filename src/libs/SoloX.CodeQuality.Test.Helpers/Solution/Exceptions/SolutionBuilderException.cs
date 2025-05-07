@@ -10,12 +10,22 @@ using System;
 
 namespace SoloX.CodeQuality.Test.Helpers.Solution.Exceptions
 {
+    public abstract class ASolutionBuilderError { }
+
+    public sealed class BuilderError : ASolutionBuilderError { }
+    public sealed class SolutionError : ASolutionBuilderError { }
+    public sealed class ProjectError : ASolutionBuilderError { }
+    public sealed class TestError : ASolutionBuilderError { }
+    public sealed class ToolError : ASolutionBuilderError { }
+    public sealed class NugetConfigError : ASolutionBuilderError { }
+
     /// <summary>
     /// Exception while building solution part.
     /// </summary>
-    public class SolutionBuilderException : Exception
+    public class SolutionBuilderException<T> : Exception
+        where T : ASolutionBuilderError
     {
-        private readonly ProcessResult? processResult;
+        public ProcessResult? ProcessResult { get; }
 
         public SolutionBuilderException()
         {
@@ -29,7 +39,7 @@ namespace SoloX.CodeQuality.Test.Helpers.Solution.Exceptions
         public SolutionBuilderException(ProcessResult processResult)
             : this(processResult.GetLogs())
         {
-            this.processResult = processResult;
+            ProcessResult = processResult;
         }
 
         public SolutionBuilderException(string message, Exception innerException)

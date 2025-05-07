@@ -25,6 +25,9 @@ namespace SoloX.CodeQuality.Test.Helpers
         private const string ADD = "add";
         private const string PACKAGE = "package";
         private const string REFERENCE = "reference ";
+        private const string TOOL = "tool";
+        private const string TOOL_MANIFEST = "tool-manifest";
+        private const string INSTALL = "install";
 
         public static bool Restore(string projectPath, out ProcessResult processResult)
         {
@@ -79,6 +82,16 @@ namespace SoloX.CodeQuality.Test.Helpers
         public static bool Run(string projectPath, string args, out ProcessResult processResult)
         {
             return Dotnet(projectPath, $"{RUN} {args}", out processResult);
+        }
+
+        internal static bool NewToolManifest(string path, out ProcessResult processResult)
+        {
+            return Dotnet(path, $"{NEW} {TOOL_MANIFEST}", out processResult);
+        }
+
+        internal static bool ToolInstall(string path, string toolName, out ProcessResult processResult)
+        {
+            return Dotnet(path, $"{TOOL} {INSTALL} {toolName}", out processResult);
         }
 
         public static bool Dotnet(string path, string args, out ProcessResult processResult)
