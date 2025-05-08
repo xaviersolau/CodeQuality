@@ -14,7 +14,6 @@ namespace SoloX.CodeQuality.Playwright.E2ETest.Package
 {
     public class PackageNugetTest
     {
-
         [Fact]
         public void IsShouldDeployNugetPackageAndRunTestWithEmbeddedWebHost()
         {
@@ -63,7 +62,6 @@ namespace SoloX.CodeQuality.Playwright.E2ETest.Package
 
             try
             {
-
                 var actBuild = () => solution.Build();
 
                 actBuild.Should().NotThrow();

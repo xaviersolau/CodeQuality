@@ -48,6 +48,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SoloX.CodeQuality.Playwrigh
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SoloX.CodeQuality.Playwright.E2ETest", "src\tests\SoloX.CodeQuality.Playwright.E2ETest\SoloX.CodeQuality.Playwright.E2ETest.csproj", "{D0CDEC61-7956-4F49-AC4D-C0DA3063969F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SoloX.CodeQuality.TestTool", "src\tests\SoloX.CodeQuality.TestTool\SoloX.CodeQuality.TestTool.csproj", "{C92C3947-9EBB-43E3-9104-58CADE937BB3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -106,6 +108,10 @@ Global
 		{D0CDEC61-7956-4F49-AC4D-C0DA3063969F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D0CDEC61-7956-4F49-AC4D-C0DA3063969F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D0CDEC61-7956-4F49-AC4D-C0DA3063969F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C92C3947-9EBB-43E3-9104-58CADE937BB3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C92C3947-9EBB-43E3-9104-58CADE937BB3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C92C3947-9EBB-43E3-9104-58CADE937BB3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C92C3947-9EBB-43E3-9104-58CADE937BB3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -124,6 +130,7 @@ Global
 		{3507CA64-D718-427E-BA4F-40986B34F56A} = {5B172423-1455-41CB-8D81-7DCFCFF8855D}
 		{B339195D-10B0-471F-9401-F883B18838CE} = {5B172423-1455-41CB-8D81-7DCFCFF8855D}
 		{D0CDEC61-7956-4F49-AC4D-C0DA3063969F} = {1D5021C0-2423-494A-98F6-71AB937CDF8B}
+		{C92C3947-9EBB-43E3-9104-58CADE937BB3} = {1D5021C0-2423-494A-98F6-71AB937CDF8B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {74BCF463-5FDE-4DBC-B32A-431E8A228CA0}

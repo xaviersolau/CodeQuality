@@ -57,7 +57,7 @@ namespace SoloX.CodeQuality.Test.Helpers.Solution.Impl
 
         public void Build()
         {
-            DotnetCall((out ProcessResult processResult) =>
+            SolutionBuilder.DotnetCall<ProjectError>((out ProcessResult processResult) =>
                 DotnetHelper.New(this.solutionBuilder.SolutionPath, Template, ProjectName, out processResult)
             );
 
@@ -116,7 +116,7 @@ namespace SoloX.CodeQuality.Test.Helpers.Solution.Impl
 
         public IProjectConfiguration UsePackageReference(string packageName)
         {
-            DotnetCall((out ProcessResult processResult) =>
+            SolutionBuilder.DotnetCall<ProjectError>((out ProcessResult processResult) =>
                 DotnetHelper.AddPackage(this.solutionBuilder.SolutionPath, ProjectFilePath, packageName, out processResult)
             );
 
@@ -149,17 +149,6 @@ namespace SoloX.CodeQuality.Test.Helpers.Solution.Impl
             }
 
             File.WriteAllText(Path.Combine(this.solutionBuilder.SolutionPath, this.ProjectPath, targetPath), txt);
-        }
-
-
-        private delegate bool DotnetCallHandler(out ProcessResult processResult);
-
-        private static void DotnetCall(DotnetCallHandler handler)
-        {
-            if (!handler(out var processResult))
-            {
-                throw new ProjectBuilderException(processResult);
-            }
         }
     }
 }

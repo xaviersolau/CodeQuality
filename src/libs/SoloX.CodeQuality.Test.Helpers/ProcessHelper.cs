@@ -131,10 +131,8 @@ namespace SoloX.CodeQuality.Test.Helpers
     /// </summary>
     /// <param name="Message">Message log.</param>
     /// <param name="IsError">Tells if this is an error log.</param>
-    public record Log(string Message, bool IsError)
-    {
-        public DateTime TimeStamp { get; } = DateTime.Now;
-    }
+    /// <param name="TimeStamp">Log message time stamp.</param>
+    public record struct Log(string Message, bool IsError, DateTime TimeStamp);
 
     /// <summary>
     /// Process logs.
@@ -155,12 +153,12 @@ namespace SoloX.CodeQuality.Test.Helpers
 
         internal void AppendInfo(string logMessage)
         {
-            this.logs.Add(new Log(logMessage, false));
+            this.logs.Add(new Log(logMessage, false, DateTime.Now));
         }
 
         internal void AppendError(string logMessage)
         {
-            this.logs.Add(new Log(logMessage, true));
+            this.logs.Add(new Log(logMessage, true, DateTime.Now));
         }
 
         internal void SetReturnCode(int exitCode)

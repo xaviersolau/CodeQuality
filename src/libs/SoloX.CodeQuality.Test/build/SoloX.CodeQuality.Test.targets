@@ -108,7 +108,7 @@
 
     <PropertyGroup>
       <OutputEditorConfigFile>$(MSBuildProjectDirectory)/.editorconfig</OutputEditorConfigFile>
-      <IntermediateOutputEditorConfigFile>$(MSBuildProjectDirectory)/obj/.editorconfig</IntermediateOutputEditorConfigFile>
+      <IntermediateOutputEditorConfigFile>$(MSBuildProjectDirectory)/obj/.editorconfig-$(TargetFramework)</IntermediateOutputEditorConfigFile>
       <CsCaEditorConfigFile>$(MSBuildThisFileDirectory)../resources/style.cs.compiler.ca.editorconfig</CsCaEditorConfigFile>
       <CsCsEditorConfigFile>$(MSBuildThisFileDirectory)../resources/style.cs.compiler.cs.editorconfig</CsCsEditorConfigFile>
       <Ide1EditorConfigFile>$(MSBuildThisFileDirectory)../resources/style.cs.ide1.editorconfig</Ide1EditorConfigFile>

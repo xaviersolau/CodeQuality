@@ -24,7 +24,7 @@ namespace SoloX.CodeQuality.Test.Helpers.Solution
     public class SolutionBuilder
     {
         private const string DefaultPackageFolder = "Packages";
-        private static readonly Action<INugetConfigConfiguration> DefaultNugetConfigConfiguration =
+        private static readonly Action<INugetConfigConfiguration> DefaultNugetConfigConfigurationHandler =
             configuration => configuration.UsePackageSources(s =>
             {
                 s.Clear();
@@ -48,7 +48,9 @@ namespace SoloX.CodeQuality.Test.Helpers.Solution
 
         private bool withNugetConfig;
         private string globalPackagesFolder = DefaultPackageFolder;
-        private Action<INugetConfigConfiguration> nugetConfigConfiguration = DefaultNugetConfigConfiguration;
+        private Action<INugetConfigConfiguration> nugetConfigConfigurationHandler = DefaultNugetConfigConfigurationHandler;
+
+        private Action<IDotnetToolsConfiguration>? dotnetToolsConfigurationHandler;
 
         private readonly Dictionary<string, ProjectConfiguration> projectConfigurations =
             new Dictionary<string, ProjectConfiguration>();
@@ -72,18 +74,19 @@ namespace SoloX.CodeQuality.Test.Helpers.Solution
         /// Relative to the Solution builder Root folder.</param>
         /// <param name="configuration">nuget.config file configuration.</param>
         /// <returns>Self.</returns>
+        /// <exception cref="SolutionBuilderException">if method already called.</exception>
         public SolutionBuilder WithNugetConfig(
             string globalPackagesFolder = DefaultPackageFolder,
             Action<INugetConfigConfiguration>? configuration = null)
         {
             if (this.withNugetConfig)
             {
-                throw new SolutionBuilderException("WithNugetConfig builder method already called.");
+                throw new SolutionBuilderException<BuilderError>("WithNugetConfig builder method already called.");
             }
 
             this.withNugetConfig = true;
             this.globalPackagesFolder = globalPackagesFolder;
-            this.nugetConfigConfiguration = configuration ?? DefaultNugetConfigConfiguration;
+            this.nugetConfigConfigurationHandler = configuration ?? DefaultNugetConfigConfigurationHandler;
 
             return this;
         }
@@ -105,6 +108,24 @@ namespace SoloX.CodeQuality.Test.Helpers.Solution
         }
 
         /// <summary>
+        /// Generate the solution with a tool manifest file.
+        /// </summary>
+        /// <param name="configuration">Dotnet tools configuration.</param>
+        /// <returns>Self.</returns>
+        /// <exception cref="SolutionBuilderException">if method already called.</exception>
+        public SolutionBuilder WithDotnetTools(Action<IDotnetToolsConfiguration> configuration)
+        {
+            if (this.dotnetToolsConfigurationHandler != null)
+            {
+                throw new SolutionBuilderException<BuilderError>("WithDotnetTools builder method already called.");
+            }
+
+            this.dotnetToolsConfigurationHandler = configuration;
+
+            return this;
+        }
+
+        /// <summary>
         /// Build the solution and all its projects.
         /// </summary>
         public ISolution Build()
@@ -118,7 +139,7 @@ namespace SoloX.CodeQuality.Test.Helpers.Solution
                     Directory.CreateDirectory(Path.Combine(this.Root, this.globalPackagesFolder));
                 }
 
-                DotnetCall((out ProcessResult processResult) =>
+                DotnetCall<BuilderError>((out ProcessResult processResult) =>
                     DotnetHelper.NewSln(this.Root, this.SolutionName, out processResult)
                 );
 
@@ -126,9 +147,18 @@ namespace SoloX.CodeQuality.Test.Helpers.Solution
                 {
                     var nugetConfigWriter = new NugetConfigWriter(this, this.globalPackagesFolder);
 
-                    this.nugetConfigConfiguration(nugetConfigWriter);
+                    this.nugetConfigConfigurationHandler(nugetConfigWriter);
 
                     nugetConfigWriter.Build();
+                }
+
+                if (this.dotnetToolsConfigurationHandler != null)
+                {
+                    var dotnetToolsConfiguration = new DotnetToolsConfiguration(this.SolutionPath);
+
+                    this.dotnetToolsConfigurationHandler(dotnetToolsConfiguration);
+
+                    dotnetToolsConfiguration.Build();
                 }
 
                 var projectPathMap = new Dictionary<string, string>();
@@ -145,7 +175,7 @@ namespace SoloX.CodeQuality.Test.Helpers.Solution
 
                     projectConfiguration.Build();
 
-                    DotnetCall((out ProcessResult processResult) =>
+                    DotnetCall<BuilderError>((out ProcessResult processResult) =>
                         DotnetHelper.SlnAdd(this.SolutionPath, projectFilePath, out processResult)
                     );
                 }
@@ -160,14 +190,17 @@ namespace SoloX.CodeQuality.Test.Helpers.Solution
             }
         }
 
-        private delegate bool DotnetCallHandler(out ProcessResult processResult);
+        internal delegate bool DotnetCallHandler(out ProcessResult processResult);
 
-        private static void DotnetCall(DotnetCallHandler handler)
+        internal static ProcessResult DotnetCall<T>(DotnetCallHandler handler)
+            where T : ASolutionBuilderError
         {
             if (!handler(out var processResult))
             {
-                throw new SolutionBuilderException(processResult);
+                throw new SolutionBuilderException<T>(processResult);
             }
+
+            return processResult;
         }
 
         private class Solution : ISolution
@@ -181,35 +214,46 @@ namespace SoloX.CodeQuality.Test.Helpers.Solution
                 this.projectPathMap = projectPathMap;
             }
 
-            public void Build(string? project = null)
+            public ProcessResult Build(string? project = null)
+            {
+                return string.IsNullOrEmpty(project)
+                    ? DotnetCall<SolutionError>((out ProcessResult processResult) =>
+                        DotnetHelper.Build(this.solutionPath, out processResult)
+                    )
+                    : DotnetCall<ProjectError>((out ProcessResult processResult) =>
+                        DotnetHelper.Build(GetProjectPath(project), out processResult)
+                    );
+            }
+
+            public ProcessResult Run(string? project = null)
+            {
+                return string.IsNullOrEmpty(project)
+                    ? DotnetCall<SolutionError>((out ProcessResult processResult) =>
+                        DotnetHelper.Run(this.solutionPath, out processResult)
+                    )
+                    : DotnetCall<ProjectError>((out ProcessResult processResult) =>
+                        DotnetHelper.Run(GetProjectPath(project), out processResult)
+                    );
+            }
+
+            public ProcessResult RunTool(string toolCommand, string? project = null)
             {
                 var path = string.IsNullOrEmpty(project)
                     ? this.solutionPath
                     : GetProjectPath(project);
 
-                DotnetCall((out ProcessResult processResult) =>
-                    DotnetHelper.Build(path, out processResult)
+                return DotnetCall<ToolError>((out ProcessResult processResult) =>
+                    DotnetHelper.Dotnet(path, toolCommand, out processResult)
                 );
             }
 
-            public void Run(string? project = null)
+            public ProcessResult Test(string? project = null)
             {
                 var path = string.IsNullOrEmpty(project)
                     ? this.solutionPath
                     : GetProjectPath(project);
 
-                DotnetCall((out ProcessResult processResult) =>
-                    DotnetHelper.Run(path, out processResult)
-                );
-            }
-
-            public void Test(string? project = null)
-            {
-                var path = string.IsNullOrEmpty(project)
-                    ? this.solutionPath
-                    : GetProjectPath(project);
-
-                DotnetCall((out ProcessResult processResult) =>
+                return DotnetCall<TestError>((out ProcessResult processResult) =>
                     DotnetHelper.Test(path, out processResult)
                 );
             }
@@ -221,7 +265,7 @@ namespace SoloX.CodeQuality.Test.Helpers.Solution
                     return Path.Combine(this.solutionPath, projectPath);
                 }
 
-                throw new SolutionBuilderException($"Could not find project {project}");
+                throw new SolutionBuilderException<SolutionError>($"Could not find project {project}");
             }
         }
     }
