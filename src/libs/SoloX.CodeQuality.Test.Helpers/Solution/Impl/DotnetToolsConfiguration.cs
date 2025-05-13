@@ -13,12 +13,12 @@ namespace SoloX.CodeQuality.Test.Helpers.Solution.Impl
 {
     internal class DotnetToolsConfiguration : IDotnetToolsConfiguration
     {
-        private readonly string solutionPath;
+        private readonly SolutionBuilder solutionBuilder;
         private readonly List<string> dotnetTools = new List<string>();
 
-        public DotnetToolsConfiguration(string solutionPath)
+        public DotnetToolsConfiguration(SolutionBuilder solutionBuilder)
         {
-            this.solutionPath = solutionPath;
+            this.solutionBuilder = solutionBuilder;
         }
 
         public IDotnetToolsConfiguration UseTool(string dotnetToolName)
@@ -31,13 +31,13 @@ namespace SoloX.CodeQuality.Test.Helpers.Solution.Impl
         public void Build()
         {
             SolutionBuilder.DotnetCall<ToolError>((out ProcessResult processResult) =>
-                DotnetHelper.NewToolManifest(this.solutionPath, out processResult)
+                DotnetHelper.NewToolManifest(this.solutionBuilder.SolutionPath, out processResult, this.solutionBuilder.SetupVariables)
             );
 
             foreach (var dotnetTool in this.dotnetTools)
             {
                 SolutionBuilder.DotnetCall<ToolError>((out ProcessResult processResult) =>
-                    DotnetHelper.ToolInstall(this.solutionPath, dotnetTool, out processResult)
+                    DotnetHelper.ToolInstall(this.solutionBuilder.SolutionPath, dotnetTool, out processResult, this.solutionBuilder.SetupVariables)
                 );
             }
         }

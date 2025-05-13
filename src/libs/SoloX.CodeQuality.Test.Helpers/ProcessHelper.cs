@@ -8,6 +8,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
@@ -28,9 +29,11 @@ namespace SoloX.CodeQuality.Test.Helpers
         /// <param name="arguments">The command arguments.</param>
         /// <param name="stdout">Standard output.</param>
         /// <param name="stderr">Error output.</param>
+        /// <param name="environmentVariablesHandler">Handler to set up process environment variables.</param>
         /// <returns>The process exit code.</returns>
         public static int Run(string workingDirectory, string command, string arguments,
-            out string stdout, out string stderr)
+            out string stdout, out string stderr,
+            Action<StringDictionary>? environmentVariablesHandler = null)
         {
             var outBuilder = new StringBuilder();
             var errBuilder = new StringBuilder();
@@ -40,7 +43,8 @@ namespace SoloX.CodeQuality.Test.Helpers
                 command,
                 arguments,
                 s => outBuilder.Append(s),
-                s => errBuilder.Append(s));
+                s => errBuilder.Append(s),
+                environmentVariablesHandler);
 
             stderr = errBuilder.ToString();
             stdout = outBuilder.ToString();
@@ -54,8 +58,10 @@ namespace SoloX.CodeQuality.Test.Helpers
         /// <param name="workingDirectory">Working directory.</param>
         /// <param name="command">The command to run.</param>
         /// <param name="arguments">The command arguments.</param>
+        /// <param name="environmentVariablesHandler">Handler to set up process environment variables.</param>
         /// <returns>The process result.</returns>
-        public static ProcessResult Run(string workingDirectory, string command, string arguments)
+        public static ProcessResult Run(string workingDirectory, string command, string arguments,
+            Action<StringDictionary>? environmentVariablesHandler = null)
         {
             var processResult = new ProcessResult();
 
@@ -64,7 +70,8 @@ namespace SoloX.CodeQuality.Test.Helpers
                 command,
                 arguments,
                 processResult.AppendInfo,
-                processResult.AppendError);
+                processResult.AppendError,
+                environmentVariablesHandler);
 
             processResult.SetReturnCode(exitCode);
 
@@ -72,7 +79,8 @@ namespace SoloX.CodeQuality.Test.Helpers
         }
 
         private static int RunInternal(string workingDirectory, string command, string arguments,
-            Action<string> outCallback, Action<string> errorCallback)
+            Action<string> outCallback, Action<string> errorCallback,
+            Action<StringDictionary>? environmentVariablesHandler)
         {
             using (var process = new Process())
             using (var outputWaitHandle = new AutoResetEvent(false))
@@ -108,6 +116,8 @@ namespace SoloX.CodeQuality.Test.Helpers
                     RedirectStandardError = true,
                     RedirectStandardInput = true,
                 };
+
+                environmentVariablesHandler?.Invoke(dotnetStartInfo.EnvironmentVariables);
 
                 process.StartInfo = dotnetStartInfo;
 
