@@ -93,9 +93,15 @@ namespace SoloX.CodeQuality.Test.Helpers.UTest.Solution
 
                 actBuild.Should().NotThrow();
 
-                var actTest = () => solution.RunTool("testtool");
+                var actTest = () => solution.RunTool("testtool", $"a1 a2 --debug:false");
 
-                actTest.Should().NotThrow();
+                var logs = actTest.Should().NotThrow().Subject.LogMessages;
+
+                logs.Should().NotBeEmpty();
+
+                logs![0].Message.Should().Be("Hello, World!");
+                logs![1].Message.Should().Be("given arg 0: a1");
+                logs![2].Message.Should().Be("given arg 1: a2");
             }
             finally
             {

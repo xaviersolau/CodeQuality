@@ -8,6 +8,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.IO;
 using SoloX.CodeQuality.Test.Helpers.Solution.Exceptions;
 using SoloX.CodeQuality.Test.Helpers.Solution.Impl;
@@ -140,7 +141,7 @@ namespace SoloX.CodeQuality.Test.Helpers.Solution
                 }
 
                 DotnetCall<BuilderError>((out ProcessResult processResult) =>
-                    DotnetHelper.NewSln(this.Root, this.SolutionName, out processResult)
+                    DotnetHelper.NewSln(this.Root, this.SolutionName, out processResult, SetupVariables)
                 );
 
                 if (this.withNugetConfig)
@@ -154,7 +155,7 @@ namespace SoloX.CodeQuality.Test.Helpers.Solution
 
                 if (this.dotnetToolsConfigurationHandler != null)
                 {
-                    var dotnetToolsConfiguration = new DotnetToolsConfiguration(this.SolutionPath);
+                    var dotnetToolsConfiguration = new DotnetToolsConfiguration(this);
 
                     this.dotnetToolsConfigurationHandler(dotnetToolsConfiguration);
 
@@ -176,11 +177,11 @@ namespace SoloX.CodeQuality.Test.Helpers.Solution
                     projectConfiguration.Build();
 
                     DotnetCall<BuilderError>((out ProcessResult processResult) =>
-                        DotnetHelper.SlnAdd(this.SolutionPath, projectFilePath, out processResult)
+                        DotnetHelper.SlnAdd(this.SolutionPath, projectFilePath, out processResult, SetupVariables)
                     );
                 }
 
-                return new Solution(this.SolutionPath, projectPathMap);
+                return new Solution(this, projectPathMap);
             }
             catch (Exception)
             {
@@ -203,14 +204,19 @@ namespace SoloX.CodeQuality.Test.Helpers.Solution
             return processResult;
         }
 
+        internal void SetupVariables(StringDictionary environmentVariables)
+        {
+            environmentVariables.Add("DOTNET_CLI_HOME", Path.GetFullPath(Root));
+        }
+
         private class Solution : ISolution
         {
-            private readonly string solutionPath;
+            private readonly SolutionBuilder solutionBuilder;
             private readonly IReadOnlyDictionary<string, string> projectPathMap;
 
-            public Solution(string solutionPath, IReadOnlyDictionary<string, string> projectPathMap)
+            public Solution(SolutionBuilder solutionBuilder, IReadOnlyDictionary<string, string> projectPathMap)
             {
-                this.solutionPath = solutionPath;
+                this.solutionBuilder = solutionBuilder;
                 this.projectPathMap = projectPathMap;
             }
 
@@ -218,10 +224,10 @@ namespace SoloX.CodeQuality.Test.Helpers.Solution
             {
                 return string.IsNullOrEmpty(project)
                     ? DotnetCall<SolutionError>((out ProcessResult processResult) =>
-                        DotnetHelper.Build(this.solutionPath, out processResult)
+                        DotnetHelper.Build(this.solutionBuilder.SolutionPath, out processResult, this.solutionBuilder.SetupVariables)
                     )
                     : DotnetCall<ProjectError>((out ProcessResult processResult) =>
-                        DotnetHelper.Build(GetProjectPath(project), out processResult)
+                        DotnetHelper.Build(GetProjectPath(project), out processResult, this.solutionBuilder.SetupVariables)
                     );
             }
 
@@ -229,32 +235,32 @@ namespace SoloX.CodeQuality.Test.Helpers.Solution
             {
                 return string.IsNullOrEmpty(project)
                     ? DotnetCall<SolutionError>((out ProcessResult processResult) =>
-                        DotnetHelper.Run(this.solutionPath, out processResult)
+                        DotnetHelper.Run(this.solutionBuilder.SolutionPath, out processResult, this.solutionBuilder.SetupVariables)
                     )
                     : DotnetCall<ProjectError>((out ProcessResult processResult) =>
-                        DotnetHelper.Run(GetProjectPath(project), out processResult)
+                        DotnetHelper.Run(GetProjectPath(project), out processResult, this.solutionBuilder.SetupVariables)
                     );
             }
 
-            public ProcessResult RunTool(string toolCommand, string? project = null)
+            public ProcessResult RunTool(string toolName, string? toolArgs, string? project = null)
             {
                 var path = string.IsNullOrEmpty(project)
-                    ? this.solutionPath
+                    ? this.solutionBuilder.SolutionPath
                     : GetProjectPath(project);
 
                 return DotnetCall<ToolError>((out ProcessResult processResult) =>
-                    DotnetHelper.Dotnet(path, toolCommand, out processResult)
+                    DotnetHelper.Dotnet(path, $"{toolName} {toolArgs}", out processResult, this.solutionBuilder.SetupVariables)
                 );
             }
 
             public ProcessResult Test(string? project = null)
             {
                 var path = string.IsNullOrEmpty(project)
-                    ? this.solutionPath
+                    ? this.solutionBuilder.SolutionPath
                     : GetProjectPath(project);
 
                 return DotnetCall<TestError>((out ProcessResult processResult) =>
-                    DotnetHelper.Test(path, out processResult)
+                    DotnetHelper.Test(path, out processResult, this.solutionBuilder.SetupVariables)
                 );
             }
 
@@ -262,7 +268,7 @@ namespace SoloX.CodeQuality.Test.Helpers.Solution
             {
                 if (this.projectPathMap.TryGetValue(project, out var projectPath))
                 {
-                    return Path.Combine(this.solutionPath, projectPath);
+                    return Path.Combine(this.solutionBuilder.SolutionPath, projectPath);
                 }
 
                 throw new SolutionBuilderException<SolutionError>($"Could not find project {project}");

@@ -37,9 +37,10 @@ namespace SoloX.CodeQuality.Test.Helpers.Solution
         /// <summary>
         /// Run a Dotnet tool.
         /// </summary>
-        /// <param name="toolCommand">Tool command to run.</param>
+        /// <param name="toolName">Tool command to run.</param>
+        /// <param name="toolArgs">Tool command arguments to run.</param>
         /// <param name="project">Project where to run the tool or null to run from solution folder.</param>
         /// <returns>Process result.</returns>
-        ProcessResult RunTool(string toolCommand, string? project = null);
+        ProcessResult RunTool(string toolName, string? toolArgs = null, string? project = null);
     }
 }
