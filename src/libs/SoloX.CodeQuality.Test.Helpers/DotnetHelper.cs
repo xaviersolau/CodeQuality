@@ -77,7 +77,7 @@ namespace SoloX.CodeQuality.Test.Helpers
         public static bool AddPackage(string path, string projectFilePath, string packageName, out ProcessResult processResult,
             Action<StringDictionary>? environmentVariablesHandler = null)
         {
-            return Dotnet(path, $"{ADD} {projectFilePath} {PACKAGE} {packageName}", out processResult, environmentVariablesHandler);
+            return Dotnet(path, $"{ADD} {projectFilePath} {PACKAGE} {packageName} --prerelease", out processResult, environmentVariablesHandler);
         }
 
         public static bool AddReference(string path, string projectFilePath, string projectReferenceFilePath, out ProcessResult processResult,
@@ -107,7 +107,7 @@ namespace SoloX.CodeQuality.Test.Helpers
         internal static bool ToolInstall(string path, string toolName, out ProcessResult processResult,
             Action<StringDictionary>? environmentVariablesHandler = null)
         {
-            return Dotnet(path, $"{TOOL} {INSTALL} {toolName}", out processResult, environmentVariablesHandler);
+            return Dotnet(path, $"{TOOL} {INSTALL} {toolName} --prerelease", out processResult, environmentVariablesHandler);
         }
 
         public static bool Dotnet(string path, string args, out ProcessResult processResult,
