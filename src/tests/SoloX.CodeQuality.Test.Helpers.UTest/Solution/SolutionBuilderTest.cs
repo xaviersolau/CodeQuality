@@ -14,9 +14,13 @@ namespace SoloX.CodeQuality.Test.Helpers.UTest.Solution
 {
     public class SolutionBuilderTest
     {
-        [Fact]
-        public void IsShouldBuildASolutionWithATestProject()
+        [Theory]
+        [InlineData("SoloX.CodeQuality.TestNuget")]
+        [InlineData("SoloX.CodeQuality.PreReleaseTestNuget")]
+        public void IsShouldBuildASolutionWithATestProject(string packageName)
         {
+            var configurationName = ProbConfiguration();
+
             var root = new RandomGenerator().RandomString(4);
 
             // Let's create a solution in the random root folder.
@@ -29,14 +33,15 @@ namespace SoloX.CodeQuality.Test.Helpers.UTest.Solution
                     configuration
                         .UsePackageSources(src =>
                         {
-                            src.Clear().AddNugetOrg();
+                            src.Clear()
+                                .Add($"../../../../../{packageName}/bin/{configurationName}")
+                                .AddNugetOrg();
                         });
                 })
                 // Set up a xunit project to use the nugets.
                 .WithProject("TestProject", "xunit", configuration =>
                 {
-                    // Nothing more to do for now.
-                    // We will use the default UnitTest1.cs file.
+                    configuration.UsePackageReference(packageName);
                 })
                 // Finally create the solution.
                 .Build();
@@ -57,8 +62,10 @@ namespace SoloX.CodeQuality.Test.Helpers.UTest.Solution
             }
         }
 
-        [Fact]
-        public void IsShouldBuildASolutionUsingADotnetTool()
+        [Theory]
+        [InlineData("SoloX.CodeQuality.TestTool", "testtool")]
+        [InlineData("SoloX.CodeQuality.PreReleaseTestTool", "prerealsetesttool")]
+        public void IsShouldBuildASolutionUsingADotnetTool(string toolProject, string toolName)
         {
             var configurationName = ProbConfiguration();
 
@@ -75,14 +82,14 @@ namespace SoloX.CodeQuality.Test.Helpers.UTest.Solution
                         .UsePackageSources(src =>
                         {
                             src.Clear()
-                                .Add(@$"../../../../../SoloX.CodeQuality.TestTool/bin/{configurationName}")
+                                .Add(@$"../../../../../{toolProject}/bin/{configurationName}")
                                 .AddNugetOrg();
                         });
                 })
                 .WithDotnetTools(configuration =>
                 {
                     configuration
-                        .UseTool("SoloX.CodeQuality.TestTool");
+                        .UseTool(toolProject);
                 })
                 // Finally create the solution.
                 .Build();
@@ -93,7 +100,7 @@ namespace SoloX.CodeQuality.Test.Helpers.UTest.Solution
 
                 actBuild.Should().NotThrow();
 
-                var actTest = () => solution.RunTool("testtool", $"a1 a2 --debug:false");
+                var actTest = () => solution.RunTool(toolName, $"a1 a2 --debug:false");
 
                 var logs = actTest.Should().NotThrow().Subject.LogMessages;
 
