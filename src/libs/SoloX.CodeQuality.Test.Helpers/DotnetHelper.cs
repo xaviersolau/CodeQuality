@@ -39,27 +39,41 @@ namespace SoloX.CodeQuality.Test.Helpers
         }
 
         public static bool Build(string projectPath, out ProcessResult processResult,
-            Action<StringDictionary>? environmentVariablesHandler = null)
+            Action<StringDictionary>? environmentVariablesHandler = null, string? configuration = null)
         {
-            return Dotnet(projectPath, BUILD, out processResult, environmentVariablesHandler);
+            var configurationArg = string.IsNullOrEmpty(configuration) ? string.Empty : $" --configuration {configuration}";
+
+            return Dotnet(projectPath, $"{BUILD}{configurationArg}", out processResult, environmentVariablesHandler);
         }
 
         public static bool Test(string projectPath, out ProcessResult processResult,
-            Action<StringDictionary>? environmentVariablesHandler = null)
+            Action<StringDictionary>? environmentVariablesHandler = null, string? configuration = null)
         {
-            return Dotnet(projectPath, TEST, out processResult, environmentVariablesHandler);
+            var configurationArg = string.IsNullOrEmpty(configuration) ? string.Empty : $" --configuration {configuration}";
+
+            return Dotnet(projectPath, $"{TEST}{configurationArg}", out processResult, environmentVariablesHandler);
         }
 
         public static bool Publish(string projectPath, out ProcessResult processResult,
+            Action<StringDictionary>? environmentVariablesHandler = null, string? configuration = null)
+        {
+            var configurationArg = string.IsNullOrEmpty(configuration) ? string.Empty : $" --configuration {configuration}";
+
+            return Dotnet(projectPath, $"{PUBLISH}{configurationArg}", out processResult, environmentVariablesHandler);
+        }
+
+        public static bool New(string path, string template, string? framework, string output, out ProcessResult processResult,
             Action<StringDictionary>? environmentVariablesHandler = null)
         {
-            return Dotnet(projectPath, PUBLISH, out processResult, environmentVariablesHandler);
+            return string.IsNullOrEmpty(framework)
+                ? Dotnet(path, $"{NEW} {template} --output {output}", out processResult, environmentVariablesHandler)
+                : Dotnet(path, $"{NEW} {template} --output {output} --framework {framework}", out processResult, environmentVariablesHandler);
         }
 
         public static bool New(string path, string template, string output, out ProcessResult processResult,
             Action<StringDictionary>? environmentVariablesHandler = null)
         {
-            return Dotnet(path, $"{NEW} {template} --output {output}", out processResult, environmentVariablesHandler);
+            return New(path, template, null, output, out processResult, environmentVariablesHandler);
         }
 
         public static bool NewSln(string path, string solutionName, out ProcessResult processResult,
@@ -87,15 +101,17 @@ namespace SoloX.CodeQuality.Test.Helpers
         }
 
         public static bool Run(string projectPath, out ProcessResult processResult,
-            Action<StringDictionary>? environmentVariablesHandler = null)
+            Action<StringDictionary>? environmentVariablesHandler = null, string? configuration = null)
         {
-            return Run(projectPath, string.Empty, out processResult, environmentVariablesHandler);
+            return Run(projectPath, string.Empty, out processResult, environmentVariablesHandler, configuration);
         }
 
         public static bool Run(string projectPath, string args, out ProcessResult processResult,
-            Action<StringDictionary>? environmentVariablesHandler = null)
+            Action<StringDictionary>? environmentVariablesHandler = null, string? configuration = null)
         {
-            return Dotnet(projectPath, $"{RUN} {args}", out processResult, environmentVariablesHandler);
+            var configurationArg = string.IsNullOrEmpty(configuration) ? string.Empty : $" --configuration {configuration}";
+
+            return Dotnet(projectPath, $"{RUN}{configurationArg} {args}", out processResult, environmentVariablesHandler);
         }
 
         internal static bool NewToolManifest(string path, out ProcessResult processResult,

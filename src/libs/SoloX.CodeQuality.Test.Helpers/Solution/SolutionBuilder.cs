@@ -24,7 +24,9 @@ namespace SoloX.CodeQuality.Test.Helpers.Solution
     /// </summary>
     public class SolutionBuilder
     {
+        private const string DefaultConfiguration = "Debug";
         private const string DefaultPackageFolder = "Packages";
+
         private static readonly Action<INugetConfigConfiguration> DefaultNugetConfigConfigurationHandler =
             configuration => configuration.UsePackageSources(s =>
             {
@@ -101,7 +103,24 @@ namespace SoloX.CodeQuality.Test.Helpers.Solution
         /// <returns>Self.</returns>
         public SolutionBuilder WithProject(string projectName, string template, Action<IProjectConfiguration> configuration)
         {
-            var projectConfiguration = new ProjectConfiguration(this, projectName, template, configuration);
+            var projectConfiguration = new ProjectConfiguration(this, projectName, template, null, configuration);
+
+            this.projectConfigurations.Add(projectName, projectConfiguration);
+
+            return this;
+        }
+
+        /// <summary>
+        /// Generate the solution with a project named with the given projectName.
+        /// </summary>
+        /// <param name="projectName">Name of the project to create.</param>
+        /// <param name="template">Project Template to use (like 'classlib', 'xunit'...).</param>
+        /// <param name="framework">Target framework to use on the new project.</param>
+        /// <param name="configuration">Project configuration.</param>
+        /// <returns>Self.</returns>
+        public SolutionBuilder WithProject(string projectName, string template, string framework, Action<IProjectConfiguration> configuration)
+        {
+            var projectConfiguration = new ProjectConfiguration(this, projectName, template, framework, configuration);
 
             this.projectConfigurations.Add(projectName, projectConfiguration);
 
@@ -129,7 +148,8 @@ namespace SoloX.CodeQuality.Test.Helpers.Solution
         /// <summary>
         /// Build the solution and all its projects.
         /// </summary>
-        public ISolution Build()
+        /// <param name="defaultConfiguration">Default configuration to use in the solution (Debug by default).</param>
+        public ISolution Build(string defaultConfiguration = DefaultConfiguration)
         {
             Directory.CreateDirectory(this.Root);
 
@@ -181,7 +201,7 @@ namespace SoloX.CodeQuality.Test.Helpers.Solution
                     );
                 }
 
-                return new Solution(this, projectPathMap);
+                return new Solution(this, projectPathMap, defaultConfiguration);
             }
             catch (Exception)
             {
@@ -214,31 +234,42 @@ namespace SoloX.CodeQuality.Test.Helpers.Solution
             private readonly SolutionBuilder solutionBuilder;
             private readonly IReadOnlyDictionary<string, string> projectPathMap;
 
-            public Solution(SolutionBuilder solutionBuilder, IReadOnlyDictionary<string, string> projectPathMap)
+            public Solution(SolutionBuilder solutionBuilder, IReadOnlyDictionary<string, string> projectPathMap, string defaultConfiguration)
             {
                 this.solutionBuilder = solutionBuilder;
                 this.projectPathMap = projectPathMap;
+                this.DefaultConfiguration = defaultConfiguration;
             }
 
-            public ProcessResult Build(string? project = null)
+            public string SolutionName => this.solutionBuilder.SolutionName;
+
+            public string SolutionPath => this.solutionBuilder.SolutionPath;
+
+            public string DefaultConfiguration { get; }
+
+            public ProcessResult Build(string? project = null, string? configuration = null)
             {
+                var selectedConfiguration = string.IsNullOrEmpty(configuration) ? this.DefaultConfiguration : configuration;
+
                 return string.IsNullOrEmpty(project)
                     ? DotnetCall<SolutionError>((out ProcessResult processResult) =>
-                        DotnetHelper.Build(this.solutionBuilder.SolutionPath, out processResult, this.solutionBuilder.SetupVariables)
+                        DotnetHelper.Build(this.solutionBuilder.SolutionPath, out processResult, this.solutionBuilder.SetupVariables, selectedConfiguration)
                     )
                     : DotnetCall<ProjectError>((out ProcessResult processResult) =>
-                        DotnetHelper.Build(GetProjectPath(project), out processResult, this.solutionBuilder.SetupVariables)
+                        DotnetHelper.Build(GetProjectPath(project), out processResult, this.solutionBuilder.SetupVariables, selectedConfiguration)
                     );
             }
 
-            public ProcessResult Run(string? project = null)
+            public ProcessResult Run(string? project = null, string? configuration = null)
             {
+                var selectedConfiguration = string.IsNullOrEmpty(configuration) ? this.DefaultConfiguration : configuration;
+
                 return string.IsNullOrEmpty(project)
                     ? DotnetCall<SolutionError>((out ProcessResult processResult) =>
-                        DotnetHelper.Run(this.solutionBuilder.SolutionPath, out processResult, this.solutionBuilder.SetupVariables)
+                        DotnetHelper.Run(this.solutionBuilder.SolutionPath, out processResult, this.solutionBuilder.SetupVariables, selectedConfiguration)
                     )
                     : DotnetCall<ProjectError>((out ProcessResult processResult) =>
-                        DotnetHelper.Run(GetProjectPath(project), out processResult, this.solutionBuilder.SetupVariables)
+                        DotnetHelper.Run(GetProjectPath(project), out processResult, this.solutionBuilder.SetupVariables, selectedConfiguration)
                     );
             }
 
@@ -253,18 +284,20 @@ namespace SoloX.CodeQuality.Test.Helpers.Solution
                 );
             }
 
-            public ProcessResult Test(string? project = null)
+            public ProcessResult Test(string? project = null, string? configuration = null)
             {
                 var path = string.IsNullOrEmpty(project)
                     ? this.solutionBuilder.SolutionPath
                     : GetProjectPath(project);
 
+                var selectedConfiguration = string.IsNullOrEmpty(configuration) ? this.DefaultConfiguration : configuration;
+
                 return DotnetCall<TestError>((out ProcessResult processResult) =>
-                    DotnetHelper.Test(path, out processResult, this.solutionBuilder.SetupVariables)
+                    DotnetHelper.Test(path, out processResult, this.solutionBuilder.SetupVariables, selectedConfiguration)
                 );
             }
 
-            private string GetProjectPath(string project)
+            public string GetProjectPath(string project)
             {
                 if (this.projectPathMap.TryGetValue(project, out var projectPath))
                 {
@@ -272,6 +305,13 @@ namespace SoloX.CodeQuality.Test.Helpers.Solution
                 }
 
                 throw new SolutionBuilderException<SolutionError>($"Could not find project {project}");
+            }
+
+            public string GetProjectBinaryPath(string project, string? configuration = null)
+            {
+                var selectedConfiguration = string.IsNullOrEmpty(configuration) ? this.DefaultConfiguration : configuration;
+
+                return Path.Combine(GetProjectPath(project), "bin", selectedConfiguration);
             }
         }
     }
