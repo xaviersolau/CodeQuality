@@ -23,12 +23,13 @@ namespace SoloX.CodeQuality.Test.Helpers.Solution.Impl
             SolutionBuilder solutionBuilder,
             string projectName,
             string template,
+            string? framework,
             Action<IProjectConfiguration> configuration)
         {
             this.solutionBuilder = solutionBuilder;
             ProjectName = projectName;
             Template = template;
-
+            Framework = framework;
             ProjectFilePath = Path.Combine(projectName, $"{projectName}.csproj");
             ProjectPath = projectName;
 
@@ -55,10 +56,15 @@ namespace SoloX.CodeQuality.Test.Helpers.Solution.Impl
         /// </summary>
         public string Template { get; }
 
+        /// <summary>
+        /// Project Target Framework (default if null).
+        /// </summary>
+        public string? Framework { get; }
+
         public void Build()
         {
             SolutionBuilder.DotnetCall<ProjectError>((out ProcessResult processResult) =>
-                DotnetHelper.New(this.solutionBuilder.SolutionPath, Template, ProjectName, out processResult)
+                DotnetHelper.New(this.solutionBuilder.SolutionPath, Template, Framework, ProjectName, out processResult)
             );
 
             this.configuration(this);

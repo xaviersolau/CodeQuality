@@ -37,7 +37,7 @@ namespace SoloX.CodeQuality.Test.Helpers.UTest.Http
             Assert.NotNull(httpClient);
 
             using var request = new HttpRequestMessage(HttpMethod.Get, "target");
-            var response = await httpClient.SendAsync(request).ConfigureAwait(false);
+            var response = await httpClient.SendAsync(request);
 
             if (httpStatusCode == HttpStatusCode.OK)
             {
@@ -72,11 +72,11 @@ namespace SoloX.CodeQuality.Test.Helpers.UTest.Http
             Assert.NotNull(httpClient);
 
             using var request = new HttpRequestMessage(HttpMethod.Get, "target");
-            var response = await httpClient.SendAsync(request).ConfigureAwait(false);
+            var response = await httpClient.SendAsync(request);
 
             response.EnsureSuccessStatusCode();
 
-            var result = await response.Content.ReadFromJsonAsync(dataObject.GetType()).ConfigureAwait(false);
+            var result = await response.Content.ReadFromJsonAsync(dataObject.GetType());
 
             result.Should().NotBeNull();
 
@@ -84,7 +84,7 @@ namespace SoloX.CodeQuality.Test.Helpers.UTest.Http
         }
 
         [Fact]
-        public async Task ItShouldMockHttpClientAndRepondWithNotFundAsync()
+        public async Task ItShouldMockHttpClientAndRespondWithNotFundAsync()
         {
             var baseAddress = "http://host/api/test";
 
@@ -98,7 +98,7 @@ namespace SoloX.CodeQuality.Test.Helpers.UTest.Http
 
             using var request = new HttpRequestMessage(HttpMethod.Get, "target");
 
-            var response = await httpClient.SendAsync(request).ConfigureAwait(false);
+            var response = await httpClient.SendAsync(request);
 
             Assert.Throws<HttpRequestException>(() => response.EnsureSuccessStatusCode());
 
@@ -125,11 +125,11 @@ namespace SoloX.CodeQuality.Test.Helpers.UTest.Http
 
             Assert.NotNull(httpClient);
 
-            var response = await httpClient.PostAsJsonAsync<Person>("target", dataObject).ConfigureAwait(false);
+            var response = await httpClient.PostAsJsonAsync<Person>("target", dataObject);
 
             response.EnsureSuccessStatusCode();
 
-            var responseContent = await response.Content.ReadFromJsonAsync<string>().ConfigureAwait(false);
+            var responseContent = await response.Content.ReadFromJsonAsync<string>();
 
             Assert.Equal("John Doe", responseContent);
         }
@@ -154,7 +154,7 @@ namespace SoloX.CodeQuality.Test.Helpers.UTest.Http
 
             Assert.NotNull(httpClient);
 
-            var response = await httpClient.PostAsJsonAsync<Person>("target", dataObject).ConfigureAwait(false);
+            var response = await httpClient.PostAsJsonAsync<Person>("target", dataObject);
 
             response.EnsureSuccessStatusCode();
         }
@@ -180,13 +180,13 @@ namespace SoloX.CodeQuality.Test.Helpers.UTest.Http
             Assert.NotNull(httpClient);
 
 #pragma warning disable CA2234 // Pass system uri objects instead of strings
-            var response = await httpClient.GetAsync("target").ConfigureAwait(false);
+            var response = await httpClient.GetAsync("target");
 #pragma warning restore CA2234 // Pass system uri objects instead of strings
 
             response.EnsureSuccessStatusCode();
 
             response.StatusCode.Should().Be(HttpStatusCode.Accepted);
-            var content = await response.Content.ReadFromJsonAsync<Person>().ConfigureAwait(false);
+            var content = await response.Content.ReadFromJsonAsync<Person>();
 
             content.Should().BeEquivalentTo(dataObject);
         }

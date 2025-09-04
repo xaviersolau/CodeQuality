@@ -63,8 +63,48 @@ namespace SoloX.CodeQuality.Test.Helpers.UTest.Solution
         }
 
         [Theory]
+        [InlineData("Debug", "net8.0")]
+        [InlineData("Debug", "net9.0")]
+        [InlineData("Release", "net8.0")]
+        [InlineData("Release", "net9.0")]
+        public void IsShouldBuildASolutionWithTargetFrameworkAndConfiguration(string configuration, string framework)
+        {
+            var configurationName = ProbConfiguration();
+
+            var root = new RandomGenerator().RandomString(4);
+
+            var projectName = "TestProject";
+
+            // Let's create a solution in the random root folder.
+            var solution = new SolutionBuilder(root, "TestSolution")
+                // Set up a xunit project to use the nugets.
+                .WithProject(projectName, "xunit", framework, configuration =>
+                {
+                })
+                // Finally create the solution.
+                .Build(configuration);
+
+            try
+            {
+                var actBuild = () => solution.Build();
+
+                actBuild.Should().NotThrow();
+
+                var path = solution.GetProjectBinaryPath(projectName);
+
+                var assemblyFile = Path.Combine(path, framework, $"{projectName}.dll");
+
+                File.Exists(assemblyFile).Should().BeTrue();
+            }
+            finally
+            {
+                Directory.Delete(root, true);
+            }
+        }
+
+        [Theory]
         [InlineData("SoloX.CodeQuality.TestTool", "testtool")]
-        [InlineData("SoloX.CodeQuality.PreReleaseTestTool", "prerealsetesttool")]
+        [InlineData("SoloX.CodeQuality.PreReleaseTestTool", "prereleasetesttool")]
         public void IsShouldBuildASolutionUsingADotnetTool(string toolProject, string toolName)
         {
             var configurationName = ProbConfiguration();

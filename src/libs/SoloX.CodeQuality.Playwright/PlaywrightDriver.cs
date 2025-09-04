@@ -101,7 +101,7 @@ namespace SoloX.CodeQuality.Playwright
 
                 var lockFile = Path.Combine(localApplicationData, "PlaywrightInstallLock");
 
-                var timeout = 60;
+                var timeout = 60 * 3;
 
                 while (!TryWriteLockFile(lockFile))
                 {

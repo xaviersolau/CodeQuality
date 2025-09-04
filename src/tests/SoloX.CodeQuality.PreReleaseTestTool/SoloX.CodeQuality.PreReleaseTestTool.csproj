@@ -9,7 +9,7 @@
     <Nullable>enable</Nullable>
 
     <PackAsTool>true</PackAsTool>
-    <ToolCommandName>prerealsetesttool</ToolCommandName>
+    <ToolCommandName>prereleasetesttool</ToolCommandName>
 
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 
