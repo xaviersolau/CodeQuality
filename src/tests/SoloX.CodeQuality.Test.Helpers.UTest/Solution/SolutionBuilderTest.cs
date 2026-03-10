@@ -6,7 +6,7 @@
 // </copyright>
 // ----------------------------------------------------------------------
 
-using FluentAssertions;
+using Shouldly;
 using SoloX.CodeQuality.Test.Helpers.Solution;
 using Xunit;
 
@@ -50,11 +50,11 @@ namespace SoloX.CodeQuality.Test.Helpers.UTest.Solution
             {
                 var actBuild = () => solution.Build();
 
-                actBuild.Should().NotThrow();
+                Should.NotThrow(actBuild);
 
                 var actTest = () => solution.Test();
 
-                actTest.Should().NotThrow();
+                Should.NotThrow(actTest);
             }
             finally
             {
@@ -65,8 +65,10 @@ namespace SoloX.CodeQuality.Test.Helpers.UTest.Solution
         [Theory]
         [InlineData("Debug", "net8.0")]
         [InlineData("Debug", "net9.0")]
+        [InlineData("Debug", "net10.0")]
         [InlineData("Release", "net8.0")]
         [InlineData("Release", "net9.0")]
+        [InlineData("Release", "net10.0")]
         public void IsShouldBuildASolutionWithTargetFrameworkAndConfiguration(string configuration, string framework)
         {
             var configurationName = ProbConfiguration();
@@ -88,13 +90,13 @@ namespace SoloX.CodeQuality.Test.Helpers.UTest.Solution
             {
                 var actBuild = () => solution.Build();
 
-                actBuild.Should().NotThrow();
+                Should.NotThrow(actBuild);
 
                 var path = solution.GetProjectBinaryPath(projectName);
 
                 var assemblyFile = Path.Combine(path, framework, $"{projectName}.dll");
 
-                File.Exists(assemblyFile).Should().BeTrue();
+                File.Exists(assemblyFile).ShouldBeTrue();
             }
             finally
             {
@@ -138,17 +140,17 @@ namespace SoloX.CodeQuality.Test.Helpers.UTest.Solution
             {
                 var actBuild = () => solution.Build();
 
-                actBuild.Should().NotThrow();
+                Should.NotThrow(actBuild);
 
                 var actTest = () => solution.RunTool(toolName, $"a1 a2 --debug:false");
 
-                var logs = actTest.Should().NotThrow().Subject.LogMessages;
+                var logs = Should.NotThrow(actTest).LogMessages;
 
-                logs.Should().NotBeEmpty();
+                logs.ShouldNotBeEmpty();
 
-                logs![0].Message.Should().Be("Hello, World!");
-                logs![1].Message.Should().Be("given arg 0: a1");
-                logs![2].Message.Should().Be("given arg 1: a2");
+                logs[0].Message.ShouldBe("Hello, World!");
+                logs[1].Message.ShouldBe("given arg 0: a1");
+                logs[2].Message.ShouldBe("given arg 1: a2");
             }
             finally
             {

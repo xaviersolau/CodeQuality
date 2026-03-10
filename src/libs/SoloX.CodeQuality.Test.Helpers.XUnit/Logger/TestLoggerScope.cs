@@ -20,13 +20,22 @@ namespace SoloX.CodeQuality.Test.Helpers.XUnit.Logger
         {
             this.logger = logger;
             this.state = state;
-            logger.LogInformation($"Enter scope: {state}.");
+            ArgumentNullException.ThrowIfNull(logger);
+
+            if (logger.IsEnabled(LogLevel.Information))
+            {
+                logger.LogInformation($"Enter scope: {state}.");
+            }
         }
 
         public void Dispose()
         {
             GC.SuppressFinalize(this);
-            this.logger.LogInformation($"Exit scope: {this.state}.");
+
+            if (this.logger.IsEnabled(LogLevel.Information))
+            {
+                this.logger.LogInformation($"Exit scope: {this.state}.");
+            }
         }
     }
 }

@@ -2,12 +2,12 @@
 
   <Import Project="../../SharedProperties.props" />
 
-  <Import Project="../../libs/SoloX.CodeQuality.Test/build/SoloX.CodeQuality.Test.props" />
+  <Import Condition=" '$(TargetFramework)' == 'net10.0'" Project="../../libs/SoloX.CodeQuality.Test/build/SoloX.CodeQuality.Test.props" />
 
-  <Import Project="../../libs/SoloX.CodeQuality.Test/build/SoloX.CodeQuality.Test.targets" />
+  <Import Condition=" '$(TargetFramework)' == 'net10.0'" Project="../../libs/SoloX.CodeQuality.Test/build/SoloX.CodeQuality.Test.targets" />
 
   <PropertyGroup>
-    <TargetFrameworks>net8.0;net9.0</TargetFrameworks>
+    <TargetFrameworks>net8.0;net9.0;net10.0</TargetFrameworks>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
 
@@ -24,6 +24,7 @@
   <ItemGroup>
     <Content Include="$(OutputPath)\net8.0\SoloX.CodeQuality.WebHost.deps.json" Link="Resources\net8.0\SoloX.CodeQuality.WebHost.deps.json" Pack="true" PackagePath="resources\net8.0\" Visible="False" />
     <Content Include="$(OutputPath)\net9.0\SoloX.CodeQuality.WebHost.deps.json" Link="Resources\net9.0\SoloX.CodeQuality.WebHost.deps.json" Pack="true" PackagePath="resources\net9.0\" Visible="False" />
+    <Content Include="$(OutputPath)\net10.0\SoloX.CodeQuality.WebHost.deps.json" Link="Resources\net10.0\SoloX.CodeQuality.WebHost.deps.json" Pack="true" PackagePath="resources\net10.0\" Visible="False" />
   </ItemGroup>
 
   <ItemGroup>

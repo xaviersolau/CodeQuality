@@ -15,7 +15,7 @@
     <CodeQualityHeaderLicenseFile>LICENSE</CodeQualityHeaderLicenseFile>
 
     <AssemblyVersion>2.3.6.0</AssemblyVersion>
-    <LangVersion>12</LangVersion>
+    <LangVersion>14</LangVersion>
 
   </PropertyGroup>
 

@@ -6,7 +6,7 @@
 // </copyright>
 // ----------------------------------------------------------------------
 
-using FluentAssertions;
+using Shouldly;
 
 namespace SoloX.CodeQuality.Playwright.E2ETest
 {
@@ -56,7 +56,7 @@ namespace SoloX.CodeQuality.Playwright.E2ETest
                     })
                 .ConfigureAwait(true);
 
-            File.Exists(tracesFile).Should().BeTrue();
+            File.Exists(tracesFile).ShouldBeTrue();
 
             File.Delete(tracesFile);
         }

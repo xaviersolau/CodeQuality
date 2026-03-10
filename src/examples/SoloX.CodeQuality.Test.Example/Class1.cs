@@ -6,6 +6,7 @@
 // </copyright>
 // ----------------------------------------------------------------------
 
+using System;
 using Microsoft.Extensions.Logging;
 
 namespace SoloX.CodeQuality.Test.Example
@@ -21,8 +22,12 @@ namespace SoloX.CodeQuality.Test.Example
 
         public static int MethodPublicWithLogs(ILogger<object> logger, int varInt)
         {
+            ArgumentNullException.ThrowIfNull(logger);
 
-            logger.LogInformation($"This is a log {varInt}");
+            if (logger.IsEnabled(LogLevel.Information))
+            {
+                logger.LogInformation($"This is a log {varInt}");
+            }
 
             return TestCase.Length;
         }

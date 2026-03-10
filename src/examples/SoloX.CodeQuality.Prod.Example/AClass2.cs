@@ -8,6 +8,7 @@
 
 
 using Microsoft.Extensions.Logging;
+using System;
 using System.Threading.Tasks;
 
 namespace SoloX.CodeQuality.Prod.Example
@@ -53,7 +54,12 @@ namespace SoloX.CodeQuality.Prod.Example
         /// <param name="logger"></param>
         public void LogSomeThing(ILogger<AClass2> logger)
         {
-            logger.LogInformation($"object is {this.test}");
+            ArgumentNullException.ThrowIfNull(logger);
+
+            if (logger.IsEnabled(LogLevel.Information))
+            {
+                logger.LogInformation($"object is {this.test}");
+            }
         }
     }
 }

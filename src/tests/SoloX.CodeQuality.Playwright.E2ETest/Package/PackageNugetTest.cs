@@ -6,7 +6,7 @@
 // </copyright>
 // ----------------------------------------------------------------------
 
-using FluentAssertions;
+using Shouldly;
 using SoloX.CodeQuality.Test.Helpers;
 using SoloX.CodeQuality.Test.Helpers.Solution;
 
@@ -38,11 +38,12 @@ namespace SoloX.CodeQuality.Playwright.E2ETest.Package
                         });
                 })
                 // Set up a xunit project to use the nugets.
-                .WithProject("TestProject", "xunit", configuration =>
+                .WithProject("TestProject", "xunit", "net10.0", configuration =>
                 {
                     configuration
                         // Configure the package reference on the package to test. In this case SoloX.CodeQuality.Playwright.
                         .UsePackageReference("SoloX.CodeQuality.Playwright")
+                        .UsePackageReference("Shouldly")
                         // Add a global using
                         .UseGlobalUsing("SoloX.CodeQuality.Playwright")
                         // Create the files
@@ -64,11 +65,11 @@ namespace SoloX.CodeQuality.Playwright.E2ETest.Package
             {
                 var actBuild = () => solution.Build();
 
-                actBuild.Should().NotThrow();
+                Should.NotThrow(actBuild);
 
                 var actTest = () => solution.Test();
 
-                actTest.Should().NotThrow();
+                Should.NotThrow(actTest);
             }
             finally
             {

@@ -6,7 +6,7 @@
 // </copyright>
 // ----------------------------------------------------------------------
 
-using FluentAssertions;
+using Shouldly;
 
 namespace SoloX.CodeQuality.Playwright.E2ETest
 {
@@ -43,7 +43,7 @@ namespace SoloX.CodeQuality.Playwright.E2ETest
 
                         var title = await page.TitleAsync().ConfigureAwait(true);
 
-                        title.Should().Be("Google");
+                        title.ShouldBe("Google");
                     })
                 .ConfigureAwait(true);
         }
