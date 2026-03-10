@@ -6,7 +6,7 @@
 // </copyright>
 // ----------------------------------------------------------------------
 
-using FluentAssertions;
+using Shouldly;
 using SoloX.CodeQuality.Test.Helpers.Http;
 using SoloX.CodeQuality.Test.Helpers.UTest.Data;
 using System.Net;
@@ -78,9 +78,9 @@ namespace SoloX.CodeQuality.Test.Helpers.UTest.Http
 
             var result = await response.Content.ReadFromJsonAsync(dataObject.GetType());
 
-            result.Should().NotBeNull();
+            result.ShouldNotBeNull();
 
-            result.Should().BeEquivalentTo(dataObject);
+            result.ShouldBeEquivalentTo(dataObject);
         }
 
         [Fact]
@@ -185,10 +185,10 @@ namespace SoloX.CodeQuality.Test.Helpers.UTest.Http
 
             response.EnsureSuccessStatusCode();
 
-            response.StatusCode.Should().Be(HttpStatusCode.Accepted);
+            response.StatusCode.ShouldBe(HttpStatusCode.Accepted);
             var content = await response.Content.ReadFromJsonAsync<Person>();
 
-            content.Should().BeEquivalentTo(dataObject);
+            content.ShouldBeEquivalentTo(dataObject);
         }
     }
 }

@@ -9,7 +9,7 @@
 using System;
 using Microsoft.Extensions.Logging;
 
-namespace SoloX.CodeQuality.Test.Helpers.NUnit.Logger
+namespace SoloX.CodeQuality.Test.Helpers.XUnit.V3.Logger
 {
     internal sealed class TestLoggerScope<T, TState> : IDisposable
     {

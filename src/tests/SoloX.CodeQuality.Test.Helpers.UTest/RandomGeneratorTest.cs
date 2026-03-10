@@ -6,7 +6,7 @@
 // </copyright>
 // ----------------------------------------------------------------------
 
-using FluentAssertions;
+using Shouldly;
 using Xunit;
 
 namespace SoloX.CodeQuality.Test.Helpers.UTest
@@ -20,8 +20,8 @@ namespace SoloX.CodeQuality.Test.Helpers.UTest
 
             var rs = generator.RandomString(10);
 
-            rs.Should().NotBeNull();
-            rs.Length.Should().Be(10);
+            rs.ShouldNotBeNull();
+            rs.Length.ShouldBe(10);
         }
     }
 }

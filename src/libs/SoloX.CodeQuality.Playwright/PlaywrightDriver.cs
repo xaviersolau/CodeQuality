@@ -6,7 +6,6 @@
 // </copyright>
 // ----------------------------------------------------------------------
 
-using FluentAssertions;
 using Microsoft.Playwright;
 
 namespace SoloX.CodeQuality.Playwright
@@ -234,7 +233,10 @@ namespace SoloX.CodeQuality.Playwright
 
             var page = await context.NewPageAsync().ConfigureAwait(false);
 
-            page.Should().NotBeNull();
+            if (page == null)
+            {
+                throw new PlaywrightDriverException("Unable to create page");
+            }
 
             if (pageSetupHandler != null)
             {
@@ -244,11 +246,18 @@ namespace SoloX.CodeQuality.Playwright
             try
             {
                 var gotoResult = await page.GotoAsync(url, new PageGotoOptions { WaitUntil = WaitUntilState.NetworkIdle, Timeout = 60000 }).ConfigureAwait(false);
-                gotoResult.Should().NotBeNull();
+
+                if (gotoResult == null)
+                {
+                    throw new PlaywrightDriverException("Unable to navigate to page");
+                }
 
                 await gotoResult!.FinishedAsync().ConfigureAwait(false);
 
-                gotoResult.Ok.Should().BeTrue();
+                if (!gotoResult.Ok)
+                {
+                    throw new PlaywrightDriverException($"Unable to navigate to page (Status: {gotoResult.Status})");
+                }
 
                 await testHandler(page).ConfigureAwait(false);
             }
@@ -333,6 +342,31 @@ namespace SoloX.CodeQuality.Playwright
             }
 
             GC.SuppressFinalize(this);
+        }
+    }
+
+    /// <summary>
+    /// PlaywrightDriver exception.
+    /// </summary>
+    public class PlaywrightDriverException : Exception
+    {
+        /// <summary>
+        /// Setup instance with default message.
+        /// </summary>
+        public PlaywrightDriverException()
+        {
+        }
+        /// <summary>
+        /// Setup instance with default message.
+        /// </summary>
+        public PlaywrightDriverException(string? message) : base(message)
+        {
+        }
+        /// <summary>
+        /// Setup instance with default message.
+        /// </summary>
+        public PlaywrightDriverException(string? message, Exception? innerException) : base(message, innerException)
+        {
         }
     }
 }

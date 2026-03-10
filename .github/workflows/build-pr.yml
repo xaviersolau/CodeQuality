@@ -14,6 +14,10 @@ jobs:
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v1
       with:
+        dotnet-version: 10.0.101
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v1
+      with:
         dotnet-version: 9.0.101
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v1
@@ -29,5 +33,7 @@ jobs:
       run: dotnet test ./src/tests/SoloX.CodeQuality.Test.Helpers.NUnit.UTest --configuration Release --no-restore --no-build
     - name: Test Helpers XUnit
       run: dotnet test ./src/tests/SoloX.CodeQuality.Test.Helpers.XUnit.UTest --configuration Release --no-restore --no-build
+    - name: Test Helpers XUnit V3
+      run: dotnet test ./src/tests/SoloX.CodeQuality.Test.Helpers.XUnit.V3.UTest --configuration Release --no-restore --no-build
     - name: Test E2E
       run: dotnet test ./src/tests/SoloX.CodeQuality.Playwright.E2ETest --configuration Release --no-restore --no-build

@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.1.32414.318
+# Visual Studio Version 18
+VisualStudioVersion = 18.3.11520.95
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SoloX.CodeQuality.Prod", "src\libs\SoloX.CodeQuality.Prod\SoloX.CodeQuality.Prod.csproj", "{9785BB59-DC3D-46CF-B45C-DF4DBE6F0B2F}"
 EndProject
@@ -55,6 +55,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SoloX.CodeQuality.TestNuget", "src\tests\SoloX.CodeQuality.TestNuget\SoloX.CodeQuality.TestNuget.csproj", "{93418C7A-7C63-430B-8299-EEEE2FB83716}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SoloX.CodeQuality.PreReleaseTestNuget", "src\tests\SoloX.CodeQuality.PreReleaseTestNuget\SoloX.CodeQuality.PreReleaseTestNuget.csproj", "{FF0CCE33-32A5-4973-8A03-1763F513CE31}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SoloX.CodeQuality.Test.Helpers.XUnit.V3", "src\libs\SoloX.CodeQuality.Test.Helpers.XUnit.V3\SoloX.CodeQuality.Test.Helpers.XUnit.V3.csproj", "{B7171425-0FD3-4029-8B26-6880240B2EFD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SoloX.CodeQuality.Test.Helpers.XUnit.V3.UTest", "src\tests\SoloX.CodeQuality.Test.Helpers.XUnit.V3.UTest\SoloX.CodeQuality.Test.Helpers.XUnit.V3.UTest.csproj", "{B5C9E60A-0FB9-474F-BAAF-A6E0502352AE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -130,6 +134,14 @@ Global
 		{FF0CCE33-32A5-4973-8A03-1763F513CE31}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FF0CCE33-32A5-4973-8A03-1763F513CE31}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FF0CCE33-32A5-4973-8A03-1763F513CE31}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B7171425-0FD3-4029-8B26-6880240B2EFD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B7171425-0FD3-4029-8B26-6880240B2EFD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B7171425-0FD3-4029-8B26-6880240B2EFD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B7171425-0FD3-4029-8B26-6880240B2EFD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B5C9E60A-0FB9-474F-BAAF-A6E0502352AE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B5C9E60A-0FB9-474F-BAAF-A6E0502352AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B5C9E60A-0FB9-474F-BAAF-A6E0502352AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B5C9E60A-0FB9-474F-BAAF-A6E0502352AE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -137,7 +149,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{9785BB59-DC3D-46CF-B45C-DF4DBE6F0B2F} = {5B172423-1455-41CB-8D81-7DCFCFF8855D}
 		{46DE472E-6200-47A1-9874-3B54952DFF81} = {5B172423-1455-41CB-8D81-7DCFCFF8855D}
-		{B4ED680E-2B7B-4DFE-87E6-A3CBEE75C3DD} = {57F5BB2E-CD03-470B-BF16-31FE02A386B1}
+		{B4ED680E-2B7B-4DFE-87E6-A3CBEE75C3DD} = {5B172423-1455-41CB-8D81-7DCFCFF8855D}
 		{6FB11F33-250F-4DE8-934A-F63CDC8976D6} = {B1962CF8-DE8C-42AA-BC4E-99E99D722E26}
 		{E4FAC4E6-2853-4464-B78F-6BAB619EEF8D} = {B1962CF8-DE8C-42AA-BC4E-99E99D722E26}
 		{4D9D7FB7-CB50-4F61-92E7-A2CD669B15A7} = {1D5021C0-2423-494A-98F6-71AB937CDF8B}
@@ -152,6 +164,8 @@ Global
 		{1F289698-A61C-4886-9E42-CFF9CDFD82E8} = {1D5021C0-2423-494A-98F6-71AB937CDF8B}
 		{93418C7A-7C63-430B-8299-EEEE2FB83716} = {1D5021C0-2423-494A-98F6-71AB937CDF8B}
 		{FF0CCE33-32A5-4973-8A03-1763F513CE31} = {1D5021C0-2423-494A-98F6-71AB937CDF8B}
+		{B7171425-0FD3-4029-8B26-6880240B2EFD} = {5B172423-1455-41CB-8D81-7DCFCFF8855D}
+		{B5C9E60A-0FB9-474F-BAAF-A6E0502352AE} = {1D5021C0-2423-494A-98F6-71AB937CDF8B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {74BCF463-5FDE-4DBC-B32A-431E8A228CA0}

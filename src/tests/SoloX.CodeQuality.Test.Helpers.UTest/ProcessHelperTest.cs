@@ -6,7 +6,7 @@
 // </copyright>
 // ----------------------------------------------------------------------
 
-using FluentAssertions;
+using Shouldly;
 using Xunit;
 
 namespace SoloX.CodeQuality.Test.Helpers.UTest
@@ -20,11 +20,11 @@ namespace SoloX.CodeQuality.Test.Helpers.UTest
 
             var exitCode = ProcessHelper.Run(".", "dotnet", "--list-runtimes", out var stdout, out var stderr);
 
-            exitCode.Should().Be(0);
+            exitCode.ShouldBe(0);
 
-            stderr.Should().BeEmpty();
-            stdout.Should().Contain("Microsoft.");
-            stdout.Should().Contain(version);
+            stderr.ShouldBeEmpty();
+            stdout.ShouldContain("Microsoft.");
+            stdout.ShouldContain(version);
         }
 
         [Fact]
@@ -34,13 +34,13 @@ namespace SoloX.CodeQuality.Test.Helpers.UTest
 
             var processResult = ProcessHelper.Run(".", "dotnet", "--list-runtimes");
 
-            processResult.ExitCode.Should().Be(0);
+            processResult.ExitCode.ShouldBe(0);
 
-            processResult.LogMessages.Where(x => x.IsError).Should().BeEmpty();
+            processResult.LogMessages.Where(x => x.IsError).ShouldBeEmpty();
 
             var logs = processResult.GetLogs();
-            logs.Should().Contain("Microsoft.");
-            logs.Should().Contain(version);
+            logs.ShouldContain("Microsoft.");
+            logs.ShouldContain(version);
         }
     }
 }
