@@ -1,6 +1,6 @@
 # CodeQuality
 
-This project provides an easy way to set up .Net Core [static code analysis](#coding-style-and-analysis) with pre-configured quality and coding style
+This project provides an easy way to set up .NET [static code analysis](#coding-style-and-analysis) with pre-configured quality and coding style
 rules for your Test and your Prod C# projects.
 
 It also provides:
@@ -14,15 +14,20 @@ It also provides:
 [![Build - CI](https://github.com/xaviersolau/CodeQuality/actions/workflows/build-ci.yml/badge.svg)](https://github.com/xaviersolau/CodeQuality/actions/workflows/build-ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
-| Package                                 | Nuget.org | Pre-release |
-|-----------------------------------------|-----------|-------------|
-|**SoloX.CodeQuality.Prod**               |[![NuGet Beta](https://img.shields.io/nuget/v/SoloX.CodeQuality.Prod.svg)](https://www.nuget.org/packages/SoloX.CodeQuality.Prod)                             |[![NuGet Beta](https://img.shields.io/nuget/vpre/SoloX.CodeQuality.Prod.svg)](https://www.nuget.org/packages/SoloX.CodeQuality.Prod)
-|**SoloX.CodeQuality.Test**               |[![NuGet Beta](https://img.shields.io/nuget/v/SoloX.CodeQuality.Test.svg)](https://www.nuget.org/packages/SoloX.CodeQuality.Test)                             |[![NuGet Beta](https://img.shields.io/nuget/vpre/SoloX.CodeQuality.Test.svg)](https://www.nuget.org/packages/SoloX.CodeQuality.Test)
-|**SoloX.CodeQuality.Playwright**         |[![NuGet Beta](https://img.shields.io/nuget/v/SoloX.CodeQuality.Playwright.svg)](https://www.nuget.org/packages/SoloX.CodeQuality.Playwright)                 |[![NuGet Beta](https://img.shields.io/nuget/vpre/SoloX.CodeQuality.Playwright.svg)](https://www.nuget.org/packages/SoloX.CodeQuality.Playwright)
-|**SoloX.CodeQuality.Test.Helpers**       |[![NuGet Beta](https://img.shields.io/nuget/v/SoloX.CodeQuality.Test.Helpers.svg)](https://www.nuget.org/packages/SoloX.CodeQuality.Test.Helpers)             |[![NuGet Beta](https://img.shields.io/nuget/vpre/SoloX.CodeQuality.Test.Helpers.svg)](https://www.nuget.org/packages/SoloX.CodeQuality.Test.Helpers)
-|**SoloX.CodeQuality.Test.Helpers.XUnit** |[![NuGet Beta](https://img.shields.io/nuget/v/SoloX.CodeQuality.Test.Helpers.XUnit.svg)](https://www.nuget.org/packages/SoloX.CodeQuality.Test.Helpers.XUnit) |[![NuGet Beta](https://img.shields.io/nuget/vpre/SoloX.CodeQuality.Test.Helpers.XUnit.svg)](https://www.nuget.org/packages/SoloX.CodeQuality.Test.Helpers.XUnit)
-|**SoloX.CodeQuality.Test.Helpers.NUnit** |[![NuGet Beta](https://img.shields.io/nuget/v/SoloX.CodeQuality.Test.Helpers.NUnit.svg)](https://www.nuget.org/packages/SoloX.CodeQuality.Test.Helpers.NUnit) |[![NuGet Beta](https://img.shields.io/nuget/vpre/SoloX.CodeQuality.Test.Helpers.NUnit.svg)](https://www.nuget.org/packages/SoloX.CodeQuality.Test.Helpers.NUnit)
-|**SoloX.CodeQuality.WebHost**            |[![NuGet Beta](https://img.shields.io/nuget/v/SoloX.CodeQuality.WebHost.svg)](https://www.nuget.org/packages/SoloX.CodeQuality.WebHost)                       |[![NuGet Beta](https://img.shields.io/nuget/vpre/SoloX.CodeQuality.WebHost.svg)](https://www.nuget.org/packages/SoloX.CodeQuality.WebHost)
+| Package                                     | Nuget.org | Pre-release |
+|---------------------------------------------|-----------|-------------|
+|**SoloX.CodeQuality.Prod**                   |[![NuGet Beta](https://img.shields.io/nuget/v/SoloX.CodeQuality.Prod.svg)](https://www.nuget.org/packages/SoloX.CodeQuality.Prod)                                   |[![NuGet Beta](https://img.shields.io/nuget/vpre/SoloX.CodeQuality.Prod.svg)](https://www.nuget.org/packages/SoloX.CodeQuality.Prod)
+|**SoloX.CodeQuality.Test**                   |[![NuGet Beta](https://img.shields.io/nuget/v/SoloX.CodeQuality.Test.svg)](https://www.nuget.org/packages/SoloX.CodeQuality.Test)                                   |[![NuGet Beta](https://img.shields.io/nuget/vpre/SoloX.CodeQuality.Test.svg)](https://www.nuget.org/packages/SoloX.CodeQuality.Test)
+|**SoloX.CodeQuality.Playwright**             |[![NuGet Beta](https://img.shields.io/nuget/v/SoloX.CodeQuality.Playwright.svg)](https://www.nuget.org/packages/SoloX.CodeQuality.Playwright)                       |[![NuGet Beta](https://img.shields.io/nuget/vpre/SoloX.CodeQuality.Playwright.svg)](https://www.nuget.org/packages/SoloX.CodeQuality.Playwright)
+|**SoloX.CodeQuality.Test.Helpers**           |[![NuGet Beta](https://img.shields.io/nuget/v/SoloX.CodeQuality.Test.Helpers.svg)](https://www.nuget.org/packages/SoloX.CodeQuality.Test.Helpers)                   |[![NuGet Beta](https://img.shields.io/nuget/vpre/SoloX.CodeQuality.Test.Helpers.svg)](https://www.nuget.org/packages/SoloX.CodeQuality.Test.Helpers)
+|~~**SoloX.CodeQuality.Test.Helpers.XUnit**~~ |[![NuGet Beta](https://img.shields.io/nuget/v/SoloX.CodeQuality.Test.Helpers.XUnit.svg)](https://www.nuget.org/packages/SoloX.CodeQuality.Test.Helpers.XUnit)       |[![NuGet Beta](https://img.shields.io/nuget/vpre/SoloX.CodeQuality.Test.Helpers.XUnit.svg)](https://www.nuget.org/packages/SoloX.CodeQuality.Test.Helpers.XUnit)
+|**SoloX.CodeQuality.Test.Helpers.XUnit.V3**  |[![NuGet Beta](https://img.shields.io/nuget/v/SoloX.CodeQuality.Test.Helpers.XUnit.V3.svg)](https://www.nuget.org/packages/SoloX.CodeQuality.Test.Helpers.XUnit.V3) |[![NuGet Beta](https://img.shields.io/nuget/vpre/SoloX.CodeQuality.Test.Helpers.XUnit.V3.svg)](https://www.nuget.org/packages/SoloX.CodeQuality.Test.Helpers.XUnit.V3)
+|**SoloX.CodeQuality.Test.Helpers.NUnit**     |[![NuGet Beta](https://img.shields.io/nuget/v/SoloX.CodeQuality.Test.Helpers.NUnit.svg)](https://www.nuget.org/packages/SoloX.CodeQuality.Test.Helpers.NUnit)       |[![NuGet Beta](https://img.shields.io/nuget/vpre/SoloX.CodeQuality.Test.Helpers.NUnit.svg)](https://www.nuget.org/packages/SoloX.CodeQuality.Test.Helpers.NUnit)
+|**SoloX.CodeQuality.WebHost**                |[![NuGet Beta](https://img.shields.io/nuget/v/SoloX.CodeQuality.WebHost.svg)](https://www.nuget.org/packages/SoloX.CodeQuality.WebHost)                             |[![NuGet Beta](https://img.shields.io/nuget/vpre/SoloX.CodeQuality.WebHost.svg)](https://www.nuget.org/packages/SoloX.CodeQuality.WebHost)
+
+> Find out the [Breaking changes](documents/BreakingChanges.md) from one version to another.
+
+> Note that from version 3.0.* the `SoloX.CodeQuality.Test.Helpers.XUnit` package is obsolete since [xUnit.net](https://xunit.net) switched to V3.
 
 ## License and credits
 
@@ -42,7 +47,7 @@ This project is not implementing analysis by itself, it is using existing analys
 
 
 **Note that before version 2.1.0 the AnalysisLevel property was set to "latest" resulting in breaking the build just on framework update.**
-**So from version 2.1.0 the analysis level is fixed to a specific version (in our case 8.0)**
+**So from version 2.1.0 the analysis level is fixed to a specific version (currently 10.0 with version 3.0.0)**
 
 * * *
 
@@ -52,26 +57,26 @@ You can checkout this Github repository or you can use the NuGet package:
 
 **Install using the command line from the Package Manager:**
 ```bash
-Install-Package SoloX.CodeQuality.Prod -version 2.3.6
+Install-Package SoloX.CodeQuality.Prod -version 3.0.0-preview.1
 or
-Install-Package SoloX.CodeQuality.Test -version 2.3.6
+Install-Package SoloX.CodeQuality.Test -version 3.0.0-preview.1
 ```
 
 **Install using the .Net CLI:**
 ```bash
-dotnet add package SoloX.CodeQuality.Prod --version 2.3.6
+dotnet add package SoloX.CodeQuality.Prod --version 3.0.0-preview.1
 or
-dotnet add package SoloX.CodeQuality.Test --version 2.3.6
+dotnet add package SoloX.CodeQuality.Test --version 3.0.0-preview.1
 ```
 
 **Install editing your project file (csproj):**
 ```xml
-<PackageReference Include="SoloX.CodeQuality.Prod" Version="2.3.6">
+<PackageReference Include="SoloX.CodeQuality.Prod" Version="3.0.0-preview.1">
   <PrivateAssets>all</PrivateAssets>
   <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
 </PackageReference>
 or
-<PackageReference Include="SoloX.CodeQuality.Test" Version="2.3.6">
+<PackageReference Include="SoloX.CodeQuality.Test" Version="3.0.0-preview.1">
   <PrivateAssets>all</PrivateAssets>
   <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
 </PackageReference>
@@ -218,17 +223,17 @@ You can checkout this Github repository or use the NuGet package:
 
 **Install using the command line from the Package Manager:**
 ```bash
-Install-Package SoloX.CodeQuality.Playwright -version 2.3.6
+Install-Package SoloX.CodeQuality.Playwright -version 3.0.0-preview.1
 ```
 
 **Install using the .Net CLI:**
 ```bash
-dotnet add package SoloX.CodeQuality.Playwright --version 2.3.6
+dotnet add package SoloX.CodeQuality.Playwright --version 3.0.0-preview.1
 ```
 
 **Install editing your project file (csproj):**
 ```xml
-<PackageReference Include="SoloX.CodeQuality.Playwright" Version="2.3.6" />
+<PackageReference Include="SoloX.CodeQuality.Playwright" Version="3.0.0-preview.1" />
 ```
 
 * * *
@@ -309,8 +314,8 @@ builder.WithLocalHost(localHostBuilder =>
     });
 ```
 
-> Note that your host must be based on .Net 8.0 and it must use the `WebApplication.CreateBuilder(args)` method to build your Web host. If
-> you still use the hold way with `Host.CreateDefaultBuilder(args)` and a `Startup.cs` file, you will get an exception like this
+> Note that your host must be based on .NET 8.0 or later and it must use the `WebApplication.CreateBuilder(args)` method to build your Web host. If
+> you still use the old way with `Host.CreateDefaultBuilder(args)` and a `Startup.cs` file, you will get an exception like this
 > `System.InvalidOperationException : Build can only be called once.` and you won't be able to start your test.
 
 On-line host:
@@ -424,29 +429,35 @@ You can checkout this Github repository or you can use the NuGet package:
 
 **Install using the command line from the Package Manager:**
 ```bash
-Install-Package SoloX.CodeQuality.Test.Helpers -version 2.3.6
+Install-Package SoloX.CodeQuality.Test.Helpers -version 3.0.0-preview.1
 
-Install-Package SoloX.CodeQuality.Test.Helpers.XUnit -version 2.3.6
+Install-Package SoloX.CodeQuality.Test.Helpers.XUnit -version 3.0.0-preview.1
 
-Install-Package SoloX.CodeQuality.Test.Helpers.NUnit -version 2.3.6
+Install-Package SoloX.CodeQuality.Test.Helpers.XUnit.V3 -version 3.0.0-preview.1
+
+Install-Package SoloX.CodeQuality.Test.Helpers.NUnit -version 3.0.0-preview.1
 ```
 
 **Install using the .Net CLI:**
 ```bash
-dotnet add package SoloX.CodeQuality.Test.Helpers --version 2.3.6
+dotnet add package SoloX.CodeQuality.Test.Helpers --version 3.0.0-preview.1
 
-dotnet add package SoloX.CodeQuality.Test.Helpers.XUnit --version 2.3.6
+dotnet add package SoloX.CodeQuality.Test.Helpers.XUnit --version 3.0.0-preview.1
 
-dotnet add package SoloX.CodeQuality.Test.Helpers.NUnit --version 2.3.6
+dotnet add package SoloX.CodeQuality.Test.Helpers.XUnit.V3 --version 3.0.0-preview.1
+
+dotnet add package SoloX.CodeQuality.Test.Helpers.NUnit --version 3.0.0-preview.1
 ```
 
 **Install editing your project file (csproj):**
 ```xml
-<PackageReference Include="SoloX.CodeQuality.Test.Helpers" Version="2.3.6" />
+<PackageReference Include="SoloX.CodeQuality.Test.Helpers" Version="3.0.0-preview.1" />
 
-<PackageReference Include="SoloX.CodeQuality.Test.Helpers.XUnit" Version="2.3.6" />
+<PackageReference Include="SoloX.CodeQuality.Test.Helpers.XUnit" Version="3.0.0-preview.1" />
 
-<PackageReference Include="SoloX.CodeQuality.Test.Helpers.NUnit" Version="2.3.6" />
+<PackageReference Include="SoloX.CodeQuality.Test.Helpers.XUnit.V3" Version="3.0.0-preview.1" />
+
+<PackageReference Include="SoloX.CodeQuality.Test.Helpers.NUnit" Version="3.0.0-preview.1" />
 ```
 
  * * *
@@ -479,6 +490,52 @@ var response = await httpClient.GetFromJsonAsync<Person>("target");
 
 ```
 
+ * * *
+
+### Snapshot testing
+
+Snapshot testing is a powerful technique for testing text and image outputs. The `SnapshotHelper` class provided in
+`SoloX.CodeQuality.Test.Helpers` makes it easy to create and maintain snapshot tests.
+
+Snapshots are stored on disk and compared against test outputs. This is useful for testing scenarios such as:
+* Text comparisons (JSON, XML, code generation outputs, etc.)
+* Image comparisons
+* Large data structure validations
+
+#### Basic usage
+
+To use the `SnapshotHelper` in your tests, simply create an instance and use its methods to verify outputs:
+
+```csharp
+using SoloX.CodeQuality.Test.Helpers.Snapshot;
+
+var snapshotHelper = new SnapshotHelper();
+
+// For text snapshots
+string generatedOutput = GenerateContent();
+await snapshotHelper.CompareTextSnapshotAsync(nameof(MyTest), generatedOutput);
+
+// For image snapshots
+Stream generatedPngImage = GeneratePngImage();
+await snapshotHelper.ComparePngSnapshotAsync(nameof(MyTest), generatedImage);
+```
+
+#### Configuration
+
+You can configure the `SnapshotHelper` with custom options:
+
+```csharp
+var snapshotHelper = new SnapshotHelper(options =>
+{
+    options.IntermediateFolder = "CustomSnapshotsFolder";
+    options.RootPath = "/path/to/test/project";
+});
+```
+
+The snapshots are stored in a `Snapshots` folder by default and can be reviewed and updated when the expected output changes.
+
+ * * *
+
 ### ILogger\<T> mocking
 
 We often need to provide a ILogger\<T> instance to the class we want to test. This is easy to provide a
@@ -486,16 +543,15 @@ mock of this interface but sometime it is actually useful to be able to write th
 output. In order to write the logs in the test console output you can use the TestLogger available for
 XUnit and NUnit.
 
-#### With XUnit
+#### With XUnit or XUnit.V3
 
-The XUnit TestLogger is provided in the package `SoloX.CodeQuality.Test.Helpers.XUnit` and it can be
-used like this:
+The XUnit TestLogger is provided in the package `SoloX.CodeQuality.Test.Helpers.XUnit.V3` (or
+`SoloX.CodeQuality.Test.Helpers.XUnit` for XUnit V2) and it can be used like this:
 
 ```csharp
 using Microsoft.Extensions.Logging;
-using SoloX.CodeQuality.Test.Helpers.XUnit.Logger;
+using SoloX.CodeQuality.Test.Helpers.XUnit.V3.Logger;
 using Xunit;
-using Xunit.Abstractions;
 
 public class LoggerTest
 {
@@ -524,9 +580,8 @@ some integration tests using a service provider:
 ```csharp
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using SoloX.CodeQuality.Test.Helpers.XUnit.Logger;
+using SoloX.CodeQuality.Test.Helpers.XUnit.V3.Logger;
 using Xunit;
-using Xunit.Abstractions;
 
 public class LoggerTest
 {
@@ -554,7 +609,6 @@ public class LoggerTest
     }
 }
 ```
-
 
 #### With NUnit
 
@@ -603,9 +657,8 @@ public class LoggerTest
         var logger = serviceProvider.GetRequiredService<ILogger<LoggerTest>>();
  
         logger.LogError("This is an error log message!");
- 
+
         Assert.Pass();
     }
 }
 ```
-
