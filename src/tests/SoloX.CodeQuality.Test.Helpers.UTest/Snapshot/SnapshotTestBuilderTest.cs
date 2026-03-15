@@ -1,6 +1,6 @@
 ﻿// ----------------------------------------------------------------------
-// <copyright file="SnapshotHelperTest.cs" company="Xavier Solau">
-// Copyright © 2021 Xavier Solau.
+// <copyright file="SnapshotTestBuilderTest.cs" company="Xavier Solau">
+// Copyright © 2021-2026 Xavier Solau.
 // Licensed under the MIT license.
 // See LICENSE file in the project root for full license information.
 // </copyright>
@@ -10,14 +10,18 @@ using Shouldly;
 using SoloX.CodeQuality.Test.Helpers.Snapshot;
 using Xunit;
 
-namespace SoloX.CodeQuality.Test.Helpers.UTest
+namespace SoloX.CodeQuality.Test.Helpers.UTest.Snapshot
 {
-    public class SnapshotHelperTest
+    public class SnapshotTestBuilderTest
     {
         [Fact]
         public async Task ItShouldGenerateTextSnapshotAsync()
         {
-            var sh = new SnapshotHelper(cfg => cfg.RootPath = ".");
+            var sh = SnapshotTestBuilder
+                .Create()
+                .WithLocation(".")
+                .WithTextStrategy()
+                .Build();
 
             var expectedFile = @$"./Snapshots/{nameof(ItShouldGenerateTextSnapshotAsync)}.snapshot.ref.txt";
 
@@ -25,7 +29,7 @@ namespace SoloX.CodeQuality.Test.Helpers.UTest
             {
                 var someGeneratedText = "some generated text";
 
-                await sh.CompareTextSnapshotAsync(nameof(ItShouldGenerateTextSnapshotAsync), someGeneratedText);
+                await sh.CompareSnapshotAsync(nameof(ItShouldGenerateTextSnapshotAsync), someGeneratedText);
 
                 // Check that the snapshot reference file exists and has been generated with the same content as the generated text
                 File.Exists(expectedFile)
@@ -51,7 +55,11 @@ namespace SoloX.CodeQuality.Test.Helpers.UTest
 
             try
             {
-                var sh = new SnapshotHelper(cfg => cfg.RootPath = ".");
+                var sh = SnapshotTestBuilder
+                    .Create()
+                    .WithLocation(".")
+                    .WithTextStrategy()
+                    .Build();
 
                 Directory.CreateDirectory("./Snapshots");
 
@@ -59,7 +67,7 @@ namespace SoloX.CodeQuality.Test.Helpers.UTest
 
                 var newGeneratedText = "some generated text";
 
-                await sh.CompareTextSnapshotAsync(nameof(ItShouldReplaceTextSnapshotAsync), newGeneratedText, forceReplaceSnapshot: true);
+                await sh.CompareSnapshotAsync(nameof(ItShouldReplaceTextSnapshotAsync), newGeneratedText, forceReplaceSnapshot: true);
 
                 // Check that the snapshot reference file has been replaced with the new generated text
                 var newSnapshotRefText = await File.ReadAllTextAsync(snapshotRefFile);
@@ -78,27 +86,35 @@ namespace SoloX.CodeQuality.Test.Helpers.UTest
         [Fact]
         public async Task ItShouldMatchTextSnapshotAsync()
         {
-            var sh = new SnapshotHelper();
+            var sh = SnapshotTestBuilder
+                .Create()
+                .WithThisFilePathLocation()
+                .WithTextStrategy()
+                .Build();
 
             var someGeneratedText = "some generated text";
 
-            await sh.CompareTextSnapshotAsync(nameof(ItShouldMatchTextSnapshotAsync), someGeneratedText);
+            await sh.CompareSnapshotAsync(nameof(ItShouldMatchTextSnapshotAsync), someGeneratedText);
         }
 
         [Fact]
         public async Task ItShouldNotMatchTextSnapshotAsync()
         {
-            var expectedRunFile = @$"../../../Snapshots/{nameof(ItShouldNotMatchTextSnapshotAsync)}.snapshot.run.txt";
-            var expectedDiffsFile = @$"../../../Snapshots/{nameof(ItShouldNotMatchTextSnapshotAsync)}.snapshot.diffs.txt";
+            var expectedRunFile = @$"../../../Snapshot/Snapshots/{nameof(ItShouldNotMatchTextSnapshotAsync)}.snapshot.run.txt";
+            var expectedDiffsFile = @$"../../../Snapshot/Snapshots/{nameof(ItShouldNotMatchTextSnapshotAsync)}.snapshot.diffs.txt";
 
             try
             {
-                var sh = new SnapshotHelper();
+                var sh = SnapshotTestBuilder
+                    .Create()
+                    .WithThisFilePathLocation()
+                    .WithTextStrategy()
+                    .Build();
 
                 var someGeneratedText = "not matching generated text";
 
-                var snapshotException = await Should.ThrowAsync<SnapshotException>(
-                    sh.CompareTextSnapshotAsync(nameof(ItShouldNotMatchTextSnapshotAsync), someGeneratedText));
+                var snapshotException = await Should.ThrowAsync<SnapshotTestException>(
+                    sh.CompareSnapshotAsync(nameof(ItShouldNotMatchTextSnapshotAsync), someGeneratedText));
 
                 snapshotException.Message.ShouldBe(@"--- Snapshot reference
 +++ Snapshot run
@@ -133,12 +149,16 @@ namespace SoloX.CodeQuality.Test.Helpers.UTest
 
             try
             {
-                var sh = new SnapshotHelper(cfg => cfg.RootPath = ".");
+                var sh = SnapshotTestBuilder
+                    .Create()
+                    .WithLocation(".")
+                    .WithPngStrategy()
+                    .Build();
 
                 var pngSourcePath = @"Resources/small_mountain_land_scape.png";
                 await using var someGeneratedPng = File.OpenRead(pngSourcePath);
 
-                await sh.ComparePngSnapshotAsync(nameof(ItShouldGeneratePngSnapshotAsync), someGeneratedPng);
+                await sh.CompareSnapshotAsync(nameof(ItShouldGeneratePngSnapshotAsync), someGeneratedPng);
 
                 // Check that the snapshot reference file exists and has been generated with the same content as the png source path
                 File.Exists(expectedFile)
@@ -165,7 +185,11 @@ namespace SoloX.CodeQuality.Test.Helpers.UTest
 
             try
             {
-                var sh = new SnapshotHelper(cfg => cfg.RootPath = ".");
+                var sh = SnapshotTestBuilder
+                    .Create()
+                    .WithLocation(".")
+                    .WithPngStrategy()
+                    .Build();
 
                 var pngSourcePath = @"Resources/small_mountain_land_scape.png";
 
@@ -176,7 +200,7 @@ namespace SoloX.CodeQuality.Test.Helpers.UTest
                 var pngSourcePathDiffsPath = @"Resources/small_mountain_land_scape_diffs.png";
                 await using var someGeneratedPng = File.OpenRead(pngSourcePathDiffsPath);
 
-                await sh.ComparePngSnapshotAsync(nameof(ItShouldReplacePngSnapshotAsync), someGeneratedPng, forceReplaceSnapshot: true);
+                await sh.CompareSnapshotAsync(nameof(ItShouldReplacePngSnapshotAsync), someGeneratedPng, forceReplaceSnapshot: true);
 
                 // Check that the snapshot reference file has been replaced with the new png source path diffs file content
                 var newSnapshotRefBytes = await File.ReadAllBytesAsync(snapshotRefFile);
@@ -198,30 +222,37 @@ namespace SoloX.CodeQuality.Test.Helpers.UTest
         [InlineData("threshold_match", @"Resources/small_mountain_land_scape_diffs.png", 0.2)]
         public async Task ItShouldMatchPngSnapshotAsync(string testName, string pngSourcePath, double threshold)
         {
-            var sh = new SnapshotHelper();
+            var sh = SnapshotTestBuilder
+                .Create()
+                .WithThisFilePathLocation()
+                .WithPngStrategy(threshold)
+                .Build();
 
             await using var someGeneratedPng = File.OpenRead(pngSourcePath);
 
-            await sh.ComparePngSnapshotAsync(
+            await sh.CompareSnapshotAsync(
                 $"{nameof(ItShouldMatchPngSnapshotAsync)}_{testName}",
-                someGeneratedPng,
-                differencesThreshold: threshold);
+                someGeneratedPng);
         }
 
         [Fact]
         public async Task ItShouldNotMatchPngSnapshotAsync()
         {
-            var expectedRunFile = @$"../../../Snapshots/{nameof(ItShouldNotMatchPngSnapshotAsync)}.snapshot.run.png";
-            var expectedDiffsFile = @$"../../../Snapshots/{nameof(ItShouldNotMatchPngSnapshotAsync)}.snapshot.diffs.png";
+            var expectedRunFile = @$"../../../Snapshot/Snapshots/{nameof(ItShouldNotMatchPngSnapshotAsync)}.snapshot.run.png";
+            var expectedDiffsFile = @$"../../../Snapshot/Snapshots/{nameof(ItShouldNotMatchPngSnapshotAsync)}.snapshot.diffs.png";
 
             try
             {
-                var sh = new SnapshotHelper();
+                var sh = SnapshotTestBuilder
+                    .Create()
+                    .WithThisFilePathLocation()
+                    .WithPngStrategy()
+                    .Build();
 
                 await using var someGeneratedPng = File.OpenRead(@"Resources/small_mountain_land_scape_diffs.png");
 
-                var snapshotException = await Should.ThrowAsync<SnapshotException>(
-                    sh.ComparePngSnapshotAsync(nameof(ItShouldNotMatchPngSnapshotAsync), someGeneratedPng));
+                var snapshotException = await Should.ThrowAsync<SnapshotTestException>(
+                    sh.CompareSnapshotAsync(nameof(ItShouldNotMatchPngSnapshotAsync), someGeneratedPng));
 
                 snapshotException.Message.ShouldBe("See Png Diffs file (deltas 0.08724384654082065 <= threshold 0)");
 
