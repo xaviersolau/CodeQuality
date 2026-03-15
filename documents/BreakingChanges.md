@@ -9,23 +9,21 @@ The `SnapshotHelper` API has been significantly reworked with breaking changes t
 #### Key Changes
 - **Moved** from `SoloX.CodeQuality.Test.Helpers.XUnit` to `SoloX.CodeQuality.Test.Helpers` project and namespace.
 
-- **Dependency change**: The `SnapshotHelper` class no longer depends on xUnit-specific types, making it more flexible and reusable
+- **Renamed** from `SnapshotHelper` to `SnapshotTest`.
+
+- **Dependency change**: The snapshot test classes no longer depends on xUnit-specific types, making it more flexible and reusable
 across different testing frameworks.
 
-- **Static to instance**: The `SnapshotHelper` class is no longer static. You must create an instance of `SnapshotHelper` to use its methods.
+- **Static to builder**: The `SnapshotHelper` class is no longer static. You must use the builder to get an instance of `SnapshotTest` to use its methods.
 
 - **New asynchronous API**: All snapshot methods are now async (`Task`-based) and must be awaited.
   - Old: `AssertSnapshot(string generated, string snapshotName, string location)`
-  - New: `await CompareTextSnapshotAsync(string name, string content)`
+  - New: `await CompareSnapshotAsync(string name, string content)`
 
-- **PNG file snapshot support**: New support for comparing PNG image snapshots has been added via `ComparePngSnapshotAsync()`.
+- **PNG file snapshot support**: New support for comparing PNG image snapshots has been added via a Png Snapshot strategy.
   - Includes configurable `differencesThreshold` parameter for image comparison tolerance.
 
-- **Configuration-based initialization**: The constructor now uses a fluent configuration pattern.
-  - Old: location was specified as parameter of the static AssertSnapshot method.
-  - New: `new SnapshotHelper(options => options.IntermediateFolder = intermediateFolder)`
-
-- **Force replace capability**: All comparison methods now support a `forceReplaceSnapshot` parameter to update existing snapshots.
+- **Force replace capability**: The comparison methods now support a `forceReplaceSnapshot` parameter to update existing snapshots.
 
 #### Migration Example
 
@@ -35,17 +33,28 @@ var location = "Path where to read/write snapshot files";
 SnapshotHelper.AssertSnapshot("Some text to match against the snapshot", snapshotName, location);
 
 // New code
-var helper = new SnapshotHelper(options => options.RootPath = "Root path where to read/write snapshot files");
-await helper.CompareTextSnapshotAsync(snapshotName, "Some text to match against the snapshot");
+var snapshotTest= SnapshotTestBuilder
+    .Create()
+    .WithLocation("Root path where to read/write snapshot files")
+    .WithTextStrategy()
+    .Build();
+
+await snapshotTest.CompareSnapshotAsync(snapshotName, "Some text to match against the snapshot");
 
 // For PNG snapshots (new capability)
-await helper.ComparePngSnapshotAsync(snapshotName, pngStream, differencesThreshold: 0.01);
+var snapshotTest= SnapshotTestBuilder
+    .Create()
+    .WithLocation("Root path where to read/write snapshot files")
+    .WithPngStrategy(differencesThreshold: 0.01)
+    .Build();
+
+await snapshotTest.CompareSnapshotAsync(snapshotName, pngStream);
 ```
 
 #### Migration Steps
 
-1. Setup with `SnapshotHelper` instantiation and use the configuration action.
-2. Change all `SnapshotHelper.AssertSnapshot()` calls to `CompareTextSnapshotAsync()` and add `await`.
+1. Setup with `SnapshotTestBuilder` instantiation and use the configuration action.
+2. Change all `SnapshotHelper.AssertSnapshot()` calls to `CompareSnapshotAsync()` and add `await`.
 3. Review snapshot test methods and mark them as `async Task`.
 4. Existing snapshot text files (`.snapshot`) are compatible; you just need to rename with (`.snapshot.ref.txt`).
 

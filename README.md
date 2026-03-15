@@ -494,7 +494,7 @@ var response = await httpClient.GetFromJsonAsync<Person>("target");
 
 ### Snapshot testing
 
-Snapshot testing is a powerful technique for testing text and image outputs. The `SnapshotHelper` class provided in
+Snapshot testing is a powerful technique for testing text and image outputs. The `SnapshotTestBuilder` class provided in
 `SoloX.CodeQuality.Test.Helpers` makes it easy to create and maintain snapshot tests.
 
 Snapshots are stored on disk and compared against test outputs. This is useful for testing scenarios such as:
@@ -504,32 +504,30 @@ Snapshots are stored on disk and compared against test outputs. This is useful f
 
 #### Basic usage
 
-To use the `SnapshotHelper` in your tests, simply create an instance and use its methods to verify outputs:
+To use the `SnapshotTest` in your tests, simply use the `SnapshotTestBuilder` to get an instance and use its methods to verify outputs:
 
 ```csharp
 using SoloX.CodeQuality.Test.Helpers.Snapshot;
 
-var snapshotHelper = new SnapshotHelper();
-
 // For text snapshots
+var snapshotTest = SnapshotTestBuilder
+    .Create()
+    .WithThisFilePathLocation()
+    .WithTextStrategy()
+    .Build();
+
 string generatedOutput = GenerateContent();
-await snapshotHelper.CompareTextSnapshotAsync(nameof(MyTest), generatedOutput);
+await snapshotTest.CompareSnapshotAsync(nameof(MyTest), generatedOutput);
 
 // For image snapshots
+var snapshotTest = SnapshotTestBuilder
+    .Create()
+    .WithThisFilePathLocation()
+    .WithPngStrategy()
+    .Build();
+
 Stream generatedPngImage = GeneratePngImage();
-await snapshotHelper.ComparePngSnapshotAsync(nameof(MyTest), generatedImage);
-```
-
-#### Configuration
-
-You can configure the `SnapshotHelper` with custom options:
-
-```csharp
-var snapshotHelper = new SnapshotHelper(options =>
-{
-    options.IntermediateFolder = "CustomSnapshotsFolder";
-    options.RootPath = "/path/to/test/project";
-});
+await snapshotTest.CompareSnapshotAsync(nameof(MyTest), generatedImage);
 ```
 
 The snapshots are stored in a `Snapshots` folder by default and can be reviewed and updated when the expected output changes.
