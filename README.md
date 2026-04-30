@@ -47,7 +47,7 @@ This project is not implementing analysis by itself, it is using existing analys
 
 
 **Note that before version 2.1.0 the AnalysisLevel property was set to "latest" resulting in breaking the build just on framework update.**
-**So from version 2.1.0 the analysis level is fixed to a specific version (currently 10.0 with version 3.0.0)**
+**So from version 2.1.0 the analysis level is fixed to a specific version (currently 10.0 from version 3.0.0)**
 
 * * *
 
@@ -57,26 +57,26 @@ You can checkout this Github repository or you can use the NuGet package:
 
 **Install using the command line from the Package Manager:**
 ```bash
-Install-Package SoloX.CodeQuality.Prod -version 3.0.0
+Install-Package SoloX.CodeQuality.Prod -version 3.0.1-preview.1
 or
-Install-Package SoloX.CodeQuality.Test -version 3.0.0
+Install-Package SoloX.CodeQuality.Test -version 3.0.1-preview.1
 ```
 
 **Install using the .Net CLI:**
 ```bash
-dotnet add package SoloX.CodeQuality.Prod --version 3.0.0
+dotnet add package SoloX.CodeQuality.Prod --version 3.0.1-preview.1
 or
-dotnet add package SoloX.CodeQuality.Test --version 3.0.0
+dotnet add package SoloX.CodeQuality.Test --version 3.0.1-preview.1
 ```
 
 **Install editing your project file (csproj):**
 ```xml
-<PackageReference Include="SoloX.CodeQuality.Prod" Version="3.0.0">
+<PackageReference Include="SoloX.CodeQuality.Prod" Version="3.0.1-preview.1">
   <PrivateAssets>all</PrivateAssets>
   <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
 </PackageReference>
 or
-<PackageReference Include="SoloX.CodeQuality.Test" Version="3.0.0">
+<PackageReference Include="SoloX.CodeQuality.Test" Version="3.0.1-preview.1">
   <PrivateAssets>all</PrivateAssets>
   <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
 </PackageReference>
@@ -223,17 +223,17 @@ You can checkout this Github repository or use the NuGet package:
 
 **Install using the command line from the Package Manager:**
 ```bash
-Install-Package SoloX.CodeQuality.Playwright -version 3.0.0
+Install-Package SoloX.CodeQuality.Playwright -version 3.0.1-preview.1
 ```
 
 **Install using the .Net CLI:**
 ```bash
-dotnet add package SoloX.CodeQuality.Playwright --version 3.0.0
+dotnet add package SoloX.CodeQuality.Playwright --version 3.0.1-preview.1
 ```
 
 **Install editing your project file (csproj):**
 ```xml
-<PackageReference Include="SoloX.CodeQuality.Playwright" Version="3.0.0" />
+<PackageReference Include="SoloX.CodeQuality.Playwright" Version="3.0.1-preview.1" />
 ```
 
 * * *
@@ -429,35 +429,35 @@ You can checkout this Github repository or you can use the NuGet package:
 
 **Install using the command line from the Package Manager:**
 ```bash
-Install-Package SoloX.CodeQuality.Test.Helpers -version 3.0.0
+Install-Package SoloX.CodeQuality.Test.Helpers -version 3.0.1-preview.1
 
-Install-Package SoloX.CodeQuality.Test.Helpers.XUnit -version 3.0.0
+Install-Package SoloX.CodeQuality.Test.Helpers.XUnit -version 3.0.1-preview.1
 
-Install-Package SoloX.CodeQuality.Test.Helpers.XUnit.V3 -version 3.0.0
+Install-Package SoloX.CodeQuality.Test.Helpers.XUnit.V3 -version 3.0.1-preview.1
 
-Install-Package SoloX.CodeQuality.Test.Helpers.NUnit -version 3.0.0
+Install-Package SoloX.CodeQuality.Test.Helpers.NUnit -version 3.0.1-preview.1
 ```
 
 **Install using the .Net CLI:**
 ```bash
-dotnet add package SoloX.CodeQuality.Test.Helpers --version 3.0.0
+dotnet add package SoloX.CodeQuality.Test.Helpers --version 3.0.1-preview.1
 
-dotnet add package SoloX.CodeQuality.Test.Helpers.XUnit --version 3.0.0
+dotnet add package SoloX.CodeQuality.Test.Helpers.XUnit --version 3.0.1-preview.1
 
-dotnet add package SoloX.CodeQuality.Test.Helpers.XUnit.V3 --version 3.0.0
+dotnet add package SoloX.CodeQuality.Test.Helpers.XUnit.V3 --version 3.0.1-preview.1
 
-dotnet add package SoloX.CodeQuality.Test.Helpers.NUnit --version 3.0.0
+dotnet add package SoloX.CodeQuality.Test.Helpers.NUnit --version 3.0.1-preview.1
 ```
 
 **Install editing your project file (csproj):**
 ```xml
-<PackageReference Include="SoloX.CodeQuality.Test.Helpers" Version="3.0.0" />
+<PackageReference Include="SoloX.CodeQuality.Test.Helpers" Version="3.0.1-preview.1" />
 
-<PackageReference Include="SoloX.CodeQuality.Test.Helpers.XUnit" Version="3.0.0" />
+<PackageReference Include="SoloX.CodeQuality.Test.Helpers.XUnit" Version="3.0.1-preview.1" />
 
-<PackageReference Include="SoloX.CodeQuality.Test.Helpers.XUnit.V3" Version="3.0.0" />
+<PackageReference Include="SoloX.CodeQuality.Test.Helpers.XUnit.V3" Version="3.0.1-preview.1" />
 
-<PackageReference Include="SoloX.CodeQuality.Test.Helpers.NUnit" Version="3.0.0" />
+<PackageReference Include="SoloX.CodeQuality.Test.Helpers.NUnit" Version="3.0.1-preview.1" />
 ```
 
  * * *
