@@ -131,7 +131,7 @@ namespace SoloX.CodeQuality.Test.Helpers.UTest.Snapshot
 
             File.Exists(filePath).ShouldBeTrue();
 
-            await stream.DisposeAsync().ConfigureAwait(false);
+            await stream.DisposeAsync();
         }
 
         [Fact]
@@ -145,7 +145,7 @@ namespace SoloX.CodeQuality.Test.Helpers.UTest.Snapshot
             mockStream.Position = 5; // Position > 0
 
             await Should.ThrowAsync<InvalidOperationException>(
-                () => strategy.SaveAsync(filePath, mockStream)).ConfigureAwait(false);
+                () => strategy.SaveAsync(filePath, mockStream));
         }
 
         [Fact]
@@ -181,12 +181,12 @@ namespace SoloX.CodeQuality.Test.Helpers.UTest.Snapshot
                 data2.SaveTo(compareStream);
                 compareStream.Seek(0, SeekOrigin.Begin);
 
-                var result = await strategy.CompareAsync(referenceFilePath, compareStream).ConfigureAwait(false);
+                var result = await strategy.CompareAsync(referenceFilePath, compareStream);
 
                 result.IsDifferent.ShouldBeFalse();
                 result.DiffsData.ShouldBeNull();
 
-                await compareStream.DisposeAsync().ConfigureAwait(false);
+                await compareStream.DisposeAsync();
             }
         }
 
@@ -223,16 +223,16 @@ namespace SoloX.CodeQuality.Test.Helpers.UTest.Snapshot
                 data2.SaveTo(compareStream);
                 compareStream.Seek(0, SeekOrigin.Begin);
 
-                var result = await strategy.CompareAsync(referenceFilePath, compareStream).ConfigureAwait(false);
+                var result = await strategy.CompareAsync(referenceFilePath, compareStream);
 
                 result.IsDifferent.ShouldBeTrue();
                 result.DiffsData.ShouldNotBeNull();
                 result.DiffsString.ShouldContain("See Png Diffs file");
 
-                await compareStream.DisposeAsync().ConfigureAwait(false);
+                await compareStream.DisposeAsync();
                 if (result.DiffsData is not null)
                 {
-                    await result.DiffsData.DisposeAsync().ConfigureAwait(false);
+                    await result.DiffsData.DisposeAsync();
                 }
             }
         }
@@ -270,15 +270,15 @@ namespace SoloX.CodeQuality.Test.Helpers.UTest.Snapshot
                 data2.SaveTo(compareStream);
                 compareStream.Seek(0, SeekOrigin.Begin);
 
-                var result = await strategy.CompareAsync(referenceFilePath, compareStream).ConfigureAwait(false);
+                var result = await strategy.CompareAsync(referenceFilePath, compareStream);
 
                 result.IsDifferent.ShouldBeTrue();
                 result.DiffsData.ShouldNotBeNull();
 
-                await compareStream.DisposeAsync().ConfigureAwait(false);
+                await compareStream.DisposeAsync();
                 if (result.DiffsData is not null)
                 {
-                    await result.DiffsData.DisposeAsync().ConfigureAwait(false);
+                    await result.DiffsData.DisposeAsync();
                 }
             }
         }
@@ -318,14 +318,14 @@ namespace SoloX.CodeQuality.Test.Helpers.UTest.Snapshot
                 data2.SaveTo(compareStream);
                 compareStream.Seek(0, SeekOrigin.Begin);
 
-                var result = await strategy.CompareAsync(referenceFilePath, compareStream).ConfigureAwait(false);
+                var result = await strategy.CompareAsync(referenceFilePath, compareStream);
 
                 result.DiffsString.ShouldContain("See Png Diffs file");
 
-                await compareStream.DisposeAsync().ConfigureAwait(false);
+                await compareStream.DisposeAsync();
                 if (result.DiffsData is not null)
                 {
-                    await result.DiffsData.DisposeAsync().ConfigureAwait(false);
+                    await result.DiffsData.DisposeAsync();
                 }
             }
         }
@@ -363,16 +363,16 @@ namespace SoloX.CodeQuality.Test.Helpers.UTest.Snapshot
                 data2.SaveTo(compareStream);
                 compareStream.Seek(0, SeekOrigin.Begin);
 
-                var result = await strategy.CompareAsync(referenceFilePath, compareStream).ConfigureAwait(false);
+                var result = await strategy.CompareAsync(referenceFilePath, compareStream);
 
                 result.DiffsData.ShouldNotBeNull();
                 result.DiffsData.Position.ShouldBe(0);
                 result.DiffsData.Length.ShouldBeGreaterThan(0);
 
-                await compareStream.DisposeAsync().ConfigureAwait(false);
+                await compareStream.DisposeAsync();
                 if (result.DiffsData is not null)
                 {
-                    await result.DiffsData.DisposeAsync().ConfigureAwait(false);
+                    await result.DiffsData.DisposeAsync();
                 }
             }
         }
@@ -409,11 +409,11 @@ namespace SoloX.CodeQuality.Test.Helpers.UTest.Snapshot
                 var compareStream = new MemoryStream();
                 data2.SaveTo(compareStream);
 
-                var result = await strategy.CompareAsync(referenceFilePath, compareStream).ConfigureAwait(false);
+                var result = await strategy.CompareAsync(referenceFilePath, compareStream);
 
                 result.IsDifferent.ShouldBeFalse();
 
-                await compareStream.DisposeAsync().ConfigureAwait(false);
+                await compareStream.DisposeAsync();
             }
         }
 
@@ -450,14 +450,14 @@ namespace SoloX.CodeQuality.Test.Helpers.UTest.Snapshot
                 data2.SaveTo(compareStream);
                 compareStream.Seek(0, SeekOrigin.Begin);
 
-                var result = await strategy.CompareAsync(referenceFilePath, compareStream).ConfigureAwait(false);
+                var result = await strategy.CompareAsync(referenceFilePath, compareStream);
 
                 result.DiffsString.ShouldContain("threshold 0.3");
 
-                await compareStream.DisposeAsync().ConfigureAwait(false);
+                await compareStream.DisposeAsync();
                 if (result.DiffsData is not null)
                 {
-                    await result.DiffsData.DisposeAsync().ConfigureAwait(false);
+                    await result.DiffsData.DisposeAsync();
                 }
             }
         }
@@ -495,11 +495,11 @@ namespace SoloX.CodeQuality.Test.Helpers.UTest.Snapshot
                 data2.SaveTo(compareStream);
                 compareStream.Seek(0, SeekOrigin.Begin);
 
-                var result = await strategy.CompareAsync(referenceFilePath, compareStream).ConfigureAwait(false);
+                var result = await strategy.CompareAsync(referenceFilePath, compareStream);
 
                 result.IsDifferent.ShouldBeFalse();
 
-                await compareStream.DisposeAsync().ConfigureAwait(false);
+                await compareStream.DisposeAsync();
             }
         }
 
