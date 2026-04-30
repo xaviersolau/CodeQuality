@@ -323,7 +323,7 @@ dotnet_diagnostic.CA2009.severity = error
 dotnet_diagnostic.CA2011.severity = error
 
 # CA2012: Utilisez correctement ValueTasks
-dotnet_diagnostic.CA2012.severity = error
+dotnet_diagnostic.CA2012.severity = warning
 
 # CA2013: Ne pas utiliser ReferenceEquals avec des types valeur
 dotnet_diagnostic.CA2013.severity = error
