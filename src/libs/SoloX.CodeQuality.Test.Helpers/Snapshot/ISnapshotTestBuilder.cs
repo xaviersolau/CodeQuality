@@ -8,6 +8,7 @@
 
 using System.IO;
 using System.Runtime.CompilerServices;
+using System.Text;
 
 namespace SoloX.CodeQuality.Test.Helpers.Snapshot
 {
@@ -58,6 +59,18 @@ namespace SoloX.CodeQuality.Test.Helpers.Snapshot
         ISnapshotTestBuilder<Stream> WithPngStrategy(double differencesThreshold = 0.0);
 
         /// <summary>
+        /// Configures the snapshot test builder to use a UTF-8 encoded text-based comparison strategy.
+        /// </summary>
+        /// <remarks>Use this method when the expected and actual values should be compared as plain text using UTF-8 encoding,
+        /// such as for verifying file contents or string outputs.</remarks>
+        /// <param name="ignoreWhitespace">Indicates whether to ignore differences in whitespace when comparing text. If true, all whitespace characters
+        /// are treated as equivalent, and differences in whitespace will not cause the test to fail. Default is true.</param>
+        /// <param name="ignoreCase">Indicates whether to ignore case differences when comparing text. If true, uppercase and lowercase characters
+        /// are treated as equivalent, and differences in case will not cause the test to fail. Default is false.</param>
+        /// <returns>An instance of the snapshot test builder configured to compare string content using a UTF-8 text strategy.</returns>
+        ISnapshotTestBuilder<string> WithUtf8TextStrategy(bool ignoreWhitespace = true, bool ignoreCase = false);
+
+        /// <summary>
         /// Configures the snapshot test builder to use a text-based comparison strategy.
         /// </summary>
         /// <remarks>Use this method when the expected and actual values should be compared as plain text,
@@ -66,8 +79,9 @@ namespace SoloX.CodeQuality.Test.Helpers.Snapshot
         /// are treated as equivalent, and differences in whitespace will not cause the test to fail. Default is true.</param>
         /// <param name="ignoreCase">Indicates whether to ignore case differences when comparing text. If true, uppercase and lowercase characters
         /// are treated as equivalent, and differences in case will not cause the test to fail. Default is false.</param>
+        /// <param name="encoding">The text encoding to use when reading and writing text files. If null, the default encoding will be used.</param>
         /// <returns>An instance of the snapshot test builder configured to compare string content using a text strategy.</returns>
-        ISnapshotTestBuilder<string> WithTextStrategy(bool ignoreWhitespace = true, bool ignoreCase = false);
+        ISnapshotTestBuilder<string> WithTextStrategy(bool ignoreWhitespace = true, bool ignoreCase = false, Encoding? encoding = null);
     }
 
     /// <summary>

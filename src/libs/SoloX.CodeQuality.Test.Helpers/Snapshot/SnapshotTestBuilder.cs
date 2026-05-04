@@ -9,6 +9,7 @@
 using System;
 using System.IO;
 using System.Runtime.CompilerServices;
+using System.Text;
 using SoloX.CodeQuality.Test.Helpers.Snapshot.Impl;
 
 namespace SoloX.CodeQuality.Test.Helpers.Snapshot
@@ -76,9 +77,14 @@ namespace SoloX.CodeQuality.Test.Helpers.Snapshot
                 return builder;
             }
 
-            public ISnapshotTestBuilder<string> WithTextStrategy(bool ignoreWhitespace = true, bool ignoreCase = false)
+            public ISnapshotTestBuilder<string> WithUtf8TextStrategy(bool ignoreWhitespace = true, bool ignoreCase = false)
             {
-                var builder = new SnapshotTestBuilderInternal<string>(this, new TextSnapshotStrategy(ignoreWhitespace, ignoreCase));
+                return WithTextStrategy(ignoreWhitespace, ignoreCase, Encoding.UTF8);
+            }
+
+            public ISnapshotTestBuilder<string> WithTextStrategy(bool ignoreWhitespace = true, bool ignoreCase = false, Encoding? encoding = null)
+            {
+                var builder = new SnapshotTestBuilderInternal<string>(this, new TextSnapshotStrategy(ignoreWhitespace, ignoreCase, encoding));
 
                 return builder;
             }
