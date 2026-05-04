@@ -7,6 +7,7 @@
 // ----------------------------------------------------------------------
 
 using System.IO;
+using System.Text;
 using System.Threading.Tasks;
 using DiffPlex.Renderer;
 
@@ -23,14 +24,16 @@ namespace SoloX.CodeQuality.Test.Helpers.Snapshot.Impl
     {
         private readonly bool ignoreWhitespace;
         private readonly bool ignoreCase;
+        private readonly Encoding encoding;
 
         /// <inheritdoc/>
         public string FileExtension => "txt";
 
-        public TextSnapshotStrategy(bool ignoreWhitespace = true, bool ignoreCase = false)
+        public TextSnapshotStrategy(bool ignoreWhitespace = true, bool ignoreCase = false, Encoding? encoding = null)
         {
             this.ignoreWhitespace = ignoreWhitespace;
             this.ignoreCase = ignoreCase;
+            this.encoding = encoding ?? Encoding.Default;
         }
 
         /// <inheritdoc/>
@@ -41,13 +44,13 @@ namespace SoloX.CodeQuality.Test.Helpers.Snapshot.Impl
                 File.Delete(snapshotFile);
             }
 
-            return File.WriteAllTextAsync(snapshotFile, snapshotData);
+            return File.WriteAllTextAsync(snapshotFile, snapshotData, this.encoding);
         }
 
         /// <inheritdoc/>
         public async Task<CompareSnapshotResult<string>> CompareAsync(string snapshotReferenceFile, string snapshotData)
         {
-            var referenceText = await File.ReadAllTextAsync(snapshotReferenceFile).ConfigureAwait(false);
+            var referenceText = await File.ReadAllTextAsync(snapshotReferenceFile, this.encoding).ConfigureAwait(false);
             var snapshotDiffs = UnidiffRenderer.GenerateUnidiff(
                 referenceText,
                 snapshotData,

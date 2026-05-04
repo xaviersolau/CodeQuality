@@ -6,6 +6,7 @@
 // </copyright>
 // ----------------------------------------------------------------------
 
+using System.Text;
 using Shouldly;
 using SoloX.CodeQuality.Test.Helpers.Snapshot;
 using Xunit;
@@ -36,6 +37,40 @@ namespace SoloX.CodeQuality.Test.Helpers.UTest.Snapshot
                     .ShouldBeTrue();
 
                 var generatedText = await File.ReadAllTextAsync(expectedFile);
+
+                generatedText.ShouldBe(someGeneratedText);
+            }
+            finally
+            {
+                if (File.Exists(expectedFile))
+                {
+                    File.Delete(expectedFile);
+                }
+            }
+        }
+
+        [Fact]
+        public async Task ItShouldGenerateUtf8TextSnapshotAsync()
+        {
+            var sh = SnapshotTestBuilder
+                .Create()
+                .WithLocation(".")
+                .WithUtf8TextStrategy()
+                .Build();
+
+            var expectedFile = @$"./Snapshots/{nameof(ItShouldGenerateUtf8TextSnapshotAsync)}.snapshot.ref.txt";
+
+            try
+            {
+                var someGeneratedText = "some generated utf8 text";
+
+                await sh.CompareSnapshotAsync(nameof(ItShouldGenerateUtf8TextSnapshotAsync), someGeneratedText);
+
+                // Check that the snapshot reference file exists and has been generated with the same content as the generated text
+                File.Exists(expectedFile)
+                    .ShouldBeTrue();
+
+                var generatedText = await File.ReadAllTextAsync(expectedFile, Encoding.UTF8);
 
                 generatedText.ShouldBe(someGeneratedText);
             }
