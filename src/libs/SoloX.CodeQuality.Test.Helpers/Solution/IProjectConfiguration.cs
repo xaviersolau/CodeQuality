@@ -32,9 +32,20 @@ namespace SoloX.CodeQuality.Test.Helpers.Solution
         /// <summary>
         /// Use files in the project.
         /// </summary>
-        /// <param name="value">Project files configuration.</param>
+        /// <param name="files">An action that receives an <see cref="IProjectFiles"/> instance to
+        /// configure project properties.</param>
         /// <returns>Self.</returns>
-        IProjectConfiguration UseFiles(Action<IProjectFiles> value);
+        IProjectConfiguration UseFiles(Action<IProjectFiles> files);
+
+        /// <summary>
+        /// Configures project properties using the specified action.
+        /// </summary>
+        /// <remarks>This method enables fluent configuration of project properties. The provided action
+        /// is invoked immediately with a mutable properties object.</remarks>
+        /// <param name="props">An action that receives an <see cref="IProjectProperties"/> instance to
+        /// configure project properties.</param>
+        /// <returns>Self.</returns>
+        IProjectConfiguration UseProperties(Action<IProjectProperties> props);
     }
 
 }

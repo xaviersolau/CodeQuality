@@ -63,7 +63,7 @@ namespace SoloX.CodeQuality.Test.Helpers
         public static ProcessResult Run(string workingDirectory, string command, string arguments,
             Action<StringDictionary>? environmentVariablesHandler = null)
         {
-            var processResult = new ProcessResult();
+            var processResult = new ProcessResult(workingDirectory, command, arguments);
 
             var exitCode = RunInternal(
                 workingDirectory,
@@ -147,9 +147,24 @@ namespace SoloX.CodeQuality.Test.Helpers
     /// <summary>
     /// Process logs.
     /// </summary>
-    public class ProcessResult
+    public class ProcessResult(string workingDirectory, string command, string arguments)
     {
         private readonly List<Log> logs = new List<Log>();
+
+        /// <summary>
+        /// Gets the working directory associated with the current process or operation.
+        /// </summary>
+        public string WorkingDirectory { get; } = workingDirectory;
+
+        /// <summary>
+        /// Gets the command associated with the current process or operation.
+        /// </summary>
+        public string Command { get; } = command;
+
+        /// <summary>
+        /// Gets the command-line arguments associated with the current process or operation.
+        /// </summary>
+        public string Arguments { get; } = arguments;
 
         /// <summary>
         /// Log messages.

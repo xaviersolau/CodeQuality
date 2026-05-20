@@ -17,7 +17,7 @@ namespace SoloX.CodeQuality.Playwright.E2ETest.Package
         [Fact]
         public void IsShouldDeployNugetPackageAndRunTestWithEmbeddedWebHost()
         {
-            var configurationName = ProbConfiguration();
+            var configurationName = DirectoryHelper.ProbConfiguration<PackageNugetTest>();
 
             var root = new RandomGenerator().RandomString(4);
 
@@ -75,13 +75,6 @@ namespace SoloX.CodeQuality.Playwright.E2ETest.Package
             {
                 Directory.Delete(root, true);
             }
-        }
-
-        private static string ProbConfiguration()
-        {
-            var location = Path.GetDirectoryName(typeof(PackageNugetTest).Assembly.Location);
-
-            return Path.GetFileName(Path.GetDirectoryName(location)!);
         }
     }
 }

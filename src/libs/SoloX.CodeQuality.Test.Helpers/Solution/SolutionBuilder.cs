@@ -50,6 +50,7 @@ namespace SoloX.CodeQuality.Test.Helpers.Solution
         public string SolutionPath { get; }
 
         private bool withNugetConfig;
+        private bool? withRootEditorConfig;
         private string globalPackagesFolder = DefaultPackageFolder;
         private Action<INugetConfigConfiguration> nugetConfigConfigurationHandler = DefaultNugetConfigConfigurationHandler;
 
@@ -91,6 +92,22 @@ namespace SoloX.CodeQuality.Test.Helpers.Solution
             this.globalPackagesFolder = globalPackagesFolder;
             this.nugetConfigConfigurationHandler = configuration ?? DefaultNugetConfigConfigurationHandler;
 
+            return this;
+        }
+
+        /// <summary>
+        /// Generate the solution with a root editorconfig file (empty).
+        /// </summary>
+        /// <param name="withRootEditorConfig">Tells if root editorconfig file must be generated.</param>
+        /// <returns>Self.</returns>
+        /// <exception cref="SolutionBuilderException{BuilderError}"></exception>
+        public SolutionBuilder WithRootEditorConfig(bool withRootEditorConfig = true)
+        {
+            if (this.withRootEditorConfig.HasValue)
+            {
+                throw new SolutionBuilderException<BuilderError>("WithRootEditorConfig builder method already called.");
+            }
+            this.withRootEditorConfig = withRootEditorConfig;
             return this;
         }
 
@@ -163,6 +180,11 @@ namespace SoloX.CodeQuality.Test.Helpers.Solution
                 DotnetCall<BuilderError>((out ProcessResult processResult) =>
                     DotnetHelper.NewSln(this.Root, this.SolutionName, out processResult, SetupVariables)
                 );
+
+                if (this.withRootEditorConfig.HasValue && this.withRootEditorConfig.Value)
+                {
+                    File.WriteAllText(Path.Combine(this.Root, this.SolutionName, ".editorconfig"), "root = true");
+                }
 
                 if (this.withNugetConfig)
                 {
@@ -247,29 +269,41 @@ namespace SoloX.CodeQuality.Test.Helpers.Solution
 
             public string DefaultConfiguration { get; }
 
-            public ProcessResult Build(string? project = null, string? configuration = null)
+            public ProcessResult Restore(string? project = null)
             {
-                var selectedConfiguration = string.IsNullOrEmpty(configuration) ? this.DefaultConfiguration : configuration;
-
                 return string.IsNullOrEmpty(project)
                     ? DotnetCall<SolutionError>((out ProcessResult processResult) =>
-                        DotnetHelper.Build(this.solutionBuilder.SolutionPath, out processResult, this.solutionBuilder.SetupVariables, selectedConfiguration)
+                        DotnetHelper.Restore(this.solutionBuilder.SolutionPath, out processResult, this.solutionBuilder.SetupVariables)
                     )
                     : DotnetCall<ProjectError>((out ProcessResult processResult) =>
-                        DotnetHelper.Build(GetProjectPath(project), out processResult, this.solutionBuilder.SetupVariables, selectedConfiguration)
+                        DotnetHelper.Restore(GetProjectPath(project), out processResult, this.solutionBuilder.SetupVariables)
                     );
             }
 
-            public ProcessResult Run(string? project = null, string? configuration = null)
+            public ProcessResult Build(string? project = null, string? configuration = null, bool noRestore = false)
             {
                 var selectedConfiguration = string.IsNullOrEmpty(configuration) ? this.DefaultConfiguration : configuration;
 
                 return string.IsNullOrEmpty(project)
                     ? DotnetCall<SolutionError>((out ProcessResult processResult) =>
-                        DotnetHelper.Run(this.solutionBuilder.SolutionPath, out processResult, this.solutionBuilder.SetupVariables, selectedConfiguration)
+                        DotnetHelper.Build(this.solutionBuilder.SolutionPath, out processResult, this.solutionBuilder.SetupVariables, selectedConfiguration, noRestore)
                     )
                     : DotnetCall<ProjectError>((out ProcessResult processResult) =>
-                        DotnetHelper.Run(GetProjectPath(project), out processResult, this.solutionBuilder.SetupVariables, selectedConfiguration)
+                        DotnetHelper.Build(GetProjectPath(project), out processResult, this.solutionBuilder.SetupVariables, selectedConfiguration, noRestore)
+                    );
+            }
+
+            public ProcessResult Run(string? project = null, string? configuration = null,
+                bool noRestore = false, bool noBuild = false)
+            {
+                var selectedConfiguration = string.IsNullOrEmpty(configuration) ? this.DefaultConfiguration : configuration;
+
+                return string.IsNullOrEmpty(project)
+                    ? DotnetCall<SolutionError>((out ProcessResult processResult) =>
+                        DotnetHelper.Run(this.solutionBuilder.SolutionPath, out processResult, this.solutionBuilder.SetupVariables, selectedConfiguration, noRestore, noBuild)
+                    )
+                    : DotnetCall<ProjectError>((out ProcessResult processResult) =>
+                        DotnetHelper.Run(GetProjectPath(project), out processResult, this.solutionBuilder.SetupVariables, selectedConfiguration, noRestore, noBuild)
                     );
             }
 
@@ -284,7 +318,8 @@ namespace SoloX.CodeQuality.Test.Helpers.Solution
                 );
             }
 
-            public ProcessResult Test(string? project = null, string? configuration = null)
+            public ProcessResult Test(string? project = null, string? configuration = null,
+                bool noRestore = false, bool noBuild = false)
             {
                 var path = string.IsNullOrEmpty(project)
                     ? this.solutionBuilder.SolutionPath
@@ -293,7 +328,7 @@ namespace SoloX.CodeQuality.Test.Helpers.Solution
                 var selectedConfiguration = string.IsNullOrEmpty(configuration) ? this.DefaultConfiguration : configuration;
 
                 return DotnetCall<TestError>((out ProcessResult processResult) =>
-                    DotnetHelper.Test(path, out processResult, this.solutionBuilder.SetupVariables, selectedConfiguration)
+                    DotnetHelper.Test(path, out processResult, this.solutionBuilder.SetupVariables, selectedConfiguration, noRestore, noBuild)
                 );
             }
 
