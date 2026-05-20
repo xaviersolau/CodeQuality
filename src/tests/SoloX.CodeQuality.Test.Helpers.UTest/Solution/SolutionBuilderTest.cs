@@ -19,7 +19,7 @@ namespace SoloX.CodeQuality.Test.Helpers.UTest.Solution
         [InlineData("SoloX.CodeQuality.PreReleaseTestNuget")]
         public void IsShouldBuildASolutionWithATestProject(string packageName)
         {
-            var configurationName = ProbConfiguration();
+            var configurationName = DirectoryHelper.ProbConfiguration<SolutionBuilderTest>();
 
             var root = new RandomGenerator().RandomString(4);
 
@@ -71,7 +71,7 @@ namespace SoloX.CodeQuality.Test.Helpers.UTest.Solution
         [InlineData("Release", "net10.0")]
         public void IsShouldBuildASolutionWithTargetFrameworkAndConfiguration(string configuration, string framework)
         {
-            var configurationName = ProbConfiguration();
+            var configurationName = DirectoryHelper.ProbConfiguration<SolutionBuilderTest>();
 
             var root = new RandomGenerator().RandomString(4);
 
@@ -109,7 +109,7 @@ namespace SoloX.CodeQuality.Test.Helpers.UTest.Solution
         [InlineData("SoloX.CodeQuality.PreReleaseTestTool", "prereleasetesttool")]
         public void IsShouldBuildASolutionUsingADotnetTool(string toolProject, string toolName)
         {
-            var configurationName = ProbConfiguration();
+            var configurationName = DirectoryHelper.ProbConfiguration<SolutionBuilderTest>();
 
             var root = new RandomGenerator().RandomString(4);
 
@@ -158,11 +158,29 @@ namespace SoloX.CodeQuality.Test.Helpers.UTest.Solution
             }
         }
 
-        private static string ProbConfiguration()
+        [Fact]
+        public void IsShouldBuildASolutionWithARootEditorConfigFile()
         {
-            var location = Path.GetDirectoryName(typeof(SolutionBuilderTest).Assembly.Location);
+            var configurationName = DirectoryHelper.ProbConfiguration<SolutionBuilderTest>();
 
-            return Path.GetFileName(Path.GetDirectoryName(location)!);
+            var root = new RandomGenerator().RandomString(4);
+
+            // Let's create a solution in the random root folder.
+            var solution = new SolutionBuilder(root, "TestSolution")
+                // We want to have the editorconfig at the root of the solution to be sure that the build process won't be
+                // looking for any parent editorconfig outside of the current test solution context.
+                .WithRootEditorConfig()
+                // Finally create the solution.
+                .Build();
+
+            try
+            {
+                File.Exists(Path.Combine(root, "TestSolution", ".editorconfig")).ShouldBeTrue();
+            }
+            finally
+            {
+                Directory.Delete(root, true);
+            }
         }
     }
 }

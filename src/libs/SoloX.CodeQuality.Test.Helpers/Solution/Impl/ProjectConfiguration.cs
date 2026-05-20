@@ -14,7 +14,7 @@ using SoloX.CodeQuality.Test.Helpers.Solution.Exceptions;
 
 namespace SoloX.CodeQuality.Test.Helpers.Solution.Impl
 {
-    internal class ProjectConfiguration : IProjectConfiguration, IProjectFiles
+    internal class ProjectConfiguration : IProjectConfiguration, IProjectFiles, IProjectProperties
     {
         private readonly SolutionBuilder solutionBuilder;
         private readonly Action<IProjectConfiguration> configuration;
@@ -77,49 +77,6 @@ namespace SoloX.CodeQuality.Test.Helpers.Solution.Impl
             return this;
         }
 
-        public IProjectFiles Add(string source, string target, IEnumerable<(string key, string value)>? replaceItems = null)
-        {
-            CopyResourceFile(source, target, replaceItems);
-
-            return this;
-        }
-
-        public IProjectFiles AddContent(
-            string source,
-            string target,
-            string? copyToOutputDirectory = null,
-            IEnumerable<(string key, string value)>? replaceItems = null)
-        {
-            Add(source, target, replaceItems);
-
-            var projectRoot = ProjectRootElement.Open(Path.Combine(this.solutionBuilder.SolutionPath, ProjectFilePath));
-
-            var itemGroup = projectRoot.AddItemGroup();
-
-            var contentItem = itemGroup.AddItem("Content", target);
-
-            if (!string.IsNullOrEmpty(copyToOutputDirectory))
-            {
-                contentItem.AddMetadata("CopyToOutputDirectory", copyToOutputDirectory, expressAsAttribute: true);
-            }
-
-            projectRoot.Save();
-
-            return this;
-        }
-
-        public IProjectFiles Remove(string target)
-        {
-            var filePath = Path.Combine(this.solutionBuilder.SolutionPath, this.ProjectPath, target);
-
-            if (File.Exists(filePath))
-            {
-                File.Delete(filePath);
-            }
-
-            return this;
-        }
-
         public IProjectConfiguration UsePackageReference(string packageName)
         {
             SolutionBuilder.DotnetCall<ProjectError>((out ProcessResult processResult) =>
@@ -138,6 +95,94 @@ namespace SoloX.CodeQuality.Test.Helpers.Solution.Impl
             var contentItem = itemGroup.AddItem("Using", usingNamespace);
 
             projectRoot.Save();
+
+            return this;
+        }
+
+        public IProjectConfiguration UseProperties(Action<IProjectProperties> props)
+        {
+            props(this);
+
+            return this;
+        }
+
+        IProjectFiles IProjectFiles.Add(string source, string target, IEnumerable<(string key, string value)>? replaceItems = null)
+        {
+            return AddFile(source, target, replaceItems);
+        }
+
+        IProjectFiles IProjectFiles.AddContent(
+            string source,
+            string target,
+            string? copyToOutputDirectory,
+            IEnumerable<(string key, string value)>? replaceItems)
+        {
+            AddFile(source, target, replaceItems);
+
+            var projectRoot = ProjectRootElement.Open(Path.Combine(this.solutionBuilder.SolutionPath, ProjectFilePath));
+
+            var itemGroup = projectRoot.AddItemGroup();
+
+            var contentItem = itemGroup.AddItem("Content", target);
+
+            if (!string.IsNullOrEmpty(copyToOutputDirectory))
+            {
+                contentItem.AddMetadata("CopyToOutputDirectory", copyToOutputDirectory, expressAsAttribute: true);
+            }
+
+            projectRoot.Save();
+
+            return this;
+        }
+
+        IProjectFiles IProjectFiles.Remove(string target)
+        {
+            var filePath = Path.Combine(this.solutionBuilder.SolutionPath, this.ProjectPath, target);
+
+            if (File.Exists(filePath))
+            {
+                File.Delete(filePath);
+            }
+
+            return this;
+        }
+
+        IProjectProperties IProjectProperties.Add(string name, string? value)
+        {
+            ArgumentNullException.ThrowIfNullOrWhiteSpace(name);
+
+            var projectRoot = ProjectRootElement.Open(Path.Combine(this.solutionBuilder.SolutionPath, ProjectFilePath));
+
+            projectRoot.AddPropertyGroup().AddProperty(name, value);
+
+            projectRoot.Save();
+
+            return this;
+        }
+
+        IProjectProperties IProjectProperties.Add(params (string name, string? value)[] properties)
+        {
+            ArgumentNullException.ThrowIfNull(properties);
+
+            var projectRoot = ProjectRootElement.Open(Path.Combine(this.solutionBuilder.SolutionPath, ProjectFilePath));
+
+            var propGrp = projectRoot.AddPropertyGroup();
+
+            foreach (var item in properties)
+            {
+                ArgumentNullException.ThrowIfNullOrWhiteSpace(item.name);
+
+                propGrp.AddProperty(item.name, item.value);
+            }
+
+            projectRoot.Save();
+
+            return this;
+        }
+
+        private ProjectConfiguration AddFile(string source, string target, IEnumerable<(string key, string value)>? replaceItems = null)
+        {
+            CopyResourceFile(source, target, replaceItems);
 
             return this;
         }

@@ -29,28 +29,40 @@ namespace SoloX.CodeQuality.Test.Helpers.Solution
         string DefaultConfiguration { get; }
 
         /// <summary>
+        /// Restore solution.
+        /// </summary>
+        /// <param name="project">Project to restore or null to restore all solution.</param>
+        /// <returns>Process result.</returns>
+        ProcessResult Restore(string? project = null);
+
+        /// <summary>
         /// Build solution.
         /// </summary>
         /// <param name="project">Project to build or null to build all solution.</param>
         /// <param name="configuration">Configuration to use.</param>
+        /// <param name="noRestore">No restore before build.</param>
         /// <returns>Process result.</returns>
-        ProcessResult Build(string? project = null, string? configuration = null);
+        ProcessResult Build(string? project = null, string? configuration = null, bool noRestore = false);
 
         /// <summary>
         /// Test solution.
         /// </summary>
         /// <param name="project">Project to run.</param>
         /// <param name="configuration">Configuration to use.</param>
+        /// <param name="noRestore">No restore before build.</param>
+        /// <param name="noBuild">No build before run.</param>
         /// <returns>Process result.</returns>
-        ProcessResult Run(string? project = null, string? configuration = null);
+        ProcessResult Run(string? project = null, string? configuration = null, bool noRestore = false, bool noBuild = false);
 
         /// <summary>
         /// Test solution.
         /// </summary>
         /// <param name="project">Project to test or null to run all solution tests.</param>
         /// <param name="configuration">Configuration to use.</param>
+        /// <param name="noRestore">No restore before build.</param>
+        /// <param name="noBuild">No build before run.</param>
         /// <returns>Process result.</returns>
-        ProcessResult Test(string? project = null, string? configuration = null);
+        ProcessResult Test(string? project = null, string? configuration = null, bool noRestore = false, bool noBuild = false);
 
         /// <summary>
         /// Run a Dotnet tool.

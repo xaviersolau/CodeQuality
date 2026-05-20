@@ -10,20 +10,9 @@
     <TargetFramework>net10.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-
     <IsPackable>false</IsPackable>
     <IsTestProject>true</IsTestProject>
   </PropertyGroup>
-
-  <ItemGroup>
-    <None Remove="Resources/**/*" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Include="Resources/**/*">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="coverlet.collector" Version="10.0.0">
@@ -34,14 +23,21 @@
     <PackageReference Include="xunit.v3" Version="3.2.2" />
     <PackageReference Include="xunit.runner.visualstudio" Version="3.1.5" />
     <PackageReference Include="Shouldly" Version="4.3.0" />
+    <PackageReference Include="NSubstitute" Version="5.3.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\libs\SoloX.CodeQuality.Test.Helpers\SoloX.CodeQuality.Test.Helpers.csproj" />
-    <ProjectReference Include="..\SoloX.CodeQuality.PreReleaseTestNuget\SoloX.CodeQuality.PreReleaseTestNuget.csproj" />
-    <ProjectReference Include="..\SoloX.CodeQuality.PreReleaseTestTool\SoloX.CodeQuality.PreReleaseTestTool.csproj" />
-    <ProjectReference Include="..\SoloX.CodeQuality.TestNuget\SoloX.CodeQuality.TestNuget.csproj" />
-    <ProjectReference Include="..\SoloX.CodeQuality.TestTool\SoloX.CodeQuality.TestTool.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Using Include="Xunit" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="CA2012RuleTest.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Compile>
   </ItemGroup>
 
 </Project>

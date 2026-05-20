@@ -39,17 +39,34 @@ namespace SoloX.CodeQuality.Test.Helpers
         }
 
         public static bool Build(string projectPath, out ProcessResult processResult,
-            Action<StringDictionary>? environmentVariablesHandler = null, string? configuration = null)
+            Action<StringDictionary>? environmentVariablesHandler = null, string? configuration = null,
+            bool noRestore = false)
         {
             var configurationArg = string.IsNullOrEmpty(configuration) ? string.Empty : $" --configuration {configuration}";
+
+            if (noRestore)
+            {
+                configurationArg += " --no-restore";
+            }
 
             return Dotnet(projectPath, $"{BUILD}{configurationArg}", out processResult, environmentVariablesHandler);
         }
 
         public static bool Test(string projectPath, out ProcessResult processResult,
-            Action<StringDictionary>? environmentVariablesHandler = null, string? configuration = null)
+            Action<StringDictionary>? environmentVariablesHandler = null, string? configuration = null,
+            bool noRestore = false, bool noBuild = false)
         {
             var configurationArg = string.IsNullOrEmpty(configuration) ? string.Empty : $" --configuration {configuration}";
+
+            if (noRestore)
+            {
+                configurationArg += " --no-restore";
+            }
+
+            if (noBuild)
+            {
+                configurationArg += " --no-build";
+            }
 
             return Dotnet(projectPath, $"{TEST}{configurationArg}", out processResult, environmentVariablesHandler);
         }
@@ -101,15 +118,27 @@ namespace SoloX.CodeQuality.Test.Helpers
         }
 
         public static bool Run(string projectPath, out ProcessResult processResult,
-            Action<StringDictionary>? environmentVariablesHandler = null, string? configuration = null)
+            Action<StringDictionary>? environmentVariablesHandler = null, string? configuration = null,
+            bool noRestore = false, bool noBuild = false)
         {
-            return Run(projectPath, string.Empty, out processResult, environmentVariablesHandler, configuration);
+            return Run(projectPath, string.Empty, out processResult, environmentVariablesHandler, configuration, noRestore, noBuild);
         }
 
         public static bool Run(string projectPath, string args, out ProcessResult processResult,
-            Action<StringDictionary>? environmentVariablesHandler = null, string? configuration = null)
+            Action<StringDictionary>? environmentVariablesHandler = null, string? configuration = null,
+            bool noRestore = false, bool noBuild = false)
         {
             var configurationArg = string.IsNullOrEmpty(configuration) ? string.Empty : $" --configuration {configuration}";
+
+            if (noRestore)
+            {
+                configurationArg += " --no-restore";
+            }
+
+            if (noBuild)
+            {
+                configurationArg += " --no-build";
+            }
 
             return Dotnet(projectPath, $"{RUN}{configurationArg} {args}", out processResult, environmentVariablesHandler);
         }
