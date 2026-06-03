@@ -1,4 +1,4 @@
-﻿<Project InitialTargets="LoggerUseDisableWarn;GitIgnoreUpdate;CodeQualityMain">
+﻿<Project InitialTargets="LoggerUseDisableWarn;GitIgnoreUpdate">
 
   <UsingTask
     TaskName="AddTextLines"
@@ -103,11 +103,26 @@
     </Task>
   </UsingTask>
 
-  <Target Condition="$(CodeQualityOverrideEditorConfig) == true"
-          Name="CodeQualityMain">
+  <PropertyGroup Condition="'$(CodeQualityOverrideEditorConfig)' == 'true'">
+    <OutputEditorConfigFile>$(MSBuildProjectDirectory)\.editorconfig</OutputEditorConfigFile>
+
+    <OutputEditorConfigFileExists Condition="Exists('$(OutputEditorConfigFile)')">true</OutputEditorConfigFileExists>
+  </PropertyGroup>
+
+  <ItemGroup Condition="'$(CodeQualityOverrideEditorConfig)' == 'true' AND '$(OutputEditorConfigFileExists)' == 'true'">
+    <EditorConfigFiles Update="$(OutputEditorConfigFile)" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(CodeQualityOverrideEditorConfig)' == 'true' AND '$(OutputEditorConfigFileExists)' != 'true'">
+    <EditorConfigFiles Include="$(OutputEditorConfigFile)" />
+  </ItemGroup>
+
+  <Target Condition="'$(CodeQualityOverrideEditorConfig)' == 'true'"
+          BeforeTargets="BeforeBuild"
+          Name="CodeQualityMain"
+          Outputs="$(OutputEditorConfigFile)">
 
     <PropertyGroup>
-      <OutputEditorConfigFile>$(MSBuildProjectDirectory)/.editorconfig</OutputEditorConfigFile>
       <IntermediateOutputEditorConfigFile>$(MSBuildProjectDirectory)/obj/.editorconfig-$(TargetFramework)</IntermediateOutputEditorConfigFile>
       <CsCaEditorConfigFile>$(MSBuildThisFileDirectory)../resources/style.cs.compiler.ca.editorconfig</CsCaEditorConfigFile>
       <CsCsEditorConfigFile>$(MSBuildThisFileDirectory)../resources/style.cs.compiler.cs.editorconfig</CsCsEditorConfigFile>
@@ -118,7 +133,6 @@
       <GenEditorConfigFile>$(MSBuildThisFileDirectory)../resources/style.generated.editorconfig</GenEditorConfigFile>
       <RazorEditorConfigFile>$(MSBuildThisFileDirectory)../resources/style.razor.editorconfig</RazorEditorConfigFile>
       <WebEditorConfigFile>$(MSBuildThisFileDirectory)../resources/style.web.editorconfig</WebEditorConfigFile>
-
     </PropertyGroup>
 
     <CopyTextFile
@@ -144,6 +158,7 @@
       InputFilename="$(CsCaEditorConfigFile)" OutputFilename="$(IntermediateOutputEditorConfigFile)" />
     <CopyTextFile
       InputFilename="$(GenEditorConfigFile)" OutputFilename="$(IntermediateOutputEditorConfigFile)" />
+
     <ReplaceTextFile
       InputFilename="$(IntermediateOutputEditorConfigFile)" OutputFilename="$(OutputEditorConfigFile)" />
 
@@ -164,7 +179,7 @@
 
   </Target>
 
-    <Target Condition="$(CodeQualityLoggerUseDisabled) == true"
+  <Target Condition="$(CodeQualityLoggerUseDisabled) == true"
           Name="LoggerUseDisableWarn">
 
     <PropertyGroup>
