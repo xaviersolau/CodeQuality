@@ -9,21 +9,24 @@
 using Shouldly;
 using SoloX.CodeQuality.Test.Helpers;
 using SoloX.CodeQuality.Test.Helpers.Solution;
+using SoloX.CodeQuality.Test.Helpers.Solution.Exceptions;
 
 namespace SoloX.CodeQuality.E2ETest.Package
 {
     public class CodeQualityPackageTest
     {
-        [Fact]
-        public async Task IsShouldDeployNugetPackageAndBuildWithWarning()
+        [Theory]
+        [InlineData("SoloX.CodeQuality.Test", false)]
+        [InlineData("SoloX.CodeQuality.Prod", true)]
+        public async Task IsShouldDeployNugetPackageAndBuildWithWarningOrError(string codeQualityNugetName, bool withError)
         {
             var configurationName = DirectoryHelper.ProbConfiguration<CodeQualityPackageTest>();
 
             var root = new RandomGenerator().RandomString(4);
 
-            var absoluteCodeQualityTestNugetLocation = Path.GetFullPath(
+            var absoluteCodeQualityNugetLocation = Path.GetFullPath(
                 Path.Combine(DirectoryHelper.ThisFilePathLocation(),
-                    "..", "..", "..", "libs", "SoloX.CodeQuality.Test", "bin",
+                    "..", "..", "..", "libs", codeQualityNugetName, "bin",
                     configurationName));
 
             // Let's create a solution in the random root folder.
@@ -40,7 +43,7 @@ namespace SoloX.CodeQuality.E2ETest.Package
                         .UsePackageSources(src =>
                         {
                             src.Clear()
-                                .Add(absoluteCodeQualityTestNugetLocation)
+                                .Add(absoluteCodeQualityNugetLocation)
                                 .AddNugetOrg();
                         });
                 })
@@ -49,7 +52,7 @@ namespace SoloX.CodeQuality.E2ETest.Package
                 {
                     configuration
                         // Configure the package reference on the package to test. In this case SoloX.CodeQuality.Playwright.
-                        .UsePackageReference("SoloX.CodeQuality.Test")
+                        .UsePackageReference(codeQualityNugetName)
                         .UsePackageReference("Shouldly")
                         .UsePackageReference("NSubstitute")
                         // Register Properties to be used in the project file.
@@ -86,9 +89,20 @@ namespace SoloX.CodeQuality.E2ETest.Package
                 // Let's build the solution and be sure that it works.
                 var actBuild = () => solution.Build();
 
-                var buildResult = Should.NotThrow(actBuild);
+                if (withError)
+                {
+                    var exception = Should.Throw<SolutionBuilderException<SolutionError>>(actBuild);
 
-                buildResult.ExitCode.ShouldBe(0);
+                    exception.ProcessResult!.GetLogs().ShouldContain("error CA2012");
+                }
+                else
+                {
+                    var buildResult = Should.NotThrow(actBuild);
+
+                    buildResult.ExitCode.ShouldBe(0);
+
+                    buildResult.GetLogs().ShouldContain("warning CA2012");
+                }
             }
             finally
             {
