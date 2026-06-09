@@ -48,4 +48,8 @@
     <Content Include="resources\global.editorconfig" PackagePath="resources\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <EditorConfigFiles Include=".editorconfig" />
+  </ItemGroup>
+
 </Project>

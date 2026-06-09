@@ -9,6 +9,7 @@ namespace SoloX.CodeQuality.Prod
         public string InputFilename { get; set; }
         public string OutputFilename { get; set; }
         public bool Overwrite { get; set; }
+        public string Charset { get; set; }
         public string Replace { get; set; }
         public void CopyTextFile()
         {
@@ -28,6 +29,15 @@ namespace SoloX.CodeQuality.Prod
             if (Environment.NewLine == "\n")
             {
                 txt = txt.Replace("end_of_line = crlf", "end_of_line = lf");
+            }
+            else if (Environment.NewLine == "\r")
+            {
+                txt = txt.Replace("end_of_line = crlf", "end_of_line = cr");
+            }
+
+            if (!string.IsNullOrEmpty(Charset))
+            {
+                txt = txt.Replace("charset = utf-8", "charset = " + Charset.Trim());
             }
 
             var outputDirectory = Path.GetDirectoryName(OutputFilename);

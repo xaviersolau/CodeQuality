@@ -89,7 +89,7 @@ or
 #### .editorconfig file generation
 
 By default, using the Nuget in your project will generate a `.editorconfig` file in your project root folder.
-Note that it will override the file if is already exists in your project folder. You can disable the override
+Note that it will override the file if it already exists in your project folder. You can disable the override
 by setting the property `CodeQualityOverrideEditorConfig` to `false` in the `csproj` file:
 
 ```xml
@@ -98,9 +98,23 @@ by setting the property `CodeQualityOverrideEditorConfig` to `false` in the `csp
   </PropertyGroup>
 ```
 
+#### Chatset rules
+
+By default, the generated `.editorconfig` file is using `utf-8` charset. You can change this charset by setting the
+the property `CodeQualityCharset` in the `csproj` file:
+
+```xml
+  <PropertyGroup>
+    <CodeQualityCharset>utf-8</CodeQualityCharset>
+  </PropertyGroup>
+```
+
+
+
+
 #### Fields coding style rules
 
-The default coding style rules of the fields are defined as **camelCase** and the field access must be write with the
+The default coding style rules of the fields are defined as **camelCase** and the field access must be write with
 `this.` prefix. But on this point this is also common to use the `_` as prefix with **camelCase** naming and
 to forbid the use of `this.` to access the fields.
 In order to enable this underscore style you can set the property in the `csproj` file:

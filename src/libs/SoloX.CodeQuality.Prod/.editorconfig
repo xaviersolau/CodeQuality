@@ -1,0 +1,35 @@
+
+[*.csproj]
+
+#### Core EditorConfig Options ####
+
+# Encoding
+charset = utf-8-bom
+
+# Indentation and spacing
+indent_size = 2
+indent_style = space
+tab_width = 2
+
+# New line preferences
+end_of_line = crlf
+insert_final_newline = false
+
+
+
+[*.{props,targets}]
+
+#### Core EditorConfig Options ####
+
+# Encoding
+charset = utf-8-bom
+
+# Indentation and spacing
+indent_size = 2
+indent_style = space
+tab_width = 2
+
+# New line preferences
+end_of_line = crlf
+insert_final_newline = false
+
