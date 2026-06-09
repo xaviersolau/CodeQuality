@@ -40,4 +40,8 @@
     </Compile>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Package\Snapshots\" />
+  </ItemGroup>
+
 </Project>

@@ -14,6 +14,8 @@
     <CodeQualityHeaderLicense>$(PackageLicenseExpression)</CodeQualityHeaderLicense>
     <CodeQualityHeaderLicenseFile>LICENSE</CodeQualityHeaderLicenseFile>
 
+    <CodeQualityCharset>utf-8-bom</CodeQualityCharset>
+
     <AssemblyVersion>3.0.1.0</AssemblyVersion>
     <LangVersion>14</LangVersion>
 

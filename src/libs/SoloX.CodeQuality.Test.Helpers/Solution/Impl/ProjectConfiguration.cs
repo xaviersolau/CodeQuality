@@ -106,7 +106,7 @@ namespace SoloX.CodeQuality.Test.Helpers.Solution.Impl
             return this;
         }
 
-        IProjectFiles IProjectFiles.Add(string source, string target, IEnumerable<(string key, string value)>? replaceItems = null)
+        IProjectFiles IProjectFiles.Add(string source, string target, IEnumerable<(string key, string value)>? replaceItems)
         {
             return AddFile(source, target, replaceItems);
         }

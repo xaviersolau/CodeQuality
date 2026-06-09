@@ -28,9 +28,9 @@
   </UsingTask>
 
   <UsingTask
-      TaskName="ReplaceTextFile"
-      TaskFactory="RoslynCodeTaskFactory"
-      AssemblyFile="$(MSBuildToolsPath)/Microsoft.Build.Tasks.Core.dll">
+    TaskName="ReplaceTextFile"
+    TaskFactory="RoslynCodeTaskFactory"
+    AssemblyFile="$(MSBuildToolsPath)/Microsoft.Build.Tasks.Core.dll">
     <ParameterGroup>
       <InputFilename ParameterType="System.String" Required="true" />
       <OutputFilename ParameterType="System.String" Required="true" />
@@ -53,13 +53,14 @@
   </UsingTask>
 
   <UsingTask
-      TaskName="CopyTextFile"
-      TaskFactory="RoslynCodeTaskFactory"
-      AssemblyFile="$(MSBuildToolsPath)/Microsoft.Build.Tasks.Core.dll">
+    TaskName="CopyTextFile"
+    TaskFactory="RoslynCodeTaskFactory"
+    AssemblyFile="$(MSBuildToolsPath)/Microsoft.Build.Tasks.Core.dll">
     <ParameterGroup>
       <InputFilename ParameterType="System.String" Required="true" />
       <OutputFilename ParameterType="System.String" Required="true" />
       <Overwrite ParameterType="System.Boolean" Required="false" />
+      <Charset ParameterType="System.String" Required="false" />
       <Replace ParameterType="System.String" Required="false" />
     </ParameterGroup>
     <Task>
@@ -82,6 +83,15 @@
             if (Environment.NewLine == "\n")
             {
                 txt = txt.Replace("end_of_line = crlf", "end_of_line = lf");
+            }
+            else if (Environment.NewLine == "\r")
+            {
+                txt = txt.Replace("end_of_line = crlf", "end_of_line = cr");
+            }
+
+            if (!string.IsNullOrEmpty(Charset))
+            {
+                txt = txt.Replace("charset = utf-8", "charset = " + Charset.Trim());
             }
 
             var outputDirectory = Path.GetDirectoryName(OutputFilename);
@@ -117,10 +127,11 @@
     <EditorConfigFiles Include="$(OutputEditorConfigFile)" />
   </ItemGroup>
 
-  <Target Condition="'$(CodeQualityOverrideEditorConfig)' == 'true'"
-          BeforeTargets="BeforeBuild"
-          Name="CodeQualityMain"
-          Outputs="$(OutputEditorConfigFile)">
+  <Target
+    Condition="'$(CodeQualityOverrideEditorConfig)' == 'true'"
+    BeforeTargets="BeforeBuild"
+    Name="CodeQualityMain"
+    Outputs="$(OutputEditorConfigFile)">
 
     <PropertyGroup>
       <IntermediateOutputEditorConfigFile>$(MSBuildProjectDirectory)/obj/.editorconfig-$(TargetFramework)</IntermediateOutputEditorConfigFile>
@@ -136,36 +147,47 @@
     </PropertyGroup>
 
     <CopyTextFile
-      InputFilename="$(WebEditorConfigFile)" OutputFilename="$(IntermediateOutputEditorConfigFile)" Overwrite="true" />
+      InputFilename="$(WebEditorConfigFile)" OutputFilename="$(IntermediateOutputEditorConfigFile)"
+	    Charset="$(CodeQualityCharset)"
+	    Overwrite="true" />
     <CopyTextFile
-      InputFilename="$(RazorEditorConfigFile)" OutputFilename="$(IntermediateOutputEditorConfigFile)" />
+      InputFilename="$(RazorEditorConfigFile)" OutputFilename="$(IntermediateOutputEditorConfigFile)"
+  	  Charset="$(CodeQualityCharset)" />
     <CopyTextFile
       Condition="$(CodeQualityFieldsUseUnderscorStyle) == false"
-      InputFilename="$(Ide1EditorConfigFile)" OutputFilename="$(IntermediateOutputEditorConfigFile)" />
+      InputFilename="$(Ide1EditorConfigFile)" OutputFilename="$(IntermediateOutputEditorConfigFile)"
+	    Charset="$(CodeQualityCharset)" />
     <CopyTextFile
       Condition="$(CodeQualityFieldsUseUnderscorStyle) == true"
-      InputFilename="$(Ide2EditorConfigFile)" OutputFilename="$(IntermediateOutputEditorConfigFile)" />
+      InputFilename="$(Ide2EditorConfigFile)" OutputFilename="$(IntermediateOutputEditorConfigFile)"
+	    Charset="$(CodeQualityCharset)" />
     <CopyTextFile
       Condition="$(CodeQualityHeaderEnable) == false"
-      InputFilename="$(HeaderNoneEditorConfigFile)" OutputFilename="$(IntermediateOutputEditorConfigFile)" />
+      InputFilename="$(HeaderNoneEditorConfigFile)" OutputFilename="$(IntermediateOutputEditorConfigFile)"
+	    Charset="$(CodeQualityCharset)" />
     <CopyTextFile
       Condition="$(CodeQualityHeaderEnable) == true"
       InputFilename="$(HeaderCopyrightEditorConfigFile)" OutputFilename="$(IntermediateOutputEditorConfigFile)"
-      Replace="companyName=$(CodeQualityHeaderCompanyName);copyright=$(CodeQualityHeaderCopyright);license=$(CodeQualityHeaderLicense);licenseFile=$(CodeQualityHeaderLicenseFile)"/>
+      Replace="companyName=$(CodeQualityHeaderCompanyName);copyright=$(CodeQualityHeaderCopyright);license=$(CodeQualityHeaderLicense);licenseFile=$(CodeQualityHeaderLicenseFile)"
+	    Charset="$(CodeQualityCharset)" />
     <CopyTextFile
-      InputFilename="$(CsCsEditorConfigFile)" OutputFilename="$(IntermediateOutputEditorConfigFile)" />
+      InputFilename="$(CsCsEditorConfigFile)" OutputFilename="$(IntermediateOutputEditorConfigFile)"
+	    Charset="$(CodeQualityCharset)" />
     <CopyTextFile
-      InputFilename="$(CsCaEditorConfigFile)" OutputFilename="$(IntermediateOutputEditorConfigFile)" />
+      InputFilename="$(CsCaEditorConfigFile)" OutputFilename="$(IntermediateOutputEditorConfigFile)"
+	    Charset="$(CodeQualityCharset)" />
     <CopyTextFile
-      InputFilename="$(GenEditorConfigFile)" OutputFilename="$(IntermediateOutputEditorConfigFile)" />
+      InputFilename="$(GenEditorConfigFile)" OutputFilename="$(IntermediateOutputEditorConfigFile)"
+	    Charset="$(CodeQualityCharset)" />
 
     <ReplaceTextFile
       InputFilename="$(IntermediateOutputEditorConfigFile)" OutputFilename="$(OutputEditorConfigFile)" />
 
   </Target>
 
-  <Target Condition="$(CodeQualityUpdateGitIgnore) == true"
-          Name="GitIgnoreUpdate">
+  <Target
+    Condition="$(CodeQualityUpdateGitIgnore) == true"
+    Name="GitIgnoreUpdate">
 
     <PropertyGroup>
       <GitIgnoreFile>$(MSBuildProjectDirectory)/.gitignore</GitIgnoreFile>
