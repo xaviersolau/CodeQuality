@@ -57,26 +57,26 @@ You can checkout this Github repository or you can use the NuGet package:
 
 **Install using the command line from the Package Manager:**
 ```bash
-Install-Package SoloX.CodeQuality.Prod -version 3.0.1-preview.2
+Install-Package SoloX.CodeQuality.Prod -version 3.0.1-preview.3
 or
-Install-Package SoloX.CodeQuality.Test -version 3.0.1-preview.2
+Install-Package SoloX.CodeQuality.Test -version 3.0.1-preview.3
 ```
 
 **Install using the .Net CLI:**
 ```bash
-dotnet add package SoloX.CodeQuality.Prod --version 3.0.1-preview.2
+dotnet add package SoloX.CodeQuality.Prod --version 3.0.1-preview.3
 or
-dotnet add package SoloX.CodeQuality.Test --version 3.0.1-preview.2
+dotnet add package SoloX.CodeQuality.Test --version 3.0.1-preview.3
 ```
 
 **Install editing your project file (csproj):**
 ```xml
-<PackageReference Include="SoloX.CodeQuality.Prod" Version="3.0.1-preview.2">
+<PackageReference Include="SoloX.CodeQuality.Prod" Version="3.0.1-preview.3">
   <PrivateAssets>all</PrivateAssets>
   <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
 </PackageReference>
 or
-<PackageReference Include="SoloX.CodeQuality.Test" Version="3.0.1-preview.2">
+<PackageReference Include="SoloX.CodeQuality.Test" Version="3.0.1-preview.3">
   <PrivateAssets>all</PrivateAssets>
   <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
 </PackageReference>
@@ -237,17 +237,17 @@ You can checkout this Github repository or use the NuGet package:
 
 **Install using the command line from the Package Manager:**
 ```bash
-Install-Package SoloX.CodeQuality.Playwright -version 3.0.1-preview.2
+Install-Package SoloX.CodeQuality.Playwright -version 3.0.1-preview.3
 ```
 
 **Install using the .Net CLI:**
 ```bash
-dotnet add package SoloX.CodeQuality.Playwright --version 3.0.1-preview.2
+dotnet add package SoloX.CodeQuality.Playwright --version 3.0.1-preview.3
 ```
 
 **Install editing your project file (csproj):**
 ```xml
-<PackageReference Include="SoloX.CodeQuality.Playwright" Version="3.0.1-preview.2" />
+<PackageReference Include="SoloX.CodeQuality.Playwright" Version="3.0.1-preview.3" />
 ```
 
 * * *
@@ -443,35 +443,35 @@ You can checkout this Github repository or you can use the NuGet package:
 
 **Install using the command line from the Package Manager:**
 ```bash
-Install-Package SoloX.CodeQuality.Test.Helpers -version 3.0.1-preview.2
+Install-Package SoloX.CodeQuality.Test.Helpers -version 3.0.1-preview.3
 
-Install-Package SoloX.CodeQuality.Test.Helpers.XUnit -version 3.0.1-preview.2
+Install-Package SoloX.CodeQuality.Test.Helpers.XUnit -version 3.0.1-preview.3
 
-Install-Package SoloX.CodeQuality.Test.Helpers.XUnit.V3 -version 3.0.1-preview.2
+Install-Package SoloX.CodeQuality.Test.Helpers.XUnit.V3 -version 3.0.1-preview.3
 
-Install-Package SoloX.CodeQuality.Test.Helpers.NUnit -version 3.0.1-preview.2
+Install-Package SoloX.CodeQuality.Test.Helpers.NUnit -version 3.0.1-preview.3
 ```
 
 **Install using the .Net CLI:**
 ```bash
-dotnet add package SoloX.CodeQuality.Test.Helpers --version 3.0.1-preview.2
+dotnet add package SoloX.CodeQuality.Test.Helpers --version 3.0.1-preview.3
 
-dotnet add package SoloX.CodeQuality.Test.Helpers.XUnit --version 3.0.1-preview.2
+dotnet add package SoloX.CodeQuality.Test.Helpers.XUnit --version 3.0.1-preview.3
 
-dotnet add package SoloX.CodeQuality.Test.Helpers.XUnit.V3 --version 3.0.1-preview.2
+dotnet add package SoloX.CodeQuality.Test.Helpers.XUnit.V3 --version 3.0.1-preview.3
 
-dotnet add package SoloX.CodeQuality.Test.Helpers.NUnit --version 3.0.1-preview.2
+dotnet add package SoloX.CodeQuality.Test.Helpers.NUnit --version 3.0.1-preview.3
 ```
 
 **Install editing your project file (csproj):**
 ```xml
-<PackageReference Include="SoloX.CodeQuality.Test.Helpers" Version="3.0.1-preview.2" />
+<PackageReference Include="SoloX.CodeQuality.Test.Helpers" Version="3.0.1-preview.3" />
 
-<PackageReference Include="SoloX.CodeQuality.Test.Helpers.XUnit" Version="3.0.1-preview.2" />
+<PackageReference Include="SoloX.CodeQuality.Test.Helpers.XUnit" Version="3.0.1-preview.3" />
 
-<PackageReference Include="SoloX.CodeQuality.Test.Helpers.XUnit.V3" Version="3.0.1-preview.2" />
+<PackageReference Include="SoloX.CodeQuality.Test.Helpers.XUnit.V3" Version="3.0.1-preview.3" />
 
-<PackageReference Include="SoloX.CodeQuality.Test.Helpers.NUnit" Version="3.0.1-preview.2" />
+<PackageReference Include="SoloX.CodeQuality.Test.Helpers.NUnit" Version="3.0.1-preview.3" />
 ```
 
  * * *
