@@ -98,7 +98,7 @@ by setting the property `CodeQualityOverrideEditorConfig` to `false` in the `csp
   </PropertyGroup>
 ```
 
-#### Chatset rules
+#### Charset rules
 
 By default, the generated `.editorconfig` file is using `utf-8` charset. You can change this charset by setting the
 the property `CodeQualityCharset` in the `csproj` file:
