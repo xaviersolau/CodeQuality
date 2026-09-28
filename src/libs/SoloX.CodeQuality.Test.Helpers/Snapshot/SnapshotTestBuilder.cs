@@ -77,14 +77,9 @@ namespace SoloX.CodeQuality.Test.Helpers.Snapshot
                 return builder;
             }
 
-            public ISnapshotTestBuilder<string> WithUtf8TextStrategy(bool ignoreWhitespace = true, bool ignoreCase = false)
+            public ISnapshotTestBuilder<string> WithTextStrategy(bool ignoreWhitespace = true, bool ignoreCase = false, string? fileExtension = null, Encoding? encoding = null)
             {
-                return WithTextStrategy(ignoreWhitespace, ignoreCase, Encoding.UTF8);
-            }
-
-            public ISnapshotTestBuilder<string> WithTextStrategy(bool ignoreWhitespace = true, bool ignoreCase = false, Encoding? encoding = null)
-            {
-                var builder = new SnapshotTestBuilderInternal<string>(this, new TextSnapshotStrategy(ignoreWhitespace, ignoreCase, encoding));
+                var builder = new SnapshotTestBuilderInternal<string>(this, new TextSnapshotStrategy(ignoreWhitespace, ignoreCase, fileExtension, encoding));
 
                 return builder;
             }

@@ -41,17 +41,17 @@ namespace SoloX.CodeQuality.Test.Helpers.Snapshot.Impl
         /// Compares the provided snapshot data with the existing reference snapshot and updates or validates the
         /// reference as needed.
         /// </summary>
-        /// <remarks>If the reference snapshot does not exist or <paramref name="forceReplaceSnapshot"/>
-        /// is true, the reference is replaced with the provided data. If differences are detected
-        /// during comparison, the method saves the run and diff files before throwing an exception. Temporary files
-        /// created during comparison are cleaned up after the operation.</remarks>
+        /// <remarks>If <paramref name="forceReplaceSnapshot"/> is true, the reference is replaced with the provided data.
+        /// If differences are detected during comparison, the method saves the run and diff files before throwing an exception.
+        /// Temporary files created during comparison are cleaned up after the operation.</remarks>
         /// <param name="snapshotName">The name of the snapshot to compare or update. Used to locate the corresponding snapshot files.</param>
         /// <param name="snapshotData">The data to compare against the reference snapshot. This data is saved or validated depending on the
         /// operation.</param>
         /// <param name="forceReplaceSnapshot">If set to true, replaces the reference snapshot with the provided data regardless of
-        /// differences. If false, only replaces if the reference does not exist.</param>
+        /// differences.</param>
         /// <returns>A task that represents the asynchronous compare operation.</returns>
-        /// <exception cref="SnapshotTestException">Thrown if the provided snapshot data differs from the reference snapshot.</exception>
+        /// <exception cref="SnapshotTestException">Thrown if the provided snapshot data differs from the reference snapshot or if
+        /// the snapshot reference does not exist.</exception>
         public async Task CompareSnapshotAsync(string snapshotName, TData snapshotData, bool forceReplaceSnapshot = false)
         {
             var fileExt = this.snapshotStrategy.FileExtension;
@@ -60,9 +60,7 @@ namespace SoloX.CodeQuality.Test.Helpers.Snapshot.Impl
             var snapshotRunFile = Path.Combine(this.snapshotsFolder, $"{snapshotName}.snapshot.run.{fileExt}");
             var snapshotDiffsFile = Path.Combine(this.snapshotsFolder, $"{snapshotName}.snapshot.diffs.{fileExt}");
 
-            forceReplaceSnapshot = forceReplaceSnapshot || !File.Exists(snapshotReferenceFile);
-
-            if (!Directory.Exists(this.snapshotsFolder) && forceReplaceSnapshot)
+            if (!Directory.Exists(this.snapshotsFolder))
             {
                 Directory.CreateDirectory(this.snapshotsFolder);
             }
@@ -71,14 +69,20 @@ namespace SoloX.CodeQuality.Test.Helpers.Snapshot.Impl
             {
                 await this.snapshotStrategy.SaveAsync(snapshotReferenceFile, snapshotData).ConfigureAwait(false);
             }
+            else if (!File.Exists(snapshotReferenceFile))
+            {
+                await this.snapshotStrategy.SaveAsync(snapshotRunFile, snapshotData).ConfigureAwait(false);
+
+                if (File.Exists(snapshotDiffsFile))
+                {
+                    File.Delete(snapshotDiffsFile);
+                }
+
+                throw new SnapshotTestException($"Snapshot reference file '{snapshotReferenceFile}' does not exist.");
+            }
             else
             {
                 var compareResult = await this.snapshotStrategy.CompareAsync(snapshotReferenceFile, snapshotData).ConfigureAwait(false);
-
-                if (forceReplaceSnapshot)
-                {
-                    await this.snapshotStrategy.SaveAsync(snapshotReferenceFile, snapshotData).ConfigureAwait(false);
-                }
 
                 if (compareResult.IsDifferent)
                 {
