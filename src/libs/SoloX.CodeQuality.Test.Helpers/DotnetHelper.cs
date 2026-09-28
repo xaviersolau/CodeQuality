@@ -8,6 +8,8 @@
 
 using System.Collections.Specialized;
 using System;
+using System.Linq;
+using System.Collections.Generic;
 
 namespace SoloX.CodeQuality.Test.Helpers
 {
@@ -24,6 +26,9 @@ namespace SoloX.CodeQuality.Test.Helpers
         private const string RUN = "run";
         private const string TEST = "test";
         private const string NEW = "new";
+        private const string NEW_LIST = "new list";
+        private const string NEW_SEARCH = "new search";
+        private const string NEW_INSTALL = "new install";
         private const string SLN = "sln";
         private const string ADD = "add";
         private const string PACKAGE = "package";
@@ -82,9 +87,98 @@ namespace SoloX.CodeQuality.Test.Helpers
         public static bool New(string path, string template, string? framework, string output, out ProcessResult processResult,
             Action<StringDictionary>? environmentVariablesHandler = null)
         {
+            if (!Dotnet(path, $"{NEW_LIST} {template}", out var processResultList, environmentVariablesHandler))
+            {
+                if (Dotnet(path, $"{NEW_SEARCH} {template}", out var processResultSearch, environmentVariablesHandler))
+                {
+                    var logs = processResultSearch.LogMessages.Select(l => l.Message).ToArray();
+
+                    var templatePackageMap = ExtractDotnetNewSearchOutput(logs);
+
+                    if (templatePackageMap.TryGetValue(template, out var packageName) && !Dotnet(path, $"{NEW_INSTALL} {packageName}", out var processResultInstall, environmentVariablesHandler))
+                    {
+                        processResult = processResultInstall;
+                        return false;
+                    }
+                }
+            }
+
             return string.IsNullOrEmpty(framework)
                 ? Dotnet(path, $"{NEW} {template} --output {output}", out processResult, environmentVariablesHandler)
                 : Dotnet(path, $"{NEW} {template} --output {output} --framework {framework}", out processResult, environmentVariablesHandler);
+        }
+
+        /// <summary>
+        /// Extracts the template name to package name mapping from the dotnet new search output.
+        /// </summary>
+        /// <param name="logs">The log messages from the dotnet new search output.</param>
+        /// <returns>A dictionary mapping template names to package names.</returns>
+        internal static Dictionary<string, string> ExtractDotnetNewSearchOutput(string[] logs)
+        {
+            var templatePackageMap = new Dictionary<string, string>();
+
+            var headerIndex = -1;
+            var nameIndex = -1;
+            var nameLen = -1;
+            var packageIndex = -1;
+            var packageLen = -1;
+            var trustedIndex = -1;
+            var trustedLen = -1;
+
+            for (var i = 0; i < logs.Length; i++)
+            {
+                var log = logs[i];
+
+                if (headerIndex == -1 && log.StartsWith("Template Name", StringComparison.InvariantCultureIgnoreCase))
+                {
+                    headerIndex = i;
+
+                    var headers = log;
+                    nameIndex = headers.IndexOf("Short Name", StringComparison.InvariantCultureIgnoreCase);
+                    packageIndex = headers.IndexOf("Package Name", StringComparison.InvariantCultureIgnoreCase);
+                    trustedIndex = headers.IndexOf("Trusted", StringComparison.InvariantCultureIgnoreCase);
+                }
+                else if (headerIndex != -1 && nameIndex > 0 && packageIndex > 0 && log.StartsWith("---", StringComparison.InvariantCulture))
+                {
+                    var interline = log.Substring(nameIndex).Split(' ');
+                    nameLen = interline.First().Length;
+
+                    interline = log.Substring(packageIndex).Split(' ');
+                    packageLen = interline.First().Length;
+
+                    interline = log.Substring(trustedIndex).Split(' ');
+                    trustedLen = interline.First().Length;
+                }
+                else if (nameIndex > 0 && nameLen > 0
+                    && packageIndex > 0 && packageLen > 0
+                    && trustedIndex > 0 && trustedLen > 0
+                    && log.Length >= nameIndex + nameLen
+                    && log.Length >= packageIndex + packageLen
+                    && log.Length >= trustedIndex + trustedLen)
+                {
+                    var name = log.Substring(nameIndex, nameLen).Trim();
+                    var packageOwner = log.Substring(packageIndex, packageLen).Trim();
+                    var trusted = log.Substring(trustedIndex, trustedLen).Trim();
+
+                    if (trusted.Length > 0)
+                    {
+                        var lastSlashIndex = packageOwner.LastIndexOf('/');
+
+                        var package = lastSlashIndex >= 0 ? packageOwner.Substring(0, lastSlashIndex).Trim() : packageOwner;
+
+                        templatePackageMap.Add(name, package);
+                    }
+                }
+                else if (nameIndex > 0 && nameLen > 0
+                    && packageIndex > 0 && packageLen > 0
+                    && trustedIndex > 0 && trustedLen > 0
+                    && log.Length == 0)
+                {
+                    break;
+                }
+            }
+
+            return templatePackageMap;
         }
 
         public static bool New(string path, string template, string output, out ProcessResult processResult,

@@ -30,6 +30,18 @@ namespace SoloX.CodeQuality.Test.Helpers
         }
 
         /// <summary>
+        /// Gets the name of the current build framework (directory of the assembly that contains TTestClass).
+        /// </summary>
+        /// <typeparam name="TTestClass">The type whose containing assembly is used to determine the current framework.</typeparam>
+        /// <returns>The file-system name of the directory for the assembly of TTestClass.</returns>
+        public static string ProbFramework<TTestClass>()
+        {
+            var location = Path.GetDirectoryName(typeof(TTestClass).Assembly.Location);
+
+            return Path.GetFileName(location!);
+        }
+
+        /// <summary>
         /// Gets the directory portion of the caller's source file path.
         /// </summary>
         /// <remarks>Extracted from the compile-time caller file path provided by CallerFilePath using

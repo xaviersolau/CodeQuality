@@ -15,6 +15,9 @@ namespace SoloX.CodeQuality.Playwright
     /// </summary>
     public class PlaywrightDriver : IAsyncDisposable
     {
+        /// <summary>
+        /// Arguments to install Playwright dependencies. we can also use "install --with-deps --force" to install dependencies and browsers in one command.
+        /// </summary>
         private static readonly string[] INSTALL_DEPS_ARGUMENTS = new[] { "install-deps" };
 
         private static readonly string[] INSTALL_ARGUMENTS = new[] { "install" };

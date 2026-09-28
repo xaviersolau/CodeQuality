@@ -20,6 +20,7 @@ namespace SoloX.CodeQuality.Test.Helpers.UTest.Solution
         public void IsShouldBuildASolutionWithATestProject(string packageName)
         {
             var configurationName = DirectoryHelper.ProbConfiguration<SolutionBuilderTest>();
+            var frameworkName = DirectoryHelper.ProbFramework<SolutionBuilderTest>();
 
             var root = new RandomGenerator().RandomString(4);
 
@@ -39,7 +40,7 @@ namespace SoloX.CodeQuality.Test.Helpers.UTest.Solution
                         });
                 })
                 // Set up a xunit project to use the nugets.
-                .WithProject("TestProject", "xunit", configuration =>
+                .WithProject("TestProject", "xunit3", frameworkName, configuration =>
                 {
                     configuration.UsePackageReference(packageName);
                 })
