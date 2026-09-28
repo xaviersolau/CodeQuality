@@ -18,7 +18,7 @@ namespace SoloX.CodeQuality.Test.Helpers.Snapshot.Impl
     /// snapshots.
     /// </summary>
     /// <remarks>This class implements the ISnapshotStrategy interface for string-based snapshots, using the
-    /// ".txt" file extension. It is suitable for scenarios where snapshot data is represented as plain text, such as
+    /// ".txt" file extension by default. It is suitable for scenarios where snapshot data is represented as plain text, such as
     /// generated code files or textual outputs.</remarks>
     public class TextSnapshotStrategy : ISnapshotStrategy<string>
     {
@@ -27,13 +27,15 @@ namespace SoloX.CodeQuality.Test.Helpers.Snapshot.Impl
         private readonly Encoding encoding;
 
         /// <inheritdoc/>
-        public string FileExtension => "txt";
+        public string FileExtension { get; }
 
-        public TextSnapshotStrategy(bool ignoreWhitespace = true, bool ignoreCase = false, Encoding? encoding = null)
+        public TextSnapshotStrategy(bool ignoreWhitespace = true, bool ignoreCase = false, string? fileExtension = null, Encoding? encoding = null)
         {
             this.ignoreWhitespace = ignoreWhitespace;
             this.ignoreCase = ignoreCase;
             this.encoding = encoding ?? Encoding.Default;
+
+            this.FileExtension = fileExtension ?? "txt";
         }
 
         /// <inheritdoc/>

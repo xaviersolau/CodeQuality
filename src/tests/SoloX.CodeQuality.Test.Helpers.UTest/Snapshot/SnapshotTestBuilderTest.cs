@@ -16,7 +16,7 @@ namespace SoloX.CodeQuality.Test.Helpers.UTest.Snapshot
     public class SnapshotTestBuilderTest
     {
         [Fact]
-        public async Task ItShouldGenerateTextSnapshotAsync()
+        public async Task ItShouldGenerateTextSnapshotRefWithForceReplaceSnapshotAsync()
         {
             var sh = SnapshotTestBuilder
                 .Create()
@@ -24,13 +24,16 @@ namespace SoloX.CodeQuality.Test.Helpers.UTest.Snapshot
                 .WithTextStrategy()
                 .Build();
 
-            var expectedFile = @$"./Snapshots/{nameof(ItShouldGenerateTextSnapshotAsync)}.snapshot.ref.txt";
+            var expectedFile = @$"./Snapshots/{nameof(ItShouldGenerateTextSnapshotRefWithForceReplaceSnapshotAsync)}.snapshot.ref.txt";
 
             try
             {
                 var someGeneratedText = "some generated text";
 
-                await sh.CompareSnapshotAsync(nameof(ItShouldGenerateTextSnapshotAsync), someGeneratedText);
+                await sh.CompareSnapshotAsync(
+                    nameof(ItShouldGenerateTextSnapshotRefWithForceReplaceSnapshotAsync),
+                    someGeneratedText,
+                    forceReplaceSnapshot: true);
 
                 // Check that the snapshot reference file exists and has been generated with the same content as the generated text
                 File.Exists(expectedFile)
@@ -50,23 +53,110 @@ namespace SoloX.CodeQuality.Test.Helpers.UTest.Snapshot
         }
 
         [Fact]
-        public async Task ItShouldGenerateUtf8TextSnapshotAsync()
+        public async Task ItShouldGenerateTextSnapshotRunWithNoRefAsync()
         {
             var sh = SnapshotTestBuilder
                 .Create()
                 .WithLocation(".")
-                .WithUtf8TextStrategy()
+                .WithTextStrategy()
                 .Build();
 
-            var expectedFile = @$"./Snapshots/{nameof(ItShouldGenerateUtf8TextSnapshotAsync)}.snapshot.ref.txt";
+            var expectedFile = @$"./Snapshots/{nameof(ItShouldGenerateTextSnapshotRunWithNoRefAsync)}.snapshot.run.txt";
+
+            try
+            {
+                var someGeneratedText = "some generated text";
+
+                var snapshotTestException = await Should.ThrowAsync<SnapshotTestException>(
+                    sh.CompareSnapshotAsync(
+                        nameof(ItShouldGenerateTextSnapshotRunWithNoRefAsync),
+                        someGeneratedText));
+
+                snapshotTestException.Message.ShouldStartWith("Snapshot reference file '");
+                snapshotTestException.Message.ShouldEndWith("' does not exist.");
+
+                // Check that the snapshot run file exists and has been generated with the same content as the generated text
+                File.Exists(expectedFile)
+                    .ShouldBeTrue();
+
+                var generatedText = await File.ReadAllTextAsync(expectedFile);
+
+                generatedText.ShouldBe(someGeneratedText);
+            }
+            finally
+            {
+                if (File.Exists(expectedFile))
+                {
+                    File.Delete(expectedFile);
+                }
+            }
+        }
+
+        [Theory]
+        [InlineData("txt")]
+        [InlineData("md")]
+        public async Task ItShouldGenerateUtf8TextSnapshotRefWithForceReplaceSnapshotAsync(string fileExtension)
+        {
+            var sh = SnapshotTestBuilder
+                .Create()
+                .WithLocation(".")
+                .WithUtf8TextStrategy(fileExtension: fileExtension)
+                .Build();
+
+            var expectedFile = @$"./Snapshots/{nameof(ItShouldGenerateUtf8TextSnapshotRefWithForceReplaceSnapshotAsync)}.snapshot.ref.{fileExtension}";
 
             try
             {
                 var someGeneratedText = "some generated utf8 text";
 
-                await sh.CompareSnapshotAsync(nameof(ItShouldGenerateUtf8TextSnapshotAsync), someGeneratedText);
+                await sh.CompareSnapshotAsync(
+                    nameof(ItShouldGenerateUtf8TextSnapshotRefWithForceReplaceSnapshotAsync),
+                    someGeneratedText,
+                    forceReplaceSnapshot: true);
 
                 // Check that the snapshot reference file exists and has been generated with the same content as the generated text
+                File.Exists(expectedFile)
+                    .ShouldBeTrue();
+
+                var generatedText = await File.ReadAllTextAsync(expectedFile, Encoding.UTF8);
+
+                generatedText.ShouldBe(someGeneratedText);
+            }
+            finally
+            {
+                if (File.Exists(expectedFile))
+                {
+                    File.Delete(expectedFile);
+                }
+            }
+        }
+
+        [Theory]
+        [InlineData("txt")]
+        [InlineData("md")]
+        public async Task ItShouldGenerateUtf8TextSnapshotRunWithNoRefAsync(string fileExtension)
+        {
+            var sh = SnapshotTestBuilder
+                .Create()
+                .WithLocation(".")
+                .WithUtf8TextStrategy(fileExtension: fileExtension)
+                .Build();
+
+            var expectedFile = @$"./Snapshots/{nameof(ItShouldGenerateUtf8TextSnapshotRunWithNoRefAsync)}.snapshot.run.{fileExtension}";
+
+            try
+            {
+                var someGeneratedText = "some generated utf8 text";
+
+                var snapshotTestException = await Should.ThrowAsync<SnapshotTestException>(
+                    sh.CompareSnapshotAsync(
+                        nameof(ItShouldGenerateUtf8TextSnapshotRunWithNoRefAsync),
+                        someGeneratedText));
+
+                snapshotTestException.Message.ShouldStartWith("Snapshot reference file '");
+                snapshotTestException.Message.ShouldEndWith("' does not exist.");
+
+                // Check that the snapshot run file exists and has been generated with the same content as the generated text
                 File.Exists(expectedFile)
                     .ShouldBeTrue();
 
@@ -178,9 +268,9 @@ namespace SoloX.CodeQuality.Test.Helpers.UTest.Snapshot
         }
 
         [Fact]
-        public async Task ItShouldGeneratePngSnapshotAsync()
+        public async Task ItShouldGeneratePngSnapshotRefWithForceReplaceSnapshotAsync()
         {
-            var expectedFile = @$"./Snapshots/{nameof(ItShouldGeneratePngSnapshotAsync)}.snapshot.ref.png";
+            var expectedFile = @$"./Snapshots/{nameof(ItShouldGeneratePngSnapshotRefWithForceReplaceSnapshotAsync)}.snapshot.ref.png";
 
             try
             {
@@ -193,11 +283,56 @@ namespace SoloX.CodeQuality.Test.Helpers.UTest.Snapshot
                 var pngSourcePath = @"Resources/small_mountain_land_scape.png";
                 await using var someGeneratedPng = File.OpenRead(pngSourcePath);
 
-                await sh.CompareSnapshotAsync(nameof(ItShouldGeneratePngSnapshotAsync), someGeneratedPng);
+                await sh.CompareSnapshotAsync(
+                    nameof(ItShouldGeneratePngSnapshotRefWithForceReplaceSnapshotAsync),
+                    someGeneratedPng,
+                    forceReplaceSnapshot: true);
 
                 // Check that the snapshot reference file exists and has been generated with the same content as the png source path
                 File.Exists(expectedFile)
                     .ShouldBeTrue();
+
+                var generatedPngBytes = await File.ReadAllBytesAsync(expectedFile);
+                var expectedGeneratedPngBytes = await File.ReadAllBytesAsync(pngSourcePath);
+
+                generatedPngBytes.ShouldBeEquivalentTo(expectedGeneratedPngBytes);
+            }
+            finally
+            {
+                if (File.Exists(expectedFile))
+                {
+                    File.Delete(expectedFile);
+                }
+            }
+        }
+
+        [Fact]
+        public async Task ItShouldGeneratePngSnapshotRunWithNoRefAsync()
+        {
+            var expectedFile = @$"./Snapshots/{nameof(ItShouldGeneratePngSnapshotRunWithNoRefAsync)}.snapshot.run.png";
+
+            try
+            {
+                var sh = SnapshotTestBuilder
+                    .Create()
+                    .WithLocation(".")
+                    .WithPngStrategy()
+                    .Build();
+
+                var pngSourcePath = @"Resources/small_mountain_land_scape.png";
+                await using var someGeneratedPng = File.OpenRead(pngSourcePath);
+
+                var snapshotTestException = await Should.ThrowAsync<SnapshotTestException>(
+                    sh.CompareSnapshotAsync(
+                        nameof(ItShouldGeneratePngSnapshotRunWithNoRefAsync),
+                        someGeneratedPng));
+
+                // Check that the snapshot run file exists and has been generated with the same content as the png source path
+                File.Exists(expectedFile)
+                    .ShouldBeTrue();
+
+                snapshotTestException.Message.ShouldStartWith("Snapshot reference file '");
+                snapshotTestException.Message.ShouldEndWith("' does not exist.");
 
                 var generatedPngBytes = await File.ReadAllBytesAsync(expectedFile);
                 var expectedGeneratedPngBytes = await File.ReadAllBytesAsync(pngSourcePath);
