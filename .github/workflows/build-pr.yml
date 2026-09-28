@@ -28,12 +28,12 @@ jobs:
     - name: Build
       run: dotnet build --configuration Release --no-restore
     - name: Test Helpers
-      run: dotnet test ./src/tests/SoloX.CodeQuality.Test.Helpers.UTest --configuration Release --no-restore --no-build
+      run: dotnet test --project ./src/tests/SoloX.CodeQuality.Test.Helpers.UTest/SoloX.CodeQuality.Test.Helpers.UTest.csproj --configuration Release --no-restore --no-build
     - name: Test Helpers NUnit
-      run: dotnet test ./src/tests/SoloX.CodeQuality.Test.Helpers.NUnit.UTest --configuration Release --no-restore --no-build
+      run: dotnet test --project ./src/tests/SoloX.CodeQuality.Test.Helpers.NUnit.UTest/SoloX.CodeQuality.Test.Helpers.NUnit.UTest.csproj --configuration Release --no-restore --no-build
     - name: Test Helpers XUnit
-      run: dotnet test ./src/tests/SoloX.CodeQuality.Test.Helpers.XUnit.UTest --configuration Release --no-restore --no-build
+      run: dotnet test --project ./src/tests/SoloX.CodeQuality.Test.Helpers.XUnit.UTest/SoloX.CodeQuality.Test.Helpers.XUnit.UTest.csproj --configuration Release --no-restore --no-build
     - name: Test Helpers XUnit V3
-      run: dotnet test ./src/tests/SoloX.CodeQuality.Test.Helpers.XUnit.V3.UTest --configuration Release --no-restore --no-build
+      run: dotnet test --project ./src/tests/SoloX.CodeQuality.Test.Helpers.XUnit.V3.UTest/SoloX.CodeQuality.Test.Helpers.XUnit.V3.UTest.csproj --configuration Release --no-restore --no-build
     - name: Test E2E
-      run: dotnet test ./src/tests/SoloX.CodeQuality.Playwright.E2ETest --configuration Release --no-restore --no-build
+      run: dotnet test --project ./src/tests/SoloX.CodeQuality.Playwright.E2ETest/SoloX.CodeQuality.Playwright.E2ETest.csproj --configuration Release --no-restore --no-build

@@ -18,6 +18,7 @@ namespace SoloX.CodeQuality.Playwright.E2ETest.Package
         public void IsShouldDeployNugetPackageAndRunTestWithEmbeddedWebHost()
         {
             var configurationName = DirectoryHelper.ProbConfiguration<PackageNugetTest>();
+            var frameworkName = DirectoryHelper.ProbFramework<PackageNugetTest>();
 
             var root = new RandomGenerator().RandomString(4);
 
@@ -38,7 +39,7 @@ namespace SoloX.CodeQuality.Playwright.E2ETest.Package
                         });
                 })
                 // Set up a xunit project to use the nugets.
-                .WithProject("TestProject", "xunit", "net10.0", configuration =>
+                .WithProject("TestProject", "xunit3", frameworkName, configuration =>
                 {
                     configuration
                         // Configure the package reference on the package to test. In this case SoloX.CodeQuality.Playwright.

@@ -10,6 +10,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documents", "Documents", "{57F5BB2E-CD03-470B-BF16-31FE02A386B1}"
 	ProjectSection(SolutionItems) = preProject
 		documents\BreakingChanges.md = documents\BreakingChanges.md
+		global.json = global.json
 		LICENSE = LICENSE
 		README.md = README.md
 		src\SharedProperties.props = src\SharedProperties.props

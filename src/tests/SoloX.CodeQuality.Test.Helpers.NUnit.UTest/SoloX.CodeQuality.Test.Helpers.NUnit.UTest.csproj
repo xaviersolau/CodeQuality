@@ -10,7 +10,12 @@
     <TargetFramework>net10.0</TargetFramework>
     <Nullable>enable</Nullable>
 
+    <EnableNUnitRunner>true</EnableNUnitRunner>
+    <OutputType>Exe</OutputType>
+    
     <IsPackable>false</IsPackable>
+
+    <TestingPlatformDotnetTestSupport>true</TestingPlatformDotnetTestSupport>
   </PropertyGroup>
 
   <ItemGroup>

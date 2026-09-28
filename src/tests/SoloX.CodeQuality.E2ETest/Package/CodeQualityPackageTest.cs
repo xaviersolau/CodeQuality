@@ -22,6 +22,7 @@ namespace SoloX.CodeQuality.E2ETest.Package
         public async Task IsShouldDeployNugetPackageAndBuildWithWarningOrError(string codeQualityNugetName, bool withError)
         {
             var configurationName = DirectoryHelper.ProbConfiguration<CodeQualityPackageTest>();
+            var frameworkName = DirectoryHelper.ProbFramework<CodeQualityPackageTest>();
 
             var root = new RandomGenerator().RandomString(4);
 
@@ -49,7 +50,7 @@ namespace SoloX.CodeQuality.E2ETest.Package
                         });
                 })
                 // Set up a xunit project to use the nugets.
-                .WithProject("TestProject", "xunit", "net10.0", configuration =>
+                .WithProject("TestProject", "xunit", frameworkName, configuration =>
                 {
                     configuration
                         // Configure the package reference on the package to test. In this case SoloX.CodeQuality.Playwright.
@@ -119,6 +120,7 @@ namespace SoloX.CodeQuality.E2ETest.Package
         public async Task IsShouldDeployNugetPackageAndGenerateEditorConfig(string codeQualityNugetName, string charset)
         {
             var configurationName = DirectoryHelper.ProbConfiguration<CodeQualityPackageTest>();
+            var frameworkName = DirectoryHelper.ProbFramework<CodeQualityPackageTest>();
 
             var root = new RandomGenerator().RandomString(4);
 
@@ -146,7 +148,7 @@ namespace SoloX.CodeQuality.E2ETest.Package
                         });
                 })
                 // Set up a xunit project to use the nugets.
-                .WithProject("TestProject", "xunit", "net10.0", configuration =>
+                .WithProject("TestProject", "xunit", frameworkName, configuration =>
                 {
                     configuration
                         // Configure the package reference on the package to test. In this case SoloX.CodeQuality.Playwright.

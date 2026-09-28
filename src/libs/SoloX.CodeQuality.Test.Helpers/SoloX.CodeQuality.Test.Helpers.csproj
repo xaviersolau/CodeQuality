@@ -30,6 +30,10 @@
 
   </PropertyGroup>
 
+  <ItemGroup>
+    <InternalsVisibleTo Include="SoloX.CodeQuality.Test.Helpers.UTest" />
+  </ItemGroup>
+
   <ItemGroup Condition="'$(TargetFramework)' == 'net8.0'">
     <PackageReference Include="Microsoft.Build" Version="17.11.48" />
   </ItemGroup>
